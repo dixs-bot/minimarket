@@ -1,939 +1,392 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MiniMarket - Belanja Praktis</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --primary-light: #3b82f6;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --success: #10b981;
-            --danger: #ef4444;
-            --error-bg: #fef2f2;
-        }
-
-        * {
-            -webkit-tap-highlight-color: transparent;
-            box-sizing: border-box;
-        }
-
-        html, body { overscroll-behavior: none; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            min-height: 100dvh;
-        }
-
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .bottom-sheet {
-            transform: translateY(100%);
-            transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
-        }
-        .bottom-sheet.active { transform: translateY(0); }
-
-        .overlay {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .overlay.active { opacity: 1; pointer-events: auto; }
-
-        .btn-press { transition: transform 0.12s ease; }
-        .btn-press:active:not(:disabled) { transform: scale(0.97); }
-        .btn-press:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .product-card { transition: transform 0.2s ease; }
-        .product-card:active { transform: scale(0.98); }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .fade-in-up { animation: fadeInUp 0.4s ease forwards; }
-        .scale-in { animation: scaleIn 0.3s ease forwards; }
-        .spin { animation: spin 1s linear infinite; }
-
-        .stagger > * {
-            opacity: 0;
-            animation: fadeInUp 0.4s ease forwards;
-        }
-        .stagger > *:nth-child(1) { animation-delay: 0.03s; }
-        .stagger > *:nth-child(2) { animation-delay: 0.06s; }
-        .stagger > *:nth-child(3) { animation-delay: 0.09s; }
-        .stagger > *:nth-child(4) { animation-delay: 0.12s; }
-        .stagger > *:nth-child(5) { animation-delay: 0.15s; }
-        .stagger > *:nth-child(6) { animation-delay: 0.18s; }
-        .stagger > *:nth-child(7) { animation-delay: 0.21s; }
-        .stagger > *:nth-child(8) { animation-delay: 0.24s; }
-
-        .page { display: none; }
-        .page.active { display: block; }
-
-        .cart-badge { animation: pulse 2s infinite; }
-
-        .toast {
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-        }
-        .toast.show { transform: translateY(0); opacity: 1; }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-
-        .input-error {
-            border-color: var(--danger) !important;
-            background-color: var(--error-bg) !important;
-        }
-
-        .qty-btn { transition: all 0.15s ease; }
-        .qty-btn:active { transform: scale(0.9); }
-
-        .selection-card { transition: all 0.2s ease; cursor: pointer; }
-        .selection-card:hover { border-color: #93c5fd; }
-        .selection-card.selected { border-color: var(--primary); background: rgba(37, 99, 235, 0.05); }
-
-        .status-diproses { background: #dbeafe; color: #1e40af; }
-        .status-dikirim { background: #d1fae5; color: #065f46; }
-        .status-selesai { background: #f0fdf4; color: #166534; }
-
-        .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
-        .pb-nav { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
-
-        .btn-enabled {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
-        }
-        .btn-disabled { background: #cbd5e1; color: #94a3b8; }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>MiniMarket</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter']}}}}</script>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html,body{overscroll-behavior:none}
+body{font-family:Inter,sans-serif;background:#f1f5f9;color:#1e293b}
+.hs{overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:none;scrollbar-width:none}
+.hs::-webkit-scrollbar{display:none}
+.bsh{transform:translateY(100%);transition:transform .2s ease}
+.bsh.a{transform:translateY(0)}
+.ov{opacity:0;pointer-events:none;transition:opacity .15s}
+.ov.a{opacity:1;pointer-events:auto}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.5;pointer-events:none}
+.st{padding-bottom:env(safe-area-inset-bottom)}
+.err{border-color:#ef4444!important;background:#fef2f2}
+.sel{border-color:#2563eb;background:#eff6ff}
+.stb{background:#dbeafe;color:#1e40af}
+</style>
 </head>
-<body class="bg-slate-50">
-    <!-- HEADER -->
-    <header class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
-        <div class="flex items-center justify-between px-4 py-3">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-sm">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-lg font-bold text-slate-800">MiniMarket</h1>
-                    <p class="text-xs text-slate-500">Belanja Mudah</p>
-                </div>
-            </div>
-            <button onclick="openSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
-                <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-            </button>
-        </div>
-    </header>
-
-    <!-- MAIN CONTENT -->
-    <main class="pt-20 pb-nav">
-        <!-- HOME PAGE -->
-        <div id="page-home" class="page active">
-            <section class="px-4 pt-2">
-                <div class="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 rounded-2xl p-5 text-white relative overflow-hidden">
-                    <div class="absolute right-0 top-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/4"></div>
-                    <div class="relative">
-                        <span class="inline-block px-2 py-1 bg-white/20 rounded-md text-xs font-medium mb-2">PROMO</span>
-                        <h2 class="text-xl font-bold">Diskon Hingga 20%</h2>
-                        <p class="text-sm opacity-90 mt-1">Untuk semua produk minuman</p>
-                    </div>
-                </div>
-            </section>
-            <section class="px-4 pt-6">
-                <h2 class="text-base font-bold text-slate-800 mb-3">Kategori</h2>
-                <div id="categories-container" class="flex gap-2 overflow-x-auto hide-scrollbar pb-2"></div>
-            </section>
-            <section class="px-4 pt-6">
-                <div class="flex items-center justify-between mb-3">
-                    <h2 class="text-base font-bold text-slate-800">Produk Pilihan</h2>
-                    <span id="product-count" class="text-sm text-slate-500">0 produk</span>
-                </div>
-                <div id="products-grid" class="grid grid-cols-2 gap-3 stagger"></div>
-            </section>
-        </div>
-
-        <!-- HISTORY PAGE -->
-        <div id="page-history" class="page">
-            <div class="px-4 pt-2">
-                <h2 class="text-xl font-bold text-slate-800 mb-4">Riwayat Pesanan</h2>
-                <div id="orders-list" class="space-y-3"></div>
-                <div id="empty-history" class="hidden text-center py-16">
-                    <div class="w-20 h-20 mx-auto bg-slate-100 rounded-full flex items-center justify-center mb-4">
-                        <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                        </svg>
-                    </div>
-                    <p class="text-slate-600 font-medium mb-4">Belum ada pesanan</p>
-                    <button onclick="switchPage('home')" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold btn-press">Belanja Sekarang</button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- BOTTOM NAVIGATION -->
-    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 safe-bottom">
-        <div class="flex items-center justify-around py-2">
-            <button onclick="switchPage('home')" class="nav-btn flex flex-col items-center py-2 px-6" data-page="home">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                <span class="text-xs mt-1 font-medium">Beranda</span>
-            </button>
-            <button onclick="switchPage('history')" class="nav-btn flex flex-col items-center py-2 px-6" data-page="history">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                <span class="text-xs mt-1 font-medium">Pesanan</span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- FLOATING CART -->
-    <button id="floating-cart" onclick="openCart()" class="fixed right-4 bottom-24 w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-lg flex items-center justify-center z-30 btn-press hidden">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-        <span id="cart-badge" class="cart-badge absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">0</span>
-    </button>
-
-    <!-- OVERLAY -->
-    <div id="overlay" class="overlay fixed inset-0 bg-black/40 z-50" onclick="closeOverlay()"></div>
-
-    <!-- CART SHEET -->
-    <div id="cart-sheet" class="bottom-sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 max-h-[85vh] flex flex-col" style="padding-bottom: env(safe-area-inset-bottom, 0px)">
-        <div class="flex items-center justify-between p-4 border-b border-slate-100">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                </div>
-                <div>
-                    <h2 class="text-lg font-bold text-slate-800">Keranjang</h2>
-                    <p id="cart-item-count" class="text-xs text-slate-500">0 item</p>
-                </div>
-            </div>
-            <button onclick="closeCart()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 btn-press">
-                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
-        </div>
-        <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
-        <div id="cart-empty" class="hidden flex-1 flex flex-col items-center justify-center p-8">
-            <p class="text-slate-700 font-medium mb-4">Keranjang kosong</p>
-            <button onclick="closeCart()" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold btn-press">Mulai Belanja</button>
-        </div>
-        <div id="cart-footer" class="p-4 border-t border-slate-100 bg-white">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-slate-500">Total</span>
-                <span id="cart-total" class="text-xl font-bold text-blue-600">Rp 0</span>
-            </div>
-            <button onclick="proceedToCheckout()" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold btn-press">Checkout</button>
-        </div>
-    </div>
-
-    <!-- CHECKOUT PAGE -->
-    <div id="checkout-page" class="fixed inset-0 bg-slate-50 z-50 overflow-y-auto hidden">
-        <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
-            <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeCheckout()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 btn-press">
-                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                </button>
-                <h1 class="text-lg font-bold text-slate-800">Checkout</h1>
-            </div>
-        </header>
-        <div class="p-4 pb-40 space-y-4">
-            <!-- Address -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                <div class="flex items-center gap-2 mb-3">
-                    <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                    <h3 class="font-semibold text-slate-800">Alamat</h3>
-                    <span id="address-error" class="text-xs text-red-500 font-semibold ml-auto hidden">*Wajib</span>
-                </div>
-                <textarea id="input-address" class="w-full p-3 border-2 border-slate-200 rounded-xl resize-none text-sm bg-slate-50 focus:bg-white transition-all" rows="3" placeholder="Alamat lengkap..."></textarea>
-            </section>
-            <!-- Shipping -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                <div class="flex items-center gap-2 mb-3">
-                    <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                    <h3 class="font-semibold text-slate-800">Pengiriman</h3>
-                    <span id="shipping-error" class="text-xs text-red-500 font-semibold ml-auto hidden">*Pilih</span>
-                </div>
-                <div id="shipping-options" class="space-y-2"></div>
-            </section>
-            <!-- Payment -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                <div class="flex items-center gap-2 mb-3">
-                    <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                    <h3 class="font-semibold text-slate-800">Pembayaran</h3>
-                    <span id="payment-error" class="text-xs text-red-500 font-semibold ml-auto hidden">*Pilih</span>
-                </div>
-                <div id="payment-options" class="space-y-2"></div>
-            </section>
-            <!-- Summary -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                <h3 class="font-semibold text-slate-800 mb-3">Ringkasan</h3>
-                <div id="checkout-items" class="space-y-2 mb-3 pb-3 border-b border-slate-100 max-h-40 overflow-y-auto"></div>
-                <div class="space-y-2 text-sm">
-                    <div class="flex justify-between"><span class="text-slate-500">Subtotal</span><span id="summary-subtotal">Rp 0</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">Ongkir</span><span id="summary-shipping">Rp 0</span></div>
-                    <div class="flex justify-between pt-3 border-t border-slate-100 text-base font-bold"><span>Total</span><span id="summary-total" class="text-blue-600">Rp 0</span></div>
-                </div>
-            </section>
-            <!-- Notes -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                <h3 class="font-semibold text-slate-800 mb-3">Catatan (opsional)</h3>
-                <textarea id="input-notes" class="w-full p-3 border border-slate-200 rounded-xl resize-none text-sm bg-slate-50" rows="2" placeholder="Catatan..."></textarea>
-            </section>
-        </div>
-        <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 safe-bottom">
-            <button id="btn-order" onclick="confirmOrder()" disabled class="w-full py-4 rounded-xl font-bold text-lg btn-press btn-disabled">Pesan Sekarang</button>
-            <p id="form-hint" class="text-center text-xs text-slate-400 mt-2">Lengkapi data</p>
-        </div>
-    </div>
-
-    <!-- CONFIRM MODAL -->
-    <div id="confirm-modal" class="fixed inset-0 bg-black/40 z-60 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl p-6 w-full max-w-sm scale-in shadow-xl">
-            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            </div>
-            <h3 class="text-xl font-bold text-center mb-2">Konfirmasi</h3>
-            <p class="text-slate-500 text-center mb-6">Yakin ingin memesan?</p>
-            <div class="flex gap-3">
-                <button onclick="closeConfirmModal()" class="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl font-semibold btn-press">Batal</button>
-                <button onclick="submitOrder()" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-semibold btn-press">Ya, Pesan</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- LOADING -->
-    <div id="loading-overlay" class="fixed inset-0 bg-white/90 z-70 flex items-center justify-center hidden">
-        <div class="text-center">
-            <div class="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full spin mx-auto mb-4"></div>
-            <p class="text-slate-600 font-medium">Memproses...</p>
-        </div>
-    </div>
-
-    <!-- INVOICE PAGE -->
-    <div id="invoice-page" class="fixed inset-0 bg-slate-50 z-50 overflow-y-auto hidden">
-        <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
-            <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeInvoice()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 btn-press">
-                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-                <h1 class="text-lg font-bold text-slate-800">Invoice</h1>
-            </div>
-        </header>
-        <div class="p-4 pb-32">
-            <div id="invoice-content" class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"></div>
-        </div>
-        <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 safe-bottom">
-            <button onclick="sendToWhatsApp()" class="w-full py-4 bg-green-600 text-white rounded-xl font-bold btn-press text-lg flex items-center justify-center gap-3">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.895c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.895 0-3.183-1.24-6.177-3.493-8.413z"/></svg>
-                Kirim ke WhatsApp
-            </button>
-        </div>
-    </div>
-
-    <!-- SEARCH MODAL -->
-    <div id="search-modal" class="fixed inset-0 bg-slate-50 z-50 hidden">
-        <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
-            <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 btn-press">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                </button>
-                <input id="search-input" type="text" class="flex-1 py-2.5 px-4 bg-slate-100 rounded-xl text-sm" placeholder="Cari..." oninput="handleSearch(this.value)">
-            </div>
-        </header>
-        <div id="search-results" class="p-4 grid grid-cols-2 gap-3"></div>
-    </div>
-
-    <!-- TOAST -->
-    <div id="toast" class="toast fixed bottom-28 left-4 right-4 bg-slate-800 text-white px-4 py-3 rounded-xl z-50 text-center font-medium text-sm">Notifikasi</div>
-
-    <script>
-        // ==================== DATA ====================
-        const CATEGORIES = [
-            { id: 'all', name: 'Semua' },
-            { id: 'snacks', name: 'Makanan' },
-            { id: 'drinks', name: 'Minuman' },
-            { id: 'dairy', name: 'Susu' },
-            { id: 'frozen', name: 'Frozen' },
-        ];
-
-        const PRODUCTS = [
-            { id: 1, name: 'Chitato 68g', price: 12000, category: 'snacks', image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=200&h=200&fit=crop' },
-            { id: 2, name: 'Lays BBQ 70g', price: 11000, category: 'snacks', image: 'https://images.unsplash.com/photo-1585232004423-244e01769049?w=200&h=200&fit=crop' },
-            { id: 3, name: 'Oreo 133g', price: 15000, category: 'snacks', image: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=200&h=200&fit=crop' },
-            { id: 4, name: 'Good Day 250ml', price: 5000, category: 'drinks', image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d92a?w=200&h=200&fit=crop' },
-            { id: 5, name: 'Teh Pucuk 350ml', price: 4000, category: 'drinks', image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=200&h=200&fit=crop' },
-            { id: 6, name: 'Aqua 600ml', price: 4000, category: 'drinks', image: 'https://images.unsplash.com/photo-1548839140-29a749e1f16a?w=200&h=200&fit=crop' },
-            { id: 7, name: 'Indomie Goreng', price: 3500, category: 'snacks', image: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=200&h=200&fit=crop' },
-            { id: 8, name: 'Ultra Milk 1L', price: 18000, category: 'dairy', image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=200&h=200&fit=crop' },
-        ];
-
-        const SHIPPING_METHODS = [
-            { id: 'gojek', name: 'Gojek Instant', price: 15000, estimate: '1-2 jam' },
-            { id: 'grab', name: 'Grab Instant', price: 15000, estimate: '1-2 jam' },
-            { id: 'shopee', name: 'Shopee Express', price: 9000, estimate: '2-3 hari' },
-            { id: 'pickup', name: 'Ambil di Tempat', price: 0, estimate: 'Langsung' },
-        ];
-
-        const PAYMENT_METHODS = [
-            { id: 'cod', name: 'COD', desc: 'Bayar di tempat' },
-            { id: 'transfer', name: 'Transfer Bank', desc: 'BCA, Mandiri, BRI' },
-            { id: 'qris', name: 'QRIS', desc: 'Scan QR' },
-        ];
-
-        // 🔥 NOMOR WA - FORMAT INTERNASIONAL
-        const WHATSAPP_NUMBER = '6285189976233';
-
-        // ==================== STATE ====================
-        let cart = [];
-        let orders = [];
-        let selectedCategory = 'all';
-        let currentOrder = null; // 🔥 PENTING: Ini harus ada
-
-        const checkoutState = {
-            address: '',
-            shipping: '',
-            payment: ''
-        };
-
-        // ==================== INIT ====================
-        function init() {
-            loadFromStorage();
-            renderCategories();
-            renderProducts();
-            updateCartBadge();
-            updateNavActive('home');
-            
-            // Event listener untuk address
-            const addrInput = document.getElementById('input-address');
-            if (addrInput) {
-                addrInput.addEventListener('input', function() {
-                    checkoutState.address = this.value.trim();
-                    validateForm();
-                    updateSummary();
-                });
-            }
-        }
-
-        function loadFromStorage() {
-            try {
-                cart = JSON.parse(localStorage.getItem('cart')) || [];
-                orders = JSON.parse(localStorage.getItem('orders')) || [];
-            } catch (e) {
-                cart = [];
-                orders = [];
-            }
-        }
-
-        function saveToStorage() {
-            localStorage.setItem('cart', JSON.stringify(cart));
-            localStorage.setItem('orders', JSON.stringify(orders));
-        }
-
-        // ==================== VALIDASI ====================
-        function validateForm() {
-            const hasAddress = checkoutState.address !== '';
-            const hasShipping = checkoutState.shipping !== '';
-            const hasPayment = checkoutState.payment !== '';
-            const isValid = hasAddress && hasShipping && hasPayment;
-
-            const btn = document.getElementById('btn-order');
-            const hint = document.getElementById('form-hint');
-
-            if (btn) {
-                btn.disabled = !isValid;
-                btn.classList.toggle('btn-enabled', isValid);
-                btn.classList.toggle('btn-disabled', !isValid);
-            }
-
-            if (hint) {
-                const missing = [];
-                if (!hasAddress) missing.push('alamat');
-                if (!hasShipping) missing.push('pengiriman');
-                if (!hasPayment) missing.push('pembayaran');
-                hint.textContent = isValid ? 'Siap pesan' : `Lengkapi: ${missing.join(', ')}`;
-            }
-
-            return isValid;
-        }
-
-        // ==================== RENDER ====================
-        function renderCategories() {
-            const el = document.getElementById('categories-container');
-            if (!el) return;
-            el.innerHTML = CATEGORIES.map(c => `
-                <button onclick="selectCategory('${c.id}')" class="flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap ${selectedCategory === c.id ? 'bg-blue-600 text-white' : 'bg-white text-slate-600 border border-slate-200'}">${c.name}</button>
-            `).join('');
-        }
-
-        function renderProducts() {
-            const el = document.getElementById('products-grid');
-            const countEl = document.getElementById('product-count');
-            if (!el) return;
-
-            let filtered = selectedCategory === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === selectedCategory);
-            if (countEl) countEl.textContent = `${filtered.length} produk`;
-
-            el.innerHTML = filtered.map(p => {
-                const inCart = cart.find(c => c.id === p.id);
-                const qty = inCart ? inCart.qty : 0;
-                return `
-                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
-                        <div class="aspect-square bg-slate-100 overflow-hidden">
-                            <img src="${p.image}" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://via.placeholder.com/200'">
-                        </div>
-                        <div class="p-3">
-                            <h3 class="font-medium text-sm line-clamp-2">${p.name}</h3>
-                            <p class="text-blue-600 font-bold mt-1">${formatPrice(p.price)}</p>
-                            <div class="mt-2">
-                                ${qty > 0 ? `
-                                    <div class="flex items-center justify-between bg-blue-50 rounded-lg p-1">
-                                        <button onclick="updateCart(${p.id}, -1)" class="w-8 h-8 rounded-lg bg-white flex items-center justify-center border">-</button>
-                                        <span class="font-bold">${qty}</span>
-                                        <button onclick="updateCart(${p.id}, 1)" class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center">+</button>
-                                    </div>
-                                ` : `<button onclick="updateCart(${p.id}, 1)" class="w-full py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold">+ Tambah</button>`}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function renderCart() {
-            const container = document.getElementById('cart-items');
-            const empty = document.getElementById('cart-empty');
-            const footer = document.getElementById('cart-footer');
-            const count = document.getElementById('cart-item-count');
-
-            if (cart.length === 0) {
-                container.classList.add('hidden');
-                empty.classList.remove('hidden');
-                footer.classList.add('hidden');
-                return;
-            }
-
-            container.classList.remove('hidden');
-            empty.classList.add('hidden');
-            footer.classList.remove('hidden');
-            if (count) count.textContent = `${cart.reduce((s, i) => s + i.qty, 0)} item`;
-
-            container.innerHTML = cart.map(i => `
-                <div class="flex gap-3 bg-slate-50 rounded-xl p-3">
-                    <img src="${i.image}" class="w-14 h-14 rounded-lg object-cover bg-white">
-                    <div class="flex-1">
-                        <p class="font-medium text-sm">${i.name}</p>
-                        <p class="text-blue-600 font-bold text-sm">${formatPrice(i.price)}</p>
-                        <div class="flex items-center gap-2 mt-1">
-                            <button onclick="updateCart(${i.id}, -1)" class="w-7 h-7 rounded bg-white border flex items-center justify-center">-</button>
-                            <span class="text-sm w-5 text-center">${i.qty}</span>
-                            <button onclick="updateCart(${i.id}, 1)" class="w-7 h-7 rounded bg-blue-600 text-white flex items-center justify-center">+</button>
-                        </div>
-                    </div>
-                    <button onclick="removeFromCart(${i.id})" class="text-red-400">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                    </button>
-                </div>
-            `).join('');
-
-            document.getElementById('cart-total').textContent = formatPrice(getTotal());
-        }
-
-        function renderShipping() {
-            const el = document.getElementById('shipping-options');
-            if (!el) return;
-            el.innerHTML = SHIPPING_METHODS.map(s => `
-                <div onclick="selectShipping('${s.id}')" class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${checkoutState.shipping === s.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200'}">
-                    <div class="flex-1">
-                        <p class="font-medium text-sm">${s.name}</p>
-                        <p class="text-xs text-slate-500">${s.estimate}</p>
-                    </div>
-                    <span class="font-semibold text-sm ${s.price === 0 ? 'text-green-600' : ''}">${s.price === 0 ? 'Gratis' : formatPrice(s.price)}</span>
-                </div>
-            `).join('');
-        }
-
-        function renderPayment() {
-            const el = document.getElementById('payment-options');
-            if (!el) return;
-            el.innerHTML = PAYMENT_METHODS.map(p => `
-                <div onclick="selectPayment('${p.id}')" class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${checkoutState.payment === p.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200'}">
-                    <div>
-                        <p class="font-medium text-sm">${p.name}</p>
-                        <p class="text-xs text-slate-500">${p.desc}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function updateSummary() {
-            const subtotal = getTotal();
-            const ship = SHIPPING_METHODS.find(s => s.id === checkoutState.shipping);
-            const ongkir = ship ? ship.price : 0;
-            const total = subtotal + ongkir;
-
-            document.getElementById('checkout-items').innerHTML = cart.map(i => `
-                <div class="flex justify-between text-sm">
-                    <span class="truncate flex-1">${i.name}</span>
-                    <span class="ml-2">x${i.qty}</span>
-                    <span class="ml-2">${formatPrice(i.price * i.qty)}</span>
-                </div>
-            `).join('');
-
-            document.getElementById('summary-subtotal').textContent = formatPrice(subtotal);
-            document.getElementById('summary-shipping').textContent = ongkir === 0 && ship ? 'Gratis' : formatPrice(ongkir);
-            document.getElementById('summary-total').textContent = formatPrice(total);
-        }
-
-        function renderInvoice() {
-            if (!currentOrder) return;
-            const o = currentOrder;
-            document.getElementById('invoice-content').innerHTML = `
-                <div class="bg-gradient-to-r from-blue-600 to-blue-500 p-6 text-white text-center">
-                    <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                    </div>
-                    <h2 class="text-xl font-bold">Pesanan Berhasil</h2>
-                    <p class="text-sm opacity-90">#${o.id}</p>
-                </div>
-                <div class="p-4 border-b">
-                    <p class="text-sm text-slate-500">Status</p>
-                    <span class="status-${o.status} text-sm font-medium px-3 py-1 rounded-full mt-1 inline-block">${o.status}</span>
-                </div>
-                <div class="p-4 border-b">
-                    <p class="font-semibold mb-2">Pesanan</p>
-                    ${o.items.map(i => `<p class="text-sm">${i.name} x${i.qty} = ${formatPrice(i.price * i.qty)}</p>`).join('')}
-                </div>
-                <div class="p-4 border-b">
-                    <p class="font-semibold mb-1">Alamat</p>
-                    <p class="text-sm text-slate-600">${o.address}</p>
-                </div>
-                <div class="p-4 border-b">
-                    <p class="font-semibold mb-1">Pengiriman</p>
-                    <p class="text-sm text-slate-600">${o.shipping.name}</p>
-                </div>
-                <div class="p-4">
-                    <p class="font-bold text-lg">Total: <span class="text-blue-600">${formatPrice(o.total)}</span></p>
-                </div>
-            `;
-        }
-
-        function renderOrders() {
-            const list = document.getElementById('orders-list');
-            const empty = document.getElementById('empty-history');
-            if (orders.length === 0) {
-                list.classList.add('hidden');
-                empty.classList.remove('hidden');
-                return;
-            }
-            list.classList.remove('hidden');
-            empty.classList.add('hidden');
-            list.innerHTML = orders.slice().reverse().map(o => `
-                <div class="bg-white rounded-xl p-4 shadow-sm">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-sm text-slate-500">#${o.id}</span>
-                        <span class="status-${o.status} text-xs px-2 py-1 rounded-full">${o.status}</span>
-                    </div>
-                    <p class="font-bold text-blue-600">${formatPrice(o.total)}</p>
-                    <button onclick="viewOrder('${o.id}')" class="text-blue-600 text-sm font-medium mt-2">Detail</button>
-                </div>
-            `).join('');
-        }
-
-        // ==================== CART ====================
-        function updateCart(id, change) {
-            const existing = cart.find(c => c.id === id);
-            if (existing) {
-                existing.qty += change;
-                if (existing.qty <= 0) cart = cart.filter(c => c.id !== id);
-            } else if (change > 0) {
-                const p = PRODUCTS.find(p => p.id === id);
-                cart.push({ id: p.id, name: p.name, price: p.price, image: p.image, qty: 1 });
-            }
-            saveToStorage();
-            updateCartBadge();
-            renderProducts();
-            if (document.getElementById('cart-sheet').classList.contains('active')) renderCart();
-        }
-
-        function removeFromCart(id) {
-            cart = cart.filter(c => c.id !== id);
-            saveToStorage();
-            updateCartBadge();
-            renderCart();
-            if (cart.length === 0) closeCart();
-        }
-
-        function updateCartBadge() {
-            const total = cart.reduce((s, i) => s + i.qty, 0);
-            document.getElementById('cart-badge').textContent = total;
-            document.getElementById('floating-cart').classList.toggle('hidden', total === 0);
-        }
-
-        function getTotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
-
-        // ==================== MODALS ====================
-        function openCart() {
-            if (cart.length === 0) { showToast('Keranjang kosong'); return; }
-            renderCart();
-            document.getElementById('cart-sheet').classList.add('active');
-            document.getElementById('overlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeCart() {
-            document.getElementById('cart-sheet').classList.remove('active');
-            document.getElementById('overlay').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function closeOverlay() { closeCart(); }
-
-        function proceedToCheckout() {
-            if (cart.length === 0) { showToast('Keranjang kosong'); return; }
-            closeCart();
-            checkoutState.address = '';
-            checkoutState.shipping = '';
-            checkoutState.payment = '';
-            document.getElementById('input-address').value = '';
-            document.getElementById('input-notes').value = '';
-            renderShipping();
-            renderPayment();
-            updateSummary();
-            validateForm();
-            document.getElementById('checkout-page').classList.remove('hidden');
-        }
-
-        function closeCheckout() {
-            document.getElementById('checkout-page').classList.add('hidden');
-        }
-
-        function closeConfirmModal() {
-            document.getElementById('confirm-modal').classList.add('hidden');
-        }
-
-        function closeInvoice() {
-            document.getElementById('invoice-page').classList.add('hidden');
-            switchPage('history');
-        }
-
-        function openSearch() {
-            document.getElementById('search-modal').classList.remove('hidden');
-            document.getElementById('search-input').focus();
-        }
-
-        function closeSearch() {
-            document.getElementById('search-modal').classList.add('hidden');
-        }
-
-        // ==================== SELECTION ====================
-        function selectCategory(id) { selectedCategory = id; renderCategories(); renderProducts(); }
-
-        function selectShipping(id) {
-            checkoutState.shipping = id;
-            renderShipping();
-            updateSummary();
-            validateForm();
-        }
-
-        function selectPayment(id) {
-            checkoutState.payment = id;
-            renderPayment();
-            validateForm();
-        }
-
-        // ==================== CHECKOUT FLOW ====================
-        function confirmOrder() {
-            if (!validateForm()) { showToast('Lengkapi data'); return; }
-            document.getElementById('confirm-modal').classList.remove('hidden');
-        }
-
-        // 🔥 SUBMIT ORDER - PENTING: currentOrder HARUS DISINI
-        function submitOrder() {
-            document.getElementById('confirm-modal').classList.add('hidden');
-            document.getElementById('loading-overlay').classList.remove('hidden');
-
-            setTimeout(() => {
-                const shipping = SHIPPING_METHODS.find(s => s.id === checkoutState.shipping);
-                const payment = PAYMENT_METHODS.find(p => p.id === checkoutState.payment);
-
-                if (!shipping || !payment) {
-                    document.getElementById('loading-overlay').classList.add('hidden');
-                    showToast('Data belum lengkap');
-                    return;
-                }
-
-                const subtotal = getTotal();
-                const total = subtotal + shipping.price;
-
-                // 🔥 currentOrder WAJIB DISINI
-                currentOrder = {
-                    id: Date.now(),
-                    items: [...cart],
-                    address: checkoutState.address,
-                    shipping: shipping,
-                    payment: payment,
-                    subtotal: subtotal,
-                    total: total,
-                    status: 'diproses'
-                };
-
-                console.log('Order created:', currentOrder); // Debug
-
-                orders.push(currentOrder);
-                cart = [];
-                saveToStorage();
-                updateCartBadge();
-
-                document.getElementById('loading-overlay').classList.add('hidden');
-                renderInvoice();
-                document.getElementById('invoice-page').classList.remove('hidden');
-            }, 800);
-        }
-
-        // 🔥 SEND TO WHATSAPP - PALING PENTING
-        function sendToWhatsApp() {
-            if (!currentOrder) {
-                showToast('Order tidak ditemukan');
-                console.error('currentOrder is NULL!');
-                return;
-            }
-
-            const o = currentOrder;
-
-            let text = `PESANAN BARU\n\n`;
-            text += `ID: #${o.id}\n\n`;
-            text += `ALAMAT:\n${o.address}\n\n`;
-            text += `PESANAN:\n`;
-            o.items.forEach(i => {
-                text += `- ${i.name} x${i.qty} = ${formatPrice(i.price * i.qty)}\n`;
-            });
-            text += `\nPengiriman: ${o.shipping.name}`;
-            text += `\nPembayaran: ${o.payment.name}`;
-            text += `\n\nTOTAL: ${formatPrice(o.total)}`;
-            text += `\n\nMohon diproses ya`;
-
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-
-            // 🔥 PAKAI window.location.href (lebih reliable)
-            window.location.href = url;
-        }
-
-        // ==================== HISTORY ====================
-        function viewOrder(id) {
-            const o = orders.find(x => x.id == id);
-            if (!o) return;
-            currentOrder = o;
-            renderInvoice();
-            document.getElementById('invoice-page').classList.remove('hidden');
-        }
-
-        // ==================== SEARCH ====================
-        function handleSearch(q) {
-            const el = document.getElementById('search-results');
-            if (!q.trim()) { el.innerHTML = ''; return; }
-            const results = PRODUCTS.filter(p => p.name.toLowerCase().includes(q.toLowerCase()));
-            el.innerHTML = results.map(p => {
-                const inCart = cart.find(c => c.id === p.id);
-                const qty = inCart ? inCart.qty : 0;
-                return `
-                    <div class="bg-white rounded-xl p-3 shadow-sm">
-                        <img src="${p.image}" class="w-full aspect-square rounded-lg object-cover mb-2">
-                        <p class="font-medium text-sm">${p.name}</p>
-                        <p class="text-blue-600 font-bold">${formatPrice(p.price)}</p>
-                        <button onclick="updateCart(${p.id}, 1)" class="w-full py-2 mt-2 bg-blue-600 text-white rounded-lg text-sm">${qty > 0 ? `+${qty}` : 'Tambah'}</button>
-                    </div>
-                `;
-            }).join('') || '<p class="col-span-2 text-center text-slate-400">Tidak ditemukan</p>';
-        }
-
-        // ==================== NAV ====================
-        function switchPage(name) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(`page-${name}`).classList.add('active');
-            document.querySelectorAll('.nav-btn').forEach(b => {
-                b.classList.toggle('text-blue-600', b.dataset.page === name);
-                b.classList.toggle('text-slate-400', b.dataset.page !== name);
-            });
-            if (name === 'history') renderOrders();
-            window.scrollTo(0, 0);
-        }
-
-        function updateNavActive(name) {
-            document.querySelectorAll('.nav-btn').forEach(b => {
-                b.classList.toggle('text-blue-600', b.dataset.page === name);
-                b.classList.toggle('text-slate-400', b.dataset.page !== name);
-            });
-        }
-
-        // ==================== UTILS ====================
-        function formatPrice(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
-
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2500);
-        }
-
-        // ==================== RUN ====================
-        init();
-    </script>
+<body class="min-h-screen">
+
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-white h-12 flex items-center px-3 border-b">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 bg-blue-600 rounded flex items-center justify-center">
+<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 2.3c-.6.6-.2 1.7.7 1.7H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+</div>
+<span class="font-bold text-sm">MiniMarket</span>
+</div>
+</header>
+
+<!-- Main -->
+<main id="M" class="pt-12 st" style="padding-bottom:72px">
+<!-- Home -->
+<div id="PH" class="p-2">
+<div id="CT" class="hs flex gap-1 pb-1"></div>
+<div class="flex justify-between items-center py-2">
+<b class="text-sm">Produk</b>
+<small id="PC" class="text-gray-400 text-xs">0</small>
+</div>
+<div id="PD" class="grid grid-cols-2 gap-2"></div>
+</div>
+<!-- History -->
+<div id="PHX" class="p-2 hidden">
+<b class="text-sm block mb-2">Riwayat</b>
+<div id="HL"></div>
+<div id="HE" class="text-center py-8 hidden">
+<p class="text-gray-400 text-sm mb-2">Belum ada pesanan</p>
+<button data-act="home" class="px-4 py-2 bg-blue-600 text-white rounded text-sm">Belanja</button>
+</div>
+</div>
+</main>
+
+<!-- Nav -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t z-40 st">
+<div class="flex justify-around py-1" id="NV">
+<button data-act="home" class="flex flex-col items-center py-2 px-6 text-blue-600">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+<span class="text-xs">Beranda</span>
+</button>
+<button data-act="hist" class="flex flex-col items-center py-2 px-6 text-gray-400">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+<span class="text-xs">Pesanan</span>
+</button>
+</div>
+</nav>
+
+<!-- Cart Button -->
+<button id="CB" data-act="cart" class="fixed right-2 bottom-16 w-11 h-11 bg-blue-600 text-white rounded-xl hidden z-30 btn" style="box-shadow:0 2px 8px rgba(37,99,235,.3)">
+<svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 2.3c-.6.6-.2 1.7.7 1.7H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+<span id="CBN" class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">0</span>
+</button>
+
+<!-- Overlay -->
+<div id="OV" class="ov fixed inset-0 bg-black/25 z-50"></div>
+
+<!-- Cart Sheet -->
+<div id="CS" class="bsh fixed bottom-0 left-0 right-0 bg-white rounded-t-xl z-50 max-h-[80vh] flex flex-col st">
+<div class="flex justify-between p-3 border-b h-12 items-center">
+<b class="text-sm">Keranjang</b>
+<button data-act="xcart" class="w-7 h-7 bg-gray-100 rounded btn text-sm">✕</button>
+</div>
+<div id="CI" class="flex-1 overflow-auto p-2 space-y-2"></div>
+<div id="CE" class="hidden flex-1 flex flex-col items-center justify-center p-4">
+<p class="text-gray-400 text-sm mb-2">Kosong</p>
+<button data-act="xcart" class="px-4 py-2 bg-blue-600 text-white rounded text-sm">Belanja</button>
+</div>
+<div id="CF" class="p-2 border-t">
+<div class="flex justify-between mb-2 text-sm"><span class="text-gray-500">Total</span><b id="CT" class="text-blue-600">Rp 0</b></div>
+<button data-act="chk" class="w-full py-2.5 bg-blue-600 text-white rounded font-semibold text-sm btn">Checkout</button>
+</div>
+</div>
+
+<!-- Checkout -->
+<div id="CH" class="fixed inset-0 bg-gray-100 z-50 hidden overflow-auto">
+<div class="sticky top-0 bg-white border-b h-11 flex items-center px-2 z-10">
+<button data-act="xchk" class="w-8 h-8 bg-gray-100 rounded btn text-sm">←</button>
+<b class="ml-2 text-sm">Checkout</b>
+</div>
+<div class="p-2 pb-24 space-y-2">
+<!-- Address -->
+<div class="bg-white rounded p-2">
+<label class="text-xs font-semibold text-gray-600">1. Alamat <span id="AE" class="text-red-500 hidden">*Wajib</span></label>
+<textarea id="IA" class="w-full p-2 border rounded text-sm mt-1" rows="2" placeholder="Alamat lengkap..."></textarea>
+</div>
+<!-- Shipping -->
+<div class="bg-white rounded p-2">
+<label class="text-xs font-semibold text-gray-600">2. Pengiriman <span id="SE" class="text-red-500 hidden">*Pilih</span></label>
+<div id="SH" class="mt-1 space-y-1"></div>
+</div>
+<!-- Payment -->
+<div class="bg-white rounded p-2">
+<label class="text-xs font-semibold text-gray-600">3. Pembayaran <span id="PE" class="text-red-500 hidden">*Pilih</span></label>
+<div id="PM" class="mt-1 space-y-1"></div>
+</div>
+<!-- Summary -->
+<div class="bg-white rounded p-2">
+<label class="text-xs font-semibold text-gray-600">Ringkasan</label>
+<div id="SI" class="text-xs space-y-1 my-2 pb-1 border-b"></div>
+<div class="text-xs space-y-1">
+<div class="flex justify-between"><span class="text-gray-500">Subtotal</span><span id="SS">Rp 0</span></div>
+<div class="flex justify-between"><span class="text-gray-500">Ongkir</span><span id="SO">Rp 0</span></div>
+<div class="flex justify-between pt-1 border-t font-bold"><span>Total</span><span id="ST" class="text-blue-600">Rp 0</span></div>
+</div>
+</div>
+<!-- Notes -->
+<div class="bg-white rounded p-2">
+<label class="text-xs font-semibold text-gray-600">Catatan</label>
+<textarea id="IN" class="w-full p-2 border rounded text-sm mt-1" rows="1" placeholder="Opsional"></textarea>
+</div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t p-2 st flex items-center justify-between">
+<small id="FH" class="text-gray-400 text-xs">Lengkapi data</small>
+<button id="OB" data-act="ord" disabled class="py-2.5 px-6 bg-gray-200 text-gray-400 rounded font-semibold text-sm btn">Pesan</button>
+</div>
+</div>
+
+<!-- Confirm -->
+<div id="CF" class="fixed inset-0 bg-black/25 z-60 hidden flex items-center justify-center p-4">
+<div class="bg-white rounded p-4 w-full max-w-xs text-center">
+<b class="block mb-1">Konfirmasi Pesanan</b>
+<p class="text-gray-500 text-xs mb-3">Yakin ingin memesan?</p>
+<div class="flex gap-2">
+<button data-act="xcf" class="flex-1 py-2 bg-gray-100 rounded text-sm btn">Batal</button>
+<button data-act="sbm" class="flex-1 py-2 bg-blue-600 text-white rounded text-sm btn">Ya, Pesan</button>
+</div>
+</div>
+</div>
+
+<!-- Invoice -->
+<div id="IV" class="fixed inset-0 bg-gray-100 z-50 hidden overflow-auto">
+<div class="sticky top-0 bg-white border-b h-11 flex items-center px-2 z-10">
+<button data-act="xiv" class="w-8 h-8 bg-gray-100 rounded btn text-sm">✕</button>
+<b class="ml-2 text-sm">Invoice</b>
+</div>
+<div id="IC" class="p-2 pb-20"></div>
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t p-2 st">
+<button data-act="wa" class="w-full py-2.5 bg-green-600 text-white rounded font-semibold text-sm btn">Kirim ke WhatsApp</button>
+</div>
+</div>
+
+<!-- Toast -->
+<div id="TO" class="fixed bottom-16 left-2 right-2 bg-gray-800 text-white p-2 rounded text-xs text-center z-50 opacity-0 transition-opacity">.</div>
+
+<script>
+// === DATA ===
+const D=[
+{id:1,n:'Chitato 68g',p:12000,c:'snacks',i:'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=120&h=120&fit=crop'},
+{id:2,n:'Lays BBQ',p:11000,c:'snacks',i:'https://images.unsplash.com/photo-1585232004423-244e01769049?w=120&h=120&fit=crop'},
+{id:3,n:'Oreo 133g',p:15000,c:'snacks',i:'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=120&h=120&fit=crop'},
+{id:4,n:'Good Day',p:5000,c:'drinks',i:'https://images.unsplash.com/photo-1461023058943-07fcbe16d92a?w=120&h=120&fit=crop'},
+{id:5,n:'Teh Pucuk',p:4000,c:'drinks',i:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=120&h=120&fit=crop'},
+{id:6,n:'Aqua 600ml',p:4000,c:'drinks',i:'https://images.unsplash.com/photo-1548839140-29a749e1f16a?w=120&h=120&fit=crop'},
+{id:7,n:'Indomie',p:3500,c:'snacks',i:'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=120&h=120&fit=crop'},
+{id:8,n:'Ultra Milk',p:18000,c:'dairy',i:'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=120&h=120&fit=crop'}
+];
+const CTG=[{id:'all',n:'Semua'},{id:'snacks',n:'Makanan'},{id:'drinks',n:'Minuman'},{id:'dairy',n:'Susu'}];
+const SHP=[{id:'gojek',n:'Gojek',pr:15000,e:'1-2 jam'},{id:'grab',n:'Grab',pr:15000,e:'1-2 jam'},{id:'shopee',n:'Shopee',pr:9000,e:'2-3 hari'},{id:'pickup',n:'Ambil',pr:0,e:'Langsung'}];
+const PMT=[{id:'cod',n:'COD',d:'Bayar di tempat'},{id:'transfer',n:'Transfer',d:'BCA, Mandiri'},{id:'qris',n:'QRIS',d:'Scan QR'}];
+const WN='6285189976233';
+
+// === STATE ===
+let C=[],O=[],SC='all',CU=null;
+const S={a:'',s:'',p:''};
+
+// === DOM ===
+const $=x=>document.getElementById(x);
+const H={M:$('M'),CT:$('CT'),PD:$('PD'),PC:$('PC'),CB:$('CB'),CBN:$('CBN'),CS:$('CS'),CI:$('CI'),CE:$('CE'),CT:$('CT'),OV:$('OV'),CH:$('CH'),IA:$('IA'),AE:$('AE'),SH:$('SH'),SE:$('SE'),PM:$('PM'),PE:$('PE'),SI:$('SI'),SS:$('SS'),SO:$('SO'),ST:$('ST'),IN:$('IN'),OB:$('OB'),FH:$('FH'),CF:$('CF'),IV:$('IV'),IC:$('IC'),HL:$('HL'),HE:$('HE'),TO:$('TO')};
+
+// === HELPERS ===
+const fm=n=>'Rp '+n.toLocaleString('id-ID');
+const to=m=>{H.TO.textContent=m;H.TO.style.opacity=1;setTimeout(()=>H.TO.style.opacity=0,2000)};
+
+// === RENDER CATEGORIES ===
+const rCt=()=>{H.CT.innerHTML=CTG.map(c=>`<button data-ct="${c.id}" class="px-3 py-1.5 rounded text-xs font-medium whitespace-nowrap ${SC===c.id?'bg-blue-600 text-white':'bg-white border'}">${c.n}</button>`).join('')};
+
+// === RENDER PRODUCTS (INITIAL ONLY) ===
+const rP=()=>{
+H.PC.textContent=D.length;
+H.PD.innerHTML=D.map(p=>`<div class="bg-white rounded border">
+<div class="aspect-square bg-gray-50 rounded overflow-hidden"><img src="${p.i}" class="w-full h-full object-cover" loading="lazy"></div>
+<div class="p-2">
+<p class="text-xs font-medium line-clamp-2">${p.n}</p>
+<b class="text-blue-600 text-sm">${fm(p.p)}</b>
+<div id="P${p.id}" class="mt-1.5"></div>
+</div></div>`).join('');
+uPA();
+};
+
+// === UPDATE PRODUCT UI (PARTIAL) ===
+const uPA=()=>{D.forEach(p=>{const el=$('P'+p.id);if(!el)return;const c=C.find(x=>x.id===p.id);el.innerHTML=c?`<div class="flex items-center justify-between bg-blue-50 rounded p-1">
+<button data-u="-" data-p="${p.id}" class="w-7 h-7 bg-white border rounded flex items-center justify-center">-</button>
+<b>${c.q}</b>
+<button data-u="+" data-p="${p.id}" class="w-7 h-7 bg-blue-600 text-white rounded flex items-center justify-center">+</button>
+</div>`:`<button data-u="+" data-p="${p.id}" class="w-full py-1.5 bg-blue-600 text-white rounded text-xs">+ Tambah</button>`})};
+
+// === UPDATE CART ITEM UI (PARTIAL) ===
+const uCI=id=>{
+const el=$('CI'+id);const it=C.find(x=>x.id===id);
+if(!el){H.CI.insertAdjacentHTML('beforeend',`<div id="CI${it.id}" class="flex gap-2 bg-gray-50 rounded p-2 items-center"></div>`);uCI(id);return}
+if(!it){el.remove();return}
+el.innerHTML=`<img src="${it.i}" class="w-12 h-12 rounded object-cover">
+<div class="flex-1 min-w-0"><p class="text-xs truncate">${it.n}</p><b class="text-blue-600 text-xs">${fm(it.p)}</b></div>
+<div class="flex items-center gap-1">
+<button data-u="-" data-c="${it.id}" class="w-6 h-6 bg-white border rounded flex items-center justify-center">-</button>
+<b class="w-4 text-center text-xs">${it.q}</b>
+<button data-u="+" data-c="${it.id}" class="w-6 h-6 bg-blue-600 text-white rounded flex items-center justify-center">+</button>
+</div>`;
+H.CT.textContent=fm(C.reduce((s,i)=>s+i.p*i.q,0));
+};
+
+// === UPDATE CART BADGE ===
+const uCB=()=>{const t=C.reduce((s,i)=>s+i.q,0);H.CBN.textContent=t;H.CB.classList.toggle('hidden',!t)};
+
+// === RENDER SHIPPING ===
+const rSH=()=>{H.SH.innerHTML=SHP.map(s=>`<label class="flex items-center gap-2 p-1.5 rounded border cursor-pointer ${S.s===s.id?'sel':''}">
+<input type="radio" name="sh" value="${s.id}" ${S.s===s.id?'checked':''}>
+<span class="flex-1"><b class="text-xs">${s.n}</b><small class="block text-gray-400">${s.e}</small></span>
+<b class="text-xs ${s.pr===0?'text-green-600':''}">${s.pr?fm(s.pr):'Gratis'}</b>
+</label>`).join('')};
+
+// === RENDER PAYMENT ===
+const rPM=()=>{H.PM.innerHTML=PMT.map(p=>`<label class="flex items-center gap-2 p-1.5 rounded border cursor-pointer ${S.p===p.id?'sel':''}">
+<input type="radio" name="pm" value="${p.id}" ${S.p===p.id?'checked':''}>
+<span><b class="text-xs">${p.n}</b><small class="block text-gray-400">${p.d}</small></span>
+</label>`).join('')};
+
+// === UPDATE SUMMARY ===
+const uSM=()=>{
+const st=C.reduce((s,i)=>s+i.p*i.q,0);
+const sh=SHP.find(x=>x.id===S.s);
+H.SI.innerHTML=C.map(i=>`<span class="truncate">${i.n} x${i.q}</span><span>${fm(i.p*i.q)}</span>`).join('');
+H.SS.textContent=fm(st);
+H.SO.textContent=sh?sh.pr?fm(sh.pr):'Gratis':'-';
+H.ST.textContent=fm(st+(sh?sh.pr:0));
+};
+
+// === VALIDATE ===
+const vF=()=>{
+const ok=S.a&&S.s&&S.p;
+H.OB.disabled=!ok;
+H.OB.className=ok?'py-2.5 px-6 bg-blue-600 text-white rounded font-semibold text-sm btn':'py-2.5 px-6 bg-gray-200 text-gray-400 rounded font-semibold text-sm btn';
+H.FH.textContent=ok?'Siap':'Lengkapi: '+(S.a?'':'alamat ')+(S.s?'':'kirim ')+(S.p?'':'bayar');
+return ok;
+};
+
+// === INVOICE ===
+const rI=()=>{
+if(!CU)return;
+const o=CU;
+H.IC.innerHTML=`<div class="bg-blue-600 text-white p-3 rounded text-center"><b class="text-lg">Berhasil</b><small class="block opacity-80">#${o.id}</small></div>
+<div class="bg-white rounded mt-2 p-2 space-y-1 text-xs">
+<div><b>Status:</b> <span class="stb px-1.5 py-0.5 rounded">${o.st}</span></div>
+<div><b>Alamat:</b> ${o.a}</div>
+<div><b>Pengiriman:</b> ${o.sh.n}</div>
+<div><b>Pembayaran:</b> ${o.pm.n}</div>
+<div class="pt-1 border-t font-bold">Total: <span class="text-blue-600">${fm(o.t)}</span></div>
+</div>`;
+};
+
+// === HISTORY ===
+const rH=()=>{
+if(!O.length){H.HL.innerHTML='';H.HE.classList.remove('hidden');return}
+H.HE.classList.add('hidden');
+H.HL.innerHTML=O.slice().reverse().map(o=>`<div class="bg-white rounded p-2 mb-1">
+<div class="flex justify-between text-xs mb-1"><span class="text-gray-400">#${o.id}</span><span class="stb px-1.5 py-0.5 rounded">${o.st}</span></div>
+<b class="text-blue-600 text-sm">${fm(o.t)}</b>
+<button data-hi="${o.id}" class="text-blue-600 text-xs ml-2">Detail</button>
+</div>`).join('');
+};
+
+// === CART ===
+const uC=(id,ch)=>{
+const ex=C.find(x=>x.id===id),pr=D.find(x=>x.id===id);
+if(ex){ex.q+=ch;if(ex.q<1)C=C.filter(x=>x.id!==id)}
+else if(ch>0)C.push({id:pr.id,n:pr.n,p:pr.p,i:pr.i,q:1});
+localStorage.setItem('C',JSON.stringify(C));
+uCB();
+uPA();
+if(C.find(x=>x.id===id))uCI(id);
+else if(H.CS.classList.contains('a'))H.CI.innerHTML=C.map(i=>{uCI(i.id);return''}).join('');
+H.CT.textContent=fm(C.reduce((s,i)=>s+i.p*i.q,0));
+if(!C.length)H.CE.classList.remove('hidden');else H.CE.classList.add('hidden');
+};
+
+// === MODAL OPS ===
+const oC=()=>{if(!C.length){to('Kosong');return}H.CI.innerHTML='';C.forEach(i=>uCI(i.id));H.CE.classList.add('hidden');H.CS.classList.add('a');H.OV.classList.add('a')};
+const xC=()=>{H.CS.classList.remove('a');H.OV.classList.remove('a')};
+const oCh=()=>{if(!C.length){to('Kosong');return}xC();S.a=S.s=S.p='';H.IA.value='';H.IN.value='';rSH();rPM();uSM();vF();H.CH.classList.remove('hidden')};
+const xCh=()=>{H.CH.classList.add('hidden')};
+const oCf=()=>{if(!vF()){to('Lengkapi data');return}H.CF.classList.remove('hidden')};
+const xCf=()=>{H.CF.classList.add('hidden')};
+const oI=()=>{H.IV.classList.remove('hidden')};
+const xI=()=>{H.IV.classList.add('hidden')};
+
+// === SUBMIT ===
+const sb=()=>{
+xCf();
+const sh=SHP.find(x=>x.id===S.s),pm=PMT.find(x=>x.id===S.p);
+if(!sh||!pm){to('Error');return}
+const st=C.reduce((s,i)=>s+i.p*i.q,0);
+CU={id:Date.now(),it:[...C],a:S.a,sh,pm,t:st+sh.pr,st:'diproses'};
+O.push(CU);C=[];
+localStorage.setItem('C','[]');localStorage.setItem('O',JSON.stringify(O));
+uCB();uPA();
+rI();oI();
+};
+
+// === WHATSAPP ===
+const sWA=()=>{
+if(!CU){to('No order');return}
+const o=CU;
+let t=`PESANAN #${o.id}\n\nAlamat:\n${o.a}\n\nItem:\n`;
+o.it.forEach(i=>t+=`- ${i.n} x${i.q} = ${fm(i.p*i.q)}\n`);
+t+=`\nKirim: ${o.sh.n}\nBayar: ${o.pm.n}\n\nTOTAL: ${fm(o.t)}\n\nMohon proses`;
+location.href=`https://wa.me/${WN}?text=`+encodeURIComponent(t);
+};
+
+// === NAV ===
+const sw=x=>{
+H.PH.classList.toggle('hidden',x!=='home');
+H.PHX.classList.toggle('hidden',x!=='hist');
+document.querySelectorAll('[data-act]').forEach(b=>{
+if(['home','hist'].includes(b.dataset.act)){b.classList.toggle('text-blue-600',b.dataset.act===x);b.classList.toggle('text-gray-400',b.dataset.act!==x)}
+});
+if(x==='hist')rH();
+};
+
+// === EVENT DELEGATION ===
+document.addEventListener('click',e=>{
+const a=e.target.dataset.act,u=e.target.dataset.u,p=+e.target.dataset.p,c=+e.target.dataset.c,ct=e.target.dataset.ct,hi=e.target.dataset.hi;
+
+if(ct){SC=ct;rCt();const f=ct==='all'?D:D.filter(x=>x.c===ct);H.PC.textContent=f.length;H.PD.innerHTML=f.map(x=>`<div class="bg-white rounded border">
+<div class="aspect-square bg-gray-50 rounded overflow-hidden"><img src="${x.i}" class="w-full h-full object-cover" loading="lazy"></div>
+<div class="p-2"><p class="text-xs font-medium line-clamp-2">${x.n}</p><b class="text-blue-600 text-sm">${fm(x.p)}</b><div id="P${x.id}" class="mt-1.5"></div></div></div>`).join('');uPA()}
+
+if(p&&u)uC(p,u==='+'?1:-1);
+if(c&&u)uC(c,u==='+'?1:-1);
+if(hi){CU=O.find(x=>x.id==hi);if(CU){rI();oI()}}
+
+if(a==='cart')oC();
+if(a==='xcart')xC();
+if(a==='chk')oCh();
+if(a==='xchk')xCh();
+if(a==='ord')oCf();
+if(a==='xcf')xCf();
+if(a==='sbm')sb();
+if(a==='xiv')xI();
+if(a==='wa')sWA();
+if(a==='home'||a==='hist')sw(a);
+});
+
+H.IA.oninput=()=>{S.a=H.IA.value.trim();H.AE.classList.toggle('hidden',!!S.a);vF();uSM()};
+H.SH.onchange=e=>{if(e.target.name==='sh'){S.s=e.target.value;H.SE.classList.add('hidden');rSH();vF();uSM()}};
+H.PM.onchange=e=>{if(e.target.name==='pm'){S.p=e.target.value;H.PE.classList.add('hidden');rPM();vF()}};
+
+// === INIT ===
+const init=()=>{try{C=JSON.parse(localStorage.getItem('C'))||[];O=JSON.parse(localStorage.getItem('O'))||[]}catch(e){C=[];O=[]}
+rCt();rP();uCB();rSH();rPM();
+};
+init();
+</script>
 </body>
 </html>
