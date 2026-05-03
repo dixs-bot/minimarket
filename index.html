@@ -39,9 +39,7 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            overscroll-behavior: none;
-        }
+        html, body { overscroll-behavior: none; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -69,20 +67,11 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
-        .overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .overlay.active { opacity: 1; pointer-events: auto; }
 
-        .btn-press {
-            transition: transform 0.12s ease, background-color 0.2s ease;
-        }
+        .btn-press { transition: transform 0.12s ease; }
         .btn-press:active:not(:disabled) { transform: scale(0.97); }
-        .btn-press:disabled { 
-            opacity: 0.5; 
-            cursor: not-allowed; 
-            transform: none;
-        }
+        .btn-press:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .product-card { transition: transform 0.2s ease; }
         .product-card:active { transform: scale(0.98); }
@@ -91,37 +80,21 @@
             from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes slideInRight {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-        
         @keyframes scaleIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-8px); }
-            40%, 80% { transform: translateX(8px); }
-        }
-        
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
         }
-
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
         .fade-in-up { animation: fadeInUp 0.4s ease forwards; }
-        .slide-in { animation: slideInRight 0.35s ease forwards; }
         .scale-in { animation: scaleIn 0.3s ease forwards; }
-        .shake { animation: shake 0.4s ease; }
         .spin { animation: spin 1s linear infinite; }
 
         .stagger > * {
@@ -147,12 +120,9 @@
             opacity: 0;
             transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
         }
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        .toast.show { transform: translateY(0); opacity: 1; }
 
-        input:focus, textarea:focus, select:focus {
+        input:focus, textarea:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
@@ -161,21 +131,14 @@
         .input-error {
             border-color: var(--danger) !important;
             background-color: var(--error-bg) !important;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
         }
 
         .qty-btn { transition: all 0.15s ease; }
         .qty-btn:active { transform: scale(0.9); }
 
-        .selection-card {
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
+        .selection-card { transition: all 0.2s ease; cursor: pointer; }
         .selection-card:hover { border-color: #93c5fd; }
-        .selection-card.selected {
-            border-color: var(--primary);
-            background: rgba(37, 99, 235, 0.05);
-        }
+        .selection-card.selected { border-color: var(--primary); background: rgba(37, 99, 235, 0.05); }
 
         .status-diproses { background: #dbeafe; color: #1e40af; }
         .status-dikirim { background: #d1fae5; color: #065f46; }
@@ -184,28 +147,18 @@
         .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
         .pb-nav { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
 
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
         .btn-enabled {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
             box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
         }
-        
-        .btn-enabled:hover {
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
-        }
+        .btn-disabled { background: #cbd5e1; color: #94a3b8; }
 
-        .btn-disabled {
-            background: #cbd5e1;
-            color: #94a3b8;
-            box-shadow: none;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
@@ -224,7 +177,7 @@
                     <p class="text-xs text-slate-500">Belanja Mudah</p>
                 </div>
             </div>
-            <button onclick="openSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press" aria-label="Cari produk">
+            <button onclick="openSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
                 <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
@@ -239,23 +192,17 @@
             <section class="px-4 pt-2">
                 <div class="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 rounded-2xl p-5 text-white relative overflow-hidden">
                     <div class="absolute right-0 top-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/4"></div>
-                    <div class="absolute right-8 bottom-0 w-20 h-20 bg-white/10 rounded-full translate-y-1/3"></div>
                     <div class="relative">
                         <span class="inline-block px-2 py-1 bg-white/20 rounded-md text-xs font-medium mb-2">PROMO</span>
                         <h2 class="text-xl font-bold">Diskon Hingga 20%</h2>
                         <p class="text-sm opacity-90 mt-1">Untuk semua produk minuman</p>
-                        <div class="inline-block mt-3 px-3 py-1.5 bg-white rounded-lg text-blue-600 text-sm font-semibold">
-                            Kode: HEMAT20
-                        </div>
                     </div>
                 </div>
             </section>
-
             <section class="px-4 pt-6">
                 <h2 class="text-base font-bold text-slate-800 mb-3">Kategori</h2>
                 <div id="categories-container" class="flex gap-2 overflow-x-auto hide-scrollbar pb-2"></div>
             </section>
-
             <section class="px-4 pt-6">
                 <div class="flex items-center justify-between mb-3">
                     <h2 class="text-base font-bold text-slate-800">Produk Pilihan</h2>
@@ -276,8 +223,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                         </svg>
                     </div>
-                    <p class="text-slate-600 font-medium mb-1">Belum Ada Pesanan</p>
-                    <p class="text-sm text-slate-400 mb-4">Yuk mulai belanja sekarang!</p>
+                    <p class="text-slate-600 font-medium mb-4">Belum ada pesanan</p>
                     <button onclick="switchPage('home')" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold btn-press">Belanja Sekarang</button>
                 </div>
             </div>
@@ -288,71 +234,52 @@
     <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 safe-bottom">
         <div class="flex items-center justify-around py-2">
             <button onclick="switchPage('home')" class="nav-btn flex flex-col items-center py-2 px-6" data-page="home">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                </svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                 <span class="text-xs mt-1 font-medium">Beranda</span>
             </button>
             <button onclick="switchPage('history')" class="nav-btn flex flex-col items-center py-2 px-6" data-page="history">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                </svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                 <span class="text-xs mt-1 font-medium">Pesanan</span>
             </button>
         </div>
     </nav>
 
-    <!-- FLOATING CART BUTTON -->
-    <button id="floating-cart" onclick="openCart()" class="fixed right-4 bottom-24 w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-lg flex items-center justify-center z-30 btn-press hidden" style="box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35)">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-        </svg>
+    <!-- FLOATING CART -->
+    <button id="floating-cart" onclick="openCart()" class="fixed right-4 bottom-24 w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-lg flex items-center justify-center z-30 btn-press hidden">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
         <span id="cart-badge" class="cart-badge absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">0</span>
     </button>
 
     <!-- OVERLAY -->
     <div id="overlay" class="overlay fixed inset-0 bg-black/40 z-50" onclick="closeOverlay()"></div>
 
-    <!-- CART BOTTOM SHEET -->
+    <!-- CART SHEET -->
     <div id="cart-sheet" class="bottom-sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 max-h-[85vh] flex flex-col" style="padding-bottom: env(safe-area-inset-bottom, 0px)">
         <div class="flex items-center justify-between p-4 border-b border-slate-100">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
-                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                    </svg>
+                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                 </div>
                 <div>
                     <h2 class="text-lg font-bold text-slate-800">Keranjang</h2>
                     <p id="cart-item-count" class="text-xs text-slate-500">0 item</p>
                 </div>
             </div>
-            <button onclick="closeCart()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
-                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
+            <button onclick="closeCart()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 btn-press">
+                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </div>
-
         <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
-
         <div id="cart-empty" class="hidden flex-1 flex flex-col items-center justify-center p-8">
-            <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-                <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                </svg>
-            </div>
-            <p class="text-slate-700 font-medium mb-1">Keranjang Kosong</p>
-            <p class="text-sm text-slate-400 mb-4">Yuk pilih produk favoritmu!</p>
+            <p class="text-slate-700 font-medium mb-4">Keranjang kosong</p>
             <button onclick="closeCart()" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold btn-press">Mulai Belanja</button>
         </div>
-
         <div id="cart-footer" class="p-4 border-t border-slate-100 bg-white">
             <div class="flex items-center justify-between mb-3">
-                <span class="text-slate-500">Total Pembayaran</span>
+                <span class="text-slate-500">Total</span>
                 <span id="cart-total" class="text-xl font-bold text-blue-600">Rp 0</span>
             </div>
-            <button onclick="proceedToCheckout()" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold btn-press text-base hover:bg-blue-700 transition-colors">Checkout Sekarang</button>
+            <button onclick="proceedToCheckout()" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold btn-press">Checkout</button>
         </div>
     </div>
 
@@ -360,153 +287,101 @@
     <div id="checkout-page" class="fixed inset-0 bg-slate-50 z-50 overflow-y-auto hidden">
         <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
             <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeCheckout()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
-                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                    </svg>
+                <button onclick="closeCheckout()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 btn-press">
+                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 </button>
                 <h1 class="text-lg font-bold text-slate-800">Checkout</h1>
             </div>
         </header>
-
         <div class="p-4 pb-40 space-y-4">
-            <!-- Step 1: Address -->
+            <!-- Address -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <div class="flex items-center gap-2 mb-3">
                     <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                    <h3 class="font-semibold text-slate-800">Alamat Pengiriman</h3>
-                    <span id="address-error" class="text-xs text-red-500 font-semibold ml-auto hidden">*Wajib diisi</span>
+                    <h3 class="font-semibold text-slate-800">Alamat</h3>
+                    <span id="address-error" class="text-xs text-red-500 font-semibold ml-auto hidden">*Wajib</span>
                 </div>
-                <textarea id="input-address" class="w-full p-3 border-2 border-slate-200 rounded-xl resize-none text-sm bg-slate-50 focus:bg-white transition-all" rows="3" placeholder="Masukkan alamat lengkap (nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan)..."></textarea>
+                <textarea id="input-address" class="w-full p-3 border-2 border-slate-200 rounded-xl resize-none text-sm bg-slate-50 focus:bg-white transition-all" rows="3" placeholder="Alamat lengkap..."></textarea>
             </section>
-
-            <!-- Step 2: Shipping -->
+            <!-- Shipping -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <div class="flex items-center gap-2 mb-3">
                     <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                    <h3 class="font-semibold text-slate-800">Metode Pengiriman</h3>
-                    <span id="shipping-error" class="text-xs text-red-500 font-semibold ml-auto hidden">*Pilih satu</span>
+                    <h3 class="font-semibold text-slate-800">Pengiriman</h3>
+                    <span id="shipping-error" class="text-xs text-red-500 font-semibold ml-auto hidden">*Pilih</span>
                 </div>
                 <div id="shipping-options" class="space-y-2"></div>
             </section>
-
-            <!-- Step 3: Payment -->
+            <!-- Payment -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <div class="flex items-center gap-2 mb-3">
                     <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                    <h3 class="font-semibold text-slate-800">Metode Pembayaran</h3>
-                    <span id="payment-error" class="text-xs text-red-500 font-semibold ml-auto hidden">*Pilih satu</span>
+                    <h3 class="font-semibold text-slate-800">Pembayaran</h3>
+                    <span id="payment-error" class="text-xs text-red-500 font-semibold ml-auto hidden">*Pilih</span>
                 </div>
                 <div id="payment-options" class="space-y-2"></div>
             </section>
-
-            <!-- Step 4: Voucher -->
+            <!-- Summary -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center">
-                            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="font-medium text-slate-800">Voucher</p>
-                            <p id="selected-voucher-label" class="text-sm text-slate-400">Pilih voucher (opsional)</p>
-                        </div>
-                    </div>
-                    <button onclick="openVoucherModal()" class="px-4 py-2 text-blue-600 font-semibold text-sm btn-press hover:bg-blue-50 rounded-lg transition-colors">Pilih</button>
-                </div>
-            </section>
-
-            <!-- Order Summary -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                <h3 class="font-semibold text-slate-800 mb-3">Ringkasan Pesanan</h3>
+                <h3 class="font-semibold text-slate-800 mb-3">Ringkasan</h3>
                 <div id="checkout-items" class="space-y-2 mb-3 pb-3 border-b border-slate-100 max-h-40 overflow-y-auto"></div>
                 <div class="space-y-2 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Subtotal</span>
-                        <span id="summary-subtotal" class="text-slate-700">Rp 0</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Ongkos Kirim</span>
-                        <span id="summary-shipping" class="text-slate-700">Rp 0</span>
-                    </div>
-                    <div id="discount-row" class="flex justify-between hidden">
-                        <span class="text-slate-500">Diskon</span>
-                        <span id="summary-discount" class="text-green-600 font-medium">- Rp 0</span>
-                    </div>
-                    <div class="flex justify-between pt-3 border-t border-slate-100 text-base font-bold">
-                        <span class="text-slate-800">Total Bayar</span>
-                        <span id="summary-total" class="text-blue-600">Rp 0</span>
-                    </div>
+                    <div class="flex justify-between"><span class="text-slate-500">Subtotal</span><span id="summary-subtotal">Rp 0</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Ongkir</span><span id="summary-shipping">Rp 0</span></div>
+                    <div class="flex justify-between pt-3 border-t border-slate-100 text-base font-bold"><span>Total</span><span id="summary-total" class="text-blue-600">Rp 0</span></div>
                 </div>
             </section>
-
             <!-- Notes -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                <h3 class="font-semibold text-slate-800 mb-3">Catatan (Opsional)</h3>
-                <textarea id="input-notes" class="w-full p-3 border border-slate-200 rounded-xl resize-none text-sm bg-slate-50 focus:bg-white transition-colors" rows="2" placeholder="Tambah catatan untuk pesanan..."></textarea>
+                <h3 class="font-semibold text-slate-800 mb-3">Catatan (opsional)</h3>
+                <textarea id="input-notes" class="w-full p-3 border border-slate-200 rounded-xl resize-none text-sm bg-slate-50" rows="2" placeholder="Catatan..."></textarea>
             </section>
         </div>
-
-        <!-- Fixed Bottom Button -->
         <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 safe-bottom">
-            <button id="btn-order" onclick="confirmOrder()" disabled class="w-full py-4 rounded-xl font-bold text-lg btn-press transition-all duration-300 btn-disabled">
-                Pesan Sekarang
-            </button>
-            <p id="form-hint" class="text-center text-xs text-slate-400 mt-2">Lengkapi semua data dulu</p>
+            <button id="btn-order" onclick="confirmOrder()" disabled class="w-full py-4 rounded-xl font-bold text-lg btn-press btn-disabled">Pesan Sekarang</button>
+            <p id="form-hint" class="text-center text-xs text-slate-400 mt-2">Lengkapi data</p>
         </div>
     </div>
 
-    <!-- CONFIRMATION MODAL -->
-    <div id="confirm-modal" class="fixed inset-0 bg-black/40 z-60 flex items-center justify-center p-4 hidden" style="backdrop-filter: blur(4px);">
+    <!-- CONFIRM MODAL -->
+    <div id="confirm-modal" class="fixed inset-0 bg-black/40 z-60 flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl p-6 w-full max-w-sm scale-in shadow-xl">
             <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
+                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </div>
-            <h3 class="text-xl font-bold text-center text-slate-800 mb-2">Konfirmasi Pesanan</h3>
-            <p class="text-slate-500 text-center mb-6">Yakin ingin memesan? Pastikan semua data sudah benar.</p>
+            <h3 class="text-xl font-bold text-center mb-2">Konfirmasi</h3>
+            <p class="text-slate-500 text-center mb-6">Yakin ingin memesan?</p>
             <div class="flex gap-3">
-                <button onclick="closeConfirmModal()" class="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl font-semibold btn-press hover:bg-slate-200 transition-colors">Batal</button>
-                <button onclick="submitOrder()" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-semibold btn-press hover:bg-blue-700 transition-colors">Ya, Pesan</button>
+                <button onclick="closeConfirmModal()" class="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl font-semibold btn-press">Batal</button>
+                <button onclick="submitOrder()" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-semibold btn-press">Ya, Pesan</button>
             </div>
         </div>
     </div>
 
-    <!-- LOADING OVERLAY -->
-    <div id="loading-overlay" class="fixed inset-0 bg-white/90 z-70 flex items-center justify-center hidden" style="backdrop-filter: blur(4px);">
+    <!-- LOADING -->
+    <div id="loading-overlay" class="fixed inset-0 bg-white/90 z-70 flex items-center justify-center hidden">
         <div class="text-center">
             <div class="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full spin mx-auto mb-4"></div>
-            <p class="text-slate-600 font-medium">Memproses pesanan...</p>
+            <p class="text-slate-600 font-medium">Memproses...</p>
         </div>
     </div>
 
     <!-- INVOICE PAGE -->
     <div id="invoice-page" class="fixed inset-0 bg-slate-50 z-50 overflow-y-auto hidden">
         <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
-            <div class="flex items-center justify-between px-4 py-3">
-                <div class="flex items-center gap-3">
-                    <button onclick="closeInvoice()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
-                        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    </button>
-                    <h1 class="text-lg font-bold text-slate-800">Invoice</h1>
-                </div>
+            <div class="flex items-center gap-3 px-4 py-3">
+                <button onclick="closeInvoice()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 btn-press">
+                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <h1 class="text-lg font-bold text-slate-800">Invoice</h1>
             </div>
         </header>
-
         <div class="p-4 pb-32">
             <div id="invoice-content" class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"></div>
         </div>
-
         <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 safe-bottom">
-            <button onclick="sendToWhatsApp()" class="w-full py-4 bg-green-600 text-white rounded-xl font-bold btn-press text-lg flex items-center justify-center gap-3 hover:bg-green-700 transition-colors" style="box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3)">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.895c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.895 0-3.183-1.24-6.177-3.493-8.413z"/>
-                </svg>
+            <button onclick="sendToWhatsApp()" class="w-full py-4 bg-green-600 text-white rounded-xl font-bold btn-press text-lg flex items-center justify-center gap-3">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.895c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.895 0-3.183-1.24-6.177-3.493-8.413z"/></svg>
                 Kirim ke WhatsApp
             </button>
         </div>
@@ -516,59 +391,37 @@
     <div id="search-modal" class="fixed inset-0 bg-slate-50 z-50 hidden">
         <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
             <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
-                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                    </svg>
+                <button onclick="closeSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 btn-press">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 </button>
-                <input id="search-input" type="text" class="flex-1 py-2.5 px-4 bg-slate-100 rounded-xl text-sm focus:bg-white transition-colors" placeholder="Cari produk..." oninput="handleSearch(this.value)">
+                <input id="search-input" type="text" class="flex-1 py-2.5 px-4 bg-slate-100 rounded-xl text-sm" placeholder="Cari..." oninput="handleSearch(this.value)">
             </div>
         </header>
         <div id="search-results" class="p-4 grid grid-cols-2 gap-3"></div>
     </div>
 
-    <!-- VOUCHER MODAL -->
-    <div id="voucher-modal" class="fixed inset-0 bg-slate-50 z-50 hidden">
-        <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
-            <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeVoucherModal()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
-                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                    </svg>
-                </button>
-                <h1 class="text-lg font-bold text-slate-800">Pilih Voucher</h1>
-            </div>
-        </header>
-        <div id="voucher-list" class="p-4 space-y-3"></div>
-    </div>
-
     <!-- TOAST -->
-    <div id="toast" class="toast fixed bottom-28 left-4 right-4 bg-slate-800 text-white px-4 py-3 rounded-xl z-50 text-center font-medium text-sm shadow-lg">Notifikasi</div>
+    <div id="toast" class="toast fixed bottom-28 left-4 right-4 bg-slate-800 text-white px-4 py-3 rounded-xl z-50 text-center font-medium text-sm">Notifikasi</div>
 
     <script>
         // ==================== DATA ====================
         const CATEGORIES = [
             { id: 'all', name: 'Semua' },
-            { id: 'snacks', name: 'Makanan Ringan' },
+            { id: 'snacks', name: 'Makanan' },
             { id: 'drinks', name: 'Minuman' },
             { id: 'dairy', name: 'Susu' },
-            { id: 'frozen', name: 'Frozen Food' },
-            { id: 'instant', name: 'Mie Instan' },
+            { id: 'frozen', name: 'Frozen' },
         ];
 
         const PRODUCTS = [
-            { id: 1, name: 'Chitato Original 68g', price: 12000, category: 'snacks', image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300&h=300&fit=crop', stock: 50 },
-            { id: 2, name: 'Lays BBQ 70g', price: 11000, category: 'snacks', image: 'https://images.unsplash.com/photo-1585232004423-244e01769049?w=300&h=300&fit=crop', stock: 45 },
-            { id: 3, name: 'Oreo Original 133g', price: 15000, category: 'snacks', image: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=300&h=300&fit=crop', stock: 30 },
-            { id: 4, name: 'Good Day Kopi 250ml', price: 5000, category: 'drinks', image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d92a?w=300&h=300&fit=crop', stock: 100 },
-            { id: 5, name: 'Teh Pucuk 350ml', price: 4000, category: 'drinks', image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&h=300&fit=crop', stock: 80 },
-            { id: 6, name: 'Aqua 600ml', price: 4000, category: 'drinks', image: 'https://images.unsplash.com/photo-1548839140-29a749e1f16a?w=300&h=300&fit=crop', stock: 120 },
-            { id: 7, name: 'Indomie Goreng', price: 3500, category: 'instant', image: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=300&h=300&fit=crop', stock: 200 },
-            { id: 8, name: 'Ultra Milk 1L', price: 18000, category: 'dairy', image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=300&fit=crop', stock: 40 },
-            { id: 9, name: 'Yogurt Strawberry', price: 8000, category: 'dairy', image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300&h=300&fit=crop', stock: 60 },
-            { id: 10, name: 'Nugget Ayam 500g', price: 45000, category: 'frozen', image: 'https://images.unsplash.com/photo-1606525437679-0374ed4ffb3b?w=300&h=300&fit=crop', stock: 25 },
-            { id: 11, name: 'Sosis Ayam 250g', price: 28000, category: 'frozen', image: 'https://images.unsplash.com/photo-1612283818218-bc7cb1edb2f6?w=300&h=300&fit=crop', stock: 35 },
-            { id: 12, name: 'Sunlight 800ml', price: 14000, category: 'snacks', image: 'https://images.unsplash.com/photo-1583947215259-38e4be8c7b99?w=300&h=300&fit=crop', stock: 55 },
+            { id: 1, name: 'Chitato 68g', price: 12000, category: 'snacks', image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=200&h=200&fit=crop' },
+            { id: 2, name: 'Lays BBQ 70g', price: 11000, category: 'snacks', image: 'https://images.unsplash.com/photo-1585232004423-244e01769049?w=200&h=200&fit=crop' },
+            { id: 3, name: 'Oreo 133g', price: 15000, category: 'snacks', image: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=200&h=200&fit=crop' },
+            { id: 4, name: 'Good Day 250ml', price: 5000, category: 'drinks', image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d92a?w=200&h=200&fit=crop' },
+            { id: 5, name: 'Teh Pucuk 350ml', price: 4000, category: 'drinks', image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=200&h=200&fit=crop' },
+            { id: 6, name: 'Aqua 600ml', price: 4000, category: 'drinks', image: 'https://images.unsplash.com/photo-1548839140-29a749e1f16a?w=200&h=200&fit=crop' },
+            { id: 7, name: 'Indomie Goreng', price: 3500, category: 'snacks', image: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=200&h=200&fit=crop' },
+            { id: 8, name: 'Ultra Milk 1L', price: 18000, category: 'dairy', image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=200&h=200&fit=crop' },
         ];
 
         const SHIPPING_METHODS = [
@@ -579,33 +432,25 @@
         ];
 
         const PAYMENT_METHODS = [
-            { id: 'cod', name: 'COD (Bayar di Tempat)', desc: 'Bayar saat pesanan tiba' },
-            { id: 'transfer', name: 'Transfer Bank', desc: 'BCA, Mandiri, BRI, BNI' },
-            { id: 'qris', name: 'QRIS', desc: 'Scan QR untuk bayar' },
+            { id: 'cod', name: 'COD', desc: 'Bayar di tempat' },
+            { id: 'transfer', name: 'Transfer Bank', desc: 'BCA, Mandiri, BRI' },
+            { id: 'qris', name: 'QRIS', desc: 'Scan QR' },
         ];
 
-        const VOUCHERS = [
-            { id: 1, code: 'HEMAT10K', discount: 10000, type: 'nominal', minPurchase: 50000 },
-            { id: 2, code: 'HEMAT5K', discount: 5000, type: 'nominal', minPurchase: 30000 },
-            { id: 3, code: 'GRATISONGKIR', discount: 0, type: 'shipping', minPurchase: 25000, freeShipping: true },
-            { id: 4, code: 'DISKON20K', discount: 20000, type: 'nominal', minPurchase: 100000 },
-        ];
-
-        // 🔥 NOMOR WA - SUDAH BENAR (format internasional tanpa 0)
+        // 🔥 NOMOR WA - FORMAT INTERNASIONAL
         const WHATSAPP_NUMBER = '6285189976233';
 
         // ==================== STATE ====================
-        const checkoutState = {
-            address: '',
-            shipping: '',
-            payment: '',
-            voucher: null
-        };
-
         let cart = [];
         let orders = [];
         let selectedCategory = 'all';
-        let currentOrder = null; // 🔥 PENTING: ini harus ada dan terisi
+        let currentOrder = null; // 🔥 PENTING: Ini harus ada
+
+        const checkoutState = {
+            address: '',
+            shipping: '',
+            payment: ''
+        };
 
         // ==================== INIT ====================
         function init() {
@@ -614,26 +459,22 @@
             renderProducts();
             updateCartBadge();
             updateNavActive('home');
-            setupEventListeners();
-        }
-
-        function setupEventListeners() {
-            const addressInput = document.getElementById('input-address');
-            if (addressInput) {
-                addressInput.addEventListener('input', function() {
+            
+            // Event listener untuk address
+            const addrInput = document.getElementById('input-address');
+            if (addrInput) {
+                addrInput.addEventListener('input', function() {
                     checkoutState.address = this.value.trim();
-                    validateCheckoutForm(false);
-                    renderCheckoutSummary();
+                    validateForm();
+                    updateSummary();
                 });
             }
         }
 
         function loadFromStorage() {
             try {
-                const savedCart = localStorage.getItem('minimart_cart');
-                const savedOrders = localStorage.getItem('minimart_orders');
-                cart = savedCart ? JSON.parse(savedCart) : [];
-                orders = savedOrders ? JSON.parse(savedOrders) : [];
+                cart = JSON.parse(localStorage.getItem('cart')) || [];
+                orders = JSON.parse(localStorage.getItem('orders')) || [];
             } catch (e) {
                 cart = [];
                 orders = [];
@@ -641,145 +482,73 @@
         }
 
         function saveToStorage() {
-            try {
-                localStorage.setItem('minimart_cart', JSON.stringify(cart));
-                localStorage.setItem('minimart_orders', JSON.stringify(orders));
-            } catch (e) {
-                console.error('Failed to save:', e);
-            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem('orders', JSON.stringify(orders));
         }
 
-        // ==================== RESET STATE ====================
-        function resetCheckoutState() {
-            checkoutState.address = '';
-            checkoutState.shipping = '';
-            checkoutState.payment = '';
-            checkoutState.voucher = null;
-            
-            const addressInput = document.getElementById('input-address');
-            const notesInput = document.getElementById('input-notes');
-            const voucherLabel = document.getElementById('selected-voucher-label');
-            
-            if (addressInput) addressInput.value = '';
-            if (notesInput) notesInput.value = '';
-            if (voucherLabel) voucherLabel.textContent = 'Pilih voucher (opsional)';
-        }
-
-        // ==================== VALIDATION ====================
-        function validateCheckoutForm(showError) {
-            const isAddressValid = checkoutState.address !== '';
-            const isShippingValid = checkoutState.shipping !== '';
-            const isPaymentValid = checkoutState.payment !== '';
-
-            const isValid = isAddressValid && isShippingValid && isPaymentValid;
+        // ==================== VALIDASI ====================
+        function validateForm() {
+            const hasAddress = checkoutState.address !== '';
+            const hasShipping = checkoutState.shipping !== '';
+            const hasPayment = checkoutState.payment !== '';
+            const isValid = hasAddress && hasShipping && hasPayment;
 
             const btn = document.getElementById('btn-order');
             const hint = document.getElementById('form-hint');
 
             if (btn) {
-                if (isValid) {
-                    btn.disabled = false;
-                    btn.classList.remove('btn-disabled');
-                    btn.classList.add('btn-enabled');
-                } else {
-                    btn.disabled = true;
-                    btn.classList.add('btn-disabled');
-                    btn.classList.remove('btn-enabled');
-                }
+                btn.disabled = !isValid;
+                btn.classList.toggle('btn-enabled', isValid);
+                btn.classList.toggle('btn-disabled', !isValid);
             }
 
             if (hint) {
                 const missing = [];
-                if (!isAddressValid) missing.push('alamat');
-                if (!isShippingValid) missing.push('pengiriman');
-                if (!isPaymentValid) missing.push('pembayaran');
-                
-                hint.textContent = isValid ? "Siap untuk pesan" : `Lengkapi: ${missing.join(', ')}`;
-            }
-
-            if (showError) {
-                const addrErr = document.getElementById('address-error');
-                const shipErr = document.getElementById('shipping-error');
-                const payErr = document.getElementById('payment-error');
-                const addressInput = document.getElementById('input-address');
-
-                if (addrErr) addrErr.classList.toggle('hidden', isAddressValid);
-                if (shipErr) shipErr.classList.toggle('hidden', isShippingValid);
-                if (payErr) payErr.classList.toggle('hidden', isPaymentValid);
-                if (addressInput) addressInput.classList.toggle('input-error', !isAddressValid);
+                if (!hasAddress) missing.push('alamat');
+                if (!hasShipping) missing.push('pengiriman');
+                if (!hasPayment) missing.push('pembayaran');
+                hint.textContent = isValid ? 'Siap pesan' : `Lengkapi: ${missing.join(', ')}`;
             }
 
             return isValid;
         }
 
-        // ==================== RENDER FUNCTIONS ====================
+        // ==================== RENDER ====================
         function renderCategories() {
-            const container = document.getElementById('categories-container');
-            if (!container) return;
-            
-            container.innerHTML = CATEGORIES.map(cat => `
-                <button onclick="selectCategory('${cat.id}')" 
-                    class="flex-shrink-0 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
-                        selectedCategory === cat.id 
-                            ? 'bg-blue-600 text-white shadow-md' 
-                            : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-300'
-                    }">
-                    ${cat.name}
-                </button>
+            const el = document.getElementById('categories-container');
+            if (!el) return;
+            el.innerHTML = CATEGORIES.map(c => `
+                <button onclick="selectCategory('${c.id}')" class="flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap ${selectedCategory === c.id ? 'bg-blue-600 text-white' : 'bg-white text-slate-600 border border-slate-200'}">${c.name}</button>
             `).join('');
         }
 
-        function renderProducts(filter) {
-            const actualFilter = filter !== undefined ? filter : selectedCategory;
-            const container = document.getElementById('products-grid');
+        function renderProducts() {
+            const el = document.getElementById('products-grid');
             const countEl = document.getElementById('product-count');
-            
-            if (!container) return;
-            
-            let filtered = PRODUCTS;
-            if (actualFilter !== 'all') {
-                filtered = PRODUCTS.filter(p => p.category === actualFilter);
-            }
+            if (!el) return;
 
+            let filtered = selectedCategory === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === selectedCategory);
             if (countEl) countEl.textContent = `${filtered.length} produk`;
 
-            if (filtered.length === 0) {
-                container.innerHTML = `<div class="col-span-2 text-center py-12"><p class="text-slate-400">Tidak ada produk ditemukan</p></div>`;
-                return;
-            }
-
-            container.innerHTML = filtered.map(product => {
-                const inCart = cart.find(c => c.id === product.id);
+            el.innerHTML = filtered.map(p => {
+                const inCart = cart.find(c => c.id === p.id);
                 const qty = inCart ? inCart.qty : 0;
-
                 return `
                     <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
-                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
-                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=Product'">
+                        <div class="aspect-square bg-slate-100 overflow-hidden">
+                            <img src="${p.image}" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://via.placeholder.com/200'">
                         </div>
                         <div class="p-3">
-                            <h3 class="font-medium text-sm text-slate-800 line-clamp-2 min-h-[40px] leading-tight">${product.name}</h3>
-                            <p class="text-blue-600 font-bold mt-1">${formatPrice(product.price)}</p>
+                            <h3 class="font-medium text-sm line-clamp-2">${p.name}</h3>
+                            <p class="text-blue-600 font-bold mt-1">${formatPrice(p.price)}</p>
                             <div class="mt-2">
                                 ${qty > 0 ? `
-                                    <div class="flex items-center justify-between bg-blue-50 rounded-xl p-1">
-                                        <button onclick="updateCart(${product.id}, -1)" class="qty-btn w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-slate-100">
-                                            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/>
-                                            </svg>
-                                        </button>
-                                        <span class="font-bold text-blue-600 text-lg">${qty}</span>
-                                        <button onclick="updateCart(${product.id}, 1)" class="qty-btn w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center">
-                                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                                            </svg>
-                                        </button>
+                                    <div class="flex items-center justify-between bg-blue-50 rounded-lg p-1">
+                                        <button onclick="updateCart(${p.id}, -1)" class="w-8 h-8 rounded-lg bg-white flex items-center justify-center border">-</button>
+                                        <span class="font-bold">${qty}</span>
+                                        <button onclick="updateCart(${p.id}, 1)" class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center">+</button>
                                     </div>
-                                ` : `
-                                    <button onclick="updateCart(${product.id}, 1)" class="w-full py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm btn-press">
-                                        + Tambah
-                                    </button>
-                                `}
+                                ` : `<button onclick="updateCart(${p.id}, 1)" class="w-full py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold">+ Tambah</button>`}
                             </div>
                         </div>
                     </div>
@@ -789,401 +558,179 @@
 
         function renderCart() {
             const container = document.getElementById('cart-items');
-            const emptyEl = document.getElementById('cart-empty');
-            const footerEl = document.getElementById('cart-footer');
-            const itemCount = document.getElementById('cart-item-count');
-
-            if (!container) return;
+            const empty = document.getElementById('cart-empty');
+            const footer = document.getElementById('cart-footer');
+            const count = document.getElementById('cart-item-count');
 
             if (cart.length === 0) {
                 container.classList.add('hidden');
-                if (emptyEl) emptyEl.classList.remove('hidden');
-                if (footerEl) footerEl.classList.add('hidden');
-                if (itemCount) itemCount.textContent = '0 item';
+                empty.classList.remove('hidden');
+                footer.classList.add('hidden');
                 return;
             }
 
-            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-            if (itemCount) itemCount.textContent = `${totalItems} item`;
-
             container.classList.remove('hidden');
-            if (emptyEl) emptyEl.classList.add('hidden');
-            if (footerEl) footerEl.classList.remove('hidden');
+            empty.classList.add('hidden');
+            footer.classList.remove('hidden');
+            if (count) count.textContent = `${cart.reduce((s, i) => s + i.qty, 0)} item`;
 
-            container.innerHTML = cart.map(item => `
-                <div class="flex gap-3 bg-slate-50 rounded-xl p-3 border border-slate-100">
-                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover bg-white" onerror="this.src='https://via.placeholder.com/100?text=Item'">
-                    <div class="flex-1 min-w-0">
-                        <h4 class="font-medium text-sm text-slate-800 line-clamp-2">${item.name}</h4>
-                        <p class="text-blue-600 font-bold text-sm mt-1">${formatPrice(item.price)}</p>
-                        <div class="flex items-center gap-2 mt-2">
-                            <button onclick="updateCart(${item.id}, -1)" class="qty-btn w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center">
-                                <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/>
-                                </svg>
-                            </button>
-                            <span class="font-semibold text-sm w-6 text-center text-slate-800">${item.qty}</span>
-                            <button onclick="updateCart(${item.id}, 1)" class="qty-btn w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                                </svg>
-                            </button>
+            container.innerHTML = cart.map(i => `
+                <div class="flex gap-3 bg-slate-50 rounded-xl p-3">
+                    <img src="${i.image}" class="w-14 h-14 rounded-lg object-cover bg-white">
+                    <div class="flex-1">
+                        <p class="font-medium text-sm">${i.name}</p>
+                        <p class="text-blue-600 font-bold text-sm">${formatPrice(i.price)}</p>
+                        <div class="flex items-center gap-2 mt-1">
+                            <button onclick="updateCart(${i.id}, -1)" class="w-7 h-7 rounded bg-white border flex items-center justify-center">-</button>
+                            <span class="text-sm w-5 text-center">${i.qty}</span>
+                            <button onclick="updateCart(${i.id}, 1)" class="w-7 h-7 rounded bg-blue-600 text-white flex items-center justify-center">+</button>
                         </div>
                     </div>
-                    <button onclick="removeFromCart(${item.id})" class="text-red-400 self-start p-1 btn-press">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                        </svg>
+                    <button onclick="removeFromCart(${i.id})" class="text-red-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                     </button>
                 </div>
             `).join('');
 
-            const totalEl = document.getElementById('cart-total');
-            if (totalEl) totalEl.textContent = formatPrice(getCartTotal());
+            document.getElementById('cart-total').textContent = formatPrice(getTotal());
         }
 
-        function renderShippingOptions() {
-            const container = document.getElementById('shipping-options');
-            if (!container) return;
-            
-            container.innerHTML = SHIPPING_METHODS.map(method => `
-                <div onclick="selectShipping('${method.id}')" 
-                    class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${
-                        checkoutState.shipping === method.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'
-                    }">
-                    <div class="w-11 h-11 rounded-xl flex items-center justify-center ${
-                        checkoutState.shipping === method.id ? 'bg-blue-500' : 'bg-slate-100'
-                    }">
-                        <svg class="w-5 h-5 ${checkoutState.shipping === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
+        function renderShipping() {
+            const el = document.getElementById('shipping-options');
+            if (!el) return;
+            el.innerHTML = SHIPPING_METHODS.map(s => `
+                <div onclick="selectShipping('${s.id}')" class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${checkoutState.shipping === s.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200'}">
                     <div class="flex-1">
-                        <p class="font-medium text-sm text-slate-800">${method.name}</p>
-                        <p class="text-xs text-slate-500">${method.estimate}</p>
+                        <p class="font-medium text-sm">${s.name}</p>
+                        <p class="text-xs text-slate-500">${s.estimate}</p>
                     </div>
-                    <span class="font-semibold text-sm ${method.price === 0 ? 'text-green-600' : 'text-slate-700'}">${method.price === 0 ? 'Gratis' : formatPrice(method.price)}</span>
+                    <span class="font-semibold text-sm ${s.price === 0 ? 'text-green-600' : ''}">${s.price === 0 ? 'Gratis' : formatPrice(s.price)}</span>
                 </div>
             `).join('');
         }
 
-        function renderPaymentOptions() {
-            const container = document.getElementById('payment-options');
-            if (!container) return;
-            
-            container.innerHTML = PAYMENT_METHODS.map(method => `
-                <div onclick="selectPayment('${method.id}')" 
-                    class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${
-                        checkoutState.payment === method.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'
-                    }">
-                    <div class="w-11 h-11 rounded-xl flex items-center justify-center ${
-                        checkoutState.payment === method.id ? 'bg-blue-500' : 'bg-slate-100'
-                    }">
-                        <svg class="w-5 h-5 ${checkoutState.payment === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                    </div>
+        function renderPayment() {
+            const el = document.getElementById('payment-options');
+            if (!el) return;
+            el.innerHTML = PAYMENT_METHODS.map(p => `
+                <div onclick="selectPayment('${p.id}')" class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${checkoutState.payment === p.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200'}">
                     <div>
-                        <p class="font-medium text-sm text-slate-800">${method.name}</p>
-                        <p class="text-xs text-slate-500">${method.desc}</p>
+                        <p class="font-medium text-sm">${p.name}</p>
+                        <p class="text-xs text-slate-500">${p.desc}</p>
                     </div>
                 </div>
             `).join('');
         }
 
-        function renderVouchers() {
-            const container = document.getElementById('voucher-list');
-            if (!container) return;
-            
-            const subtotal = getCartTotal();
+        function updateSummary() {
+            const subtotal = getTotal();
+            const ship = SHIPPING_METHODS.find(s => s.id === checkoutState.shipping);
+            const ongkir = ship ? ship.price : 0;
+            const total = subtotal + ongkir;
 
-            container.innerHTML = VOUCHERS.map(voucher => {
-                const isValid = subtotal >= voucher.minPurchase;
-                const isSelected = checkoutState.voucher && checkoutState.voucher.id === voucher.id;
+            document.getElementById('checkout-items').innerHTML = cart.map(i => `
+                <div class="flex justify-between text-sm">
+                    <span class="truncate flex-1">${i.name}</span>
+                    <span class="ml-2">x${i.qty}</span>
+                    <span class="ml-2">${formatPrice(i.price * i.qty)}</span>
+                </div>
+            `).join('');
 
-                return `
-                    <div onclick="${isValid ? `selectVoucher(${voucher.id})` : ''}" 
-                        class="border-2 rounded-xl p-4 transition-all ${
-                            isSelected ? 'border-blue-500 bg-blue-50' : 
-                            isValid ? 'border-slate-200 bg-white cursor-pointer hover:border-blue-300' : 'border-slate-100 bg-slate-50 opacity-60'
-                        }">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="font-bold text-blue-600">${voucher.code}</span>
-                            ${isSelected ? '<span class="text-xs bg-blue-600 text-white px-2 py-1 rounded-full">Dipilih</span>' : ''}
-                        </div>
-                        <p class="font-semibold text-sm text-slate-800">
-                            ${voucher.type === 'shipping' ? 'Gratis Ongkir' : `Diskon ${formatPrice(voucher.discount)}`}
-                        </p>
-                        <p class="text-xs text-slate-500 mt-1">Min. belanja ${formatPrice(voucher.minPurchase)}</p>
-                        ${!isValid ? '<p class="text-xs text-red-500 mt-2 font-medium">Belum memenuhi minimum pembelian</p>' : ''}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function renderCheckoutSummary() {
-            const subtotal = getCartTotal();
-            const shipping = checkoutState.shipping ? SHIPPING_METHODS.find(s => s.id === checkoutState.shipping) : null;
-            const shippingPrice = shipping ? shipping.price : 0;
-            
-            let discount = 0;
-            let finalShipping = shippingPrice;
-            
-            if (checkoutState.voucher) {
-                if (checkoutState.voucher.type === 'shipping') {
-                    finalShipping = 0;
-                } else {
-                    discount = checkoutState.voucher.discount;
-                }
-            }
-
-            const total = Math.max(0, subtotal + finalShipping - discount);
-
-            const itemsEl = document.getElementById('checkout-items');
-            if (itemsEl) {
-                itemsEl.innerHTML = cart.map(item => `
-                    <div class="flex justify-between text-sm">
-                        <span class="text-slate-600 truncate flex-1">${item.name}</span>
-                        <span class="ml-2 whitespace-nowrap text-slate-500">x${item.qty}</span>
-                        <span class="ml-3 whitespace-nowrap font-medium text-slate-800">${formatPrice(item.price * item.qty)}</span>
-                    </div>
-                `).join('');
-            }
-
-            const subtotalEl = document.getElementById('summary-subtotal');
-            const shippingEl = document.getElementById('summary-shipping');
-            const discountRow = document.getElementById('discount-row');
-            const discountEl = document.getElementById('summary-discount');
-            const totalEl = document.getElementById('summary-total');
-
-            if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
-            if (shippingEl) shippingEl.textContent = finalShipping === 0 && shipping ? 'Gratis' : formatPrice(finalShipping);
-            
-            if (discountRow && discountEl) {
-                if (discount > 0) {
-                    discountRow.classList.remove('hidden');
-                    discountEl.textContent = `- ${formatPrice(discount)}`;
-                } else {
-                    discountRow.classList.add('hidden');
-                }
-            }
-            
-            if (totalEl) totalEl.textContent = formatPrice(total);
+            document.getElementById('summary-subtotal').textContent = formatPrice(subtotal);
+            document.getElementById('summary-shipping').textContent = ongkir === 0 && ship ? 'Gratis' : formatPrice(ongkir);
+            document.getElementById('summary-total').textContent = formatPrice(total);
         }
 
         function renderInvoice() {
             if (!currentOrder) return;
-
-            const order = currentOrder;
-            const container = document.getElementById('invoice-content');
-            if (!container) return;
-
-            container.innerHTML = `
+            const o = currentOrder;
+            document.getElementById('invoice-content').innerHTML = `
                 <div class="bg-gradient-to-r from-blue-600 to-blue-500 p-6 text-white text-center">
-                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                        </svg>
+                    <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                     </div>
                     <h2 class="text-xl font-bold">Pesanan Berhasil</h2>
-                    <p class="text-sm opacity-90 mt-1">ID: #${order.id}</p>
+                    <p class="text-sm opacity-90">#${o.id}</p>
                 </div>
-
-                <div class="p-4 border-b border-slate-100">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-slate-500">Status</span>
-                        <span class="status-${order.status} text-sm font-medium px-3 py-1 rounded-full">
-                            ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                        </span>
-                    </div>
+                <div class="p-4 border-b">
+                    <p class="text-sm text-slate-500">Status</p>
+                    <span class="status-${o.status} text-sm font-medium px-3 py-1 rounded-full mt-1 inline-block">${o.status}</span>
                 </div>
-
-                <div class="p-4 border-b border-slate-100">
-                    <h3 class="font-semibold text-slate-800 mb-3">Detail Pesanan</h3>
-                    <div class="space-y-3">
-                        ${order.items.map(item => `
-                            <div class="flex items-center gap-3">
-                                <img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-lg object-cover bg-slate-100" onerror="this.src='https://via.placeholder.com/100?text=Item'">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-slate-800 truncate">${item.name}</p>
-                                    <p class="text-xs text-slate-500">${item.qty}x ${formatPrice(item.price)}</p>
-                                </div>
-                                <span class="text-sm font-semibold text-slate-800">${formatPrice(item.price * item.qty)}</span>
-                            </div>
-                        `).join('')}
-                    </div>
+                <div class="p-4 border-b">
+                    <p class="font-semibold mb-2">Pesanan</p>
+                    ${o.items.map(i => `<p class="text-sm">${i.name} x${i.qty} = ${formatPrice(i.price * i.qty)}</p>`).join('')}
                 </div>
-
-                <div class="p-4 border-b border-slate-100 space-y-2 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Subtotal</span>
-                        <span class="text-slate-700">${formatPrice(order.subtotal)}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Pengiriman (${order.shipping.name})</span>
-                        <span class="${order.shippingPrice === 0 ? 'text-green-600 font-medium' : 'text-slate-700'}">${order.shippingPrice === 0 ? 'Gratis' : formatPrice(order.shippingPrice)}</span>
-                    </div>
-                    <div class="flex justify-between pt-2 border-t border-slate-100 text-base font-bold">
-                        <span class="text-slate-800">Total Bayar</span>
-                        <span class="text-blue-600">${formatPrice(order.total)}</span>
-                    </div>
+                <div class="p-4 border-b">
+                    <p class="font-semibold mb-1">Alamat</p>
+                    <p class="text-sm text-slate-600">${o.address}</p>
                 </div>
-
-                <div class="p-4 border-b border-slate-100">
-                    <h3 class="font-semibold text-slate-800 mb-2">Alamat Pengiriman</h3>
-                    <p class="text-sm text-slate-600">${order.address}</p>
+                <div class="p-4 border-b">
+                    <p class="font-semibold mb-1">Pengiriman</p>
+                    <p class="text-sm text-slate-600">${o.shipping.name}</p>
                 </div>
-
                 <div class="p-4">
-                    <h3 class="font-semibold text-slate-800 mb-2">Pembayaran</h3>
-                    <p class="text-sm text-slate-600">${order.payment.name}</p>
+                    <p class="font-bold text-lg">Total: <span class="text-blue-600">${formatPrice(o.total)}</span></p>
                 </div>
             `;
         }
 
         function renderOrders() {
-            const container = document.getElementById('orders-list');
-            const emptyEl = document.getElementById('empty-history');
-
-            if (!container) return;
-
+            const list = document.getElementById('orders-list');
+            const empty = document.getElementById('empty-history');
             if (orders.length === 0) {
-                container.classList.add('hidden');
-                if (emptyEl) emptyEl.classList.remove('hidden');
+                list.classList.add('hidden');
+                empty.classList.remove('hidden');
                 return;
             }
-
-            container.classList.remove('hidden');
-            if (emptyEl) emptyEl.classList.add('hidden');
-
-            container.innerHTML = orders.slice().reverse().map(order => `
-                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="text-sm text-slate-500">#${order.id}</span>
-                        <span class="status-${order.status} text-xs font-medium px-3 py-1 rounded-full">
-                            ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                        </span>
+            list.classList.remove('hidden');
+            empty.classList.add('hidden');
+            list.innerHTML = orders.slice().reverse().map(o => `
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm text-slate-500">#${o.id}</span>
+                        <span class="status-${o.status} text-xs px-2 py-1 rounded-full">${o.status}</span>
                     </div>
-                    <div class="space-y-2 mb-3">
-                        ${order.items.slice(0, 2).map(item => `
-                            <div class="flex items-center gap-3">
-                                <img src="${item.image}" alt="${item.name}" class="w-10 h-10 rounded-lg object-cover bg-slate-100" onerror="this.src='https://via.placeholder.com/100?text=Item'">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-slate-800 truncate">${item.name}</p>
-                                    <p class="text-xs text-slate-500">${item.qty}x ${formatPrice(item.price)}</p>
-                                </div>
-                            </div>
-                        `).join('')}
-                        ${order.items.length > 2 ? `<p class="text-xs text-slate-400">+${order.items.length - 2} produk lainnya</p>` : ''}
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-slate-100">
-                        <span class="font-bold text-blue-600">${formatPrice(order.total)}</span>
-                        <button onclick="viewOrderDetail('${order.id}')" class="text-blue-600 text-sm font-semibold btn-press">Lihat Detail</button>
-                    </div>
+                    <p class="font-bold text-blue-600">${formatPrice(o.total)}</p>
+                    <button onclick="viewOrder('${o.id}')" class="text-blue-600 text-sm font-medium mt-2">Detail</button>
                 </div>
             `).join('');
         }
 
-        // ==================== CART FUNCTIONS ====================
-        function updateCart(productId, change) {
-            const product = PRODUCTS.find(p => p.id === productId);
-            if (!product) return;
-
-            const existing = cart.find(c => c.id === productId);
-
+        // ==================== CART ====================
+        function updateCart(id, change) {
+            const existing = cart.find(c => c.id === id);
             if (existing) {
                 existing.qty += change;
-                if (existing.qty <= 0) {
-                    cart = cart.filter(c => c.id !== productId);
-                }
+                if (existing.qty <= 0) cart = cart.filter(c => c.id !== id);
             } else if (change > 0) {
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    image: product.image,
-                    qty: 1
-                });
+                const p = PRODUCTS.find(p => p.id === id);
+                cart.push({ id: p.id, name: p.name, price: p.price, image: p.image, qty: 1 });
             }
-
             saveToStorage();
             updateCartBadge();
             renderProducts();
-            
-            const cartSheet = document.getElementById('cart-sheet');
-            if (cartSheet && cartSheet.classList.contains('active')) {
-                renderCart();
-            }
+            if (document.getElementById('cart-sheet').classList.contains('active')) renderCart();
         }
 
-        function removeFromCart(productId) {
-            cart = cart.filter(c => c.id !== productId);
+        function removeFromCart(id) {
+            cart = cart.filter(c => c.id !== id);
             saveToStorage();
             updateCartBadge();
             renderCart();
-            
-            if (cart.length === 0) {
-                closeCart();
-            }
+            if (cart.length === 0) closeCart();
         }
 
         function updateCartBadge() {
-            const total = cart.reduce((sum, item) => sum + item.qty, 0);
-            const badge = document.getElementById('cart-badge');
-            const btn = document.getElementById('floating-cart');
-
-            if (badge) badge.textContent = total;
-
-            if (btn) {
-                if (total > 0) {
-                    btn.classList.remove('hidden');
-                } else {
-                    btn.classList.add('hidden');
-                }
-            }
+            const total = cart.reduce((s, i) => s + i.qty, 0);
+            document.getElementById('cart-badge').textContent = total;
+            document.getElementById('floating-cart').classList.toggle('hidden', total === 0);
         }
 
-        function getCartTotal() {
-            return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-        }
+        function getTotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
 
-        // ==================== SELECTION FUNCTIONS ====================
-        function selectCategory(categoryId) {
-            selectedCategory = categoryId;
-            renderCategories();
-            renderProducts(categoryId);
-        }
-
-        function selectShipping(id) {
-            checkoutState.shipping = id;
-            renderShippingOptions();
-            renderCheckoutSummary();
-            validateCheckoutForm(false);
-        }
-
-        function selectPayment(id) {
-            checkoutState.payment = id;
-            renderPaymentOptions();
-            validateCheckoutForm(false);
-        }
-
-        function selectVoucher(voucherId) {
-            const voucher = VOUCHERS.find(v => v.id === voucherId);
-            checkoutState.voucher = voucher;
-            const voucherLabel = document.getElementById('selected-voucher-label');
-            if (voucherLabel && voucher) {
-                voucherLabel.textContent = `${voucher.code} - ${voucher.type === 'shipping' ? 'Gratis Ongkir' : 'Diskon ' + formatPrice(voucher.discount)}`;
-            }
-            closeVoucherModal();
-            renderCheckoutSummary();
-        }
-
-        // ==================== MODAL FUNCTIONS ====================
+        // ==================== MODALS ====================
         function openCart() {
-            if (cart.length === 0) {
-                showToast('Keranjang masih kosong');
-                return;
-            }
+            if (cart.length === 0) { showToast('Keranjang kosong'); return; }
             renderCart();
             document.getElementById('cart-sheet').classList.add('active');
             document.getElementById('overlay').classList.add('active');
@@ -1196,85 +743,68 @@
             document.body.style.overflow = '';
         }
 
-        function closeOverlay() {
-            closeCart();
-        }
+        function closeOverlay() { closeCart(); }
 
         function proceedToCheckout() {
-            // Proteksi cart kosong
-            if (cart.length === 0) {
-                showToast("Keranjang kosong!");
-                return;
-            }
-
-            // Close cart
-            document.getElementById('cart-sheet').classList.remove('active');
-            document.getElementById('overlay').classList.remove('active');
-
-            // RESET STATE (WAJIB)
-            resetCheckoutState();
-
-            // Render ulang
-            renderShippingOptions();
-            renderPaymentOptions();
-            renderCheckoutSummary();
-
-            // Buka checkout page
+            if (cart.length === 0) { showToast('Keranjang kosong'); return; }
+            closeCart();
+            checkoutState.address = '';
+            checkoutState.shipping = '';
+            checkoutState.payment = '';
+            document.getElementById('input-address').value = '';
+            document.getElementById('input-notes').value = '';
+            renderShipping();
+            renderPayment();
+            updateSummary();
+            validateForm();
             document.getElementById('checkout-page').classList.remove('hidden');
-
-            // Validasi setelah halaman dibuka
-            setTimeout(() => validateCheckoutForm(false), 50);
         }
 
         function closeCheckout() {
             document.getElementById('checkout-page').classList.add('hidden');
-            document.body.style.overflow = '';
-        }
-
-        function openVoucherModal() {
-            renderVouchers();
-            document.getElementById('voucher-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeVoucherModal() {
-            document.getElementById('voucher-modal').classList.add('hidden');
-            document.body.style.overflow = '';
-        }
-
-        function openSearch() {
-            document.getElementById('search-modal').classList.remove('hidden');
-            document.getElementById('search-input').focus();
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeSearch() {
-            document.getElementById('search-modal').classList.add('hidden');
-            document.getElementById('search-input').value = '';
-            document.body.style.overflow = '';
-        }
-
-        function closeInvoice() {
-            document.getElementById('invoice-page').classList.add('hidden');
-            document.body.style.overflow = '';
-            switchPage('history');
         }
 
         function closeConfirmModal() {
             document.getElementById('confirm-modal').classList.add('hidden');
         }
 
-        // ==================== CONFIRM ORDER ====================
-        function confirmOrder() {
-            if (!validateCheckoutForm(true)) {
-                showToast("Lengkapi semua data dulu!");
-                return;
-            }
+        function closeInvoice() {
+            document.getElementById('invoice-page').classList.add('hidden');
+            switchPage('history');
+        }
 
+        function openSearch() {
+            document.getElementById('search-modal').classList.remove('hidden');
+            document.getElementById('search-input').focus();
+        }
+
+        function closeSearch() {
+            document.getElementById('search-modal').classList.add('hidden');
+        }
+
+        // ==================== SELECTION ====================
+        function selectCategory(id) { selectedCategory = id; renderCategories(); renderProducts(); }
+
+        function selectShipping(id) {
+            checkoutState.shipping = id;
+            renderShipping();
+            updateSummary();
+            validateForm();
+        }
+
+        function selectPayment(id) {
+            checkoutState.payment = id;
+            renderPayment();
+            validateForm();
+        }
+
+        // ==================== CHECKOUT FLOW ====================
+        function confirmOrder() {
+            if (!validateForm()) { showToast('Lengkapi data'); return; }
             document.getElementById('confirm-modal').classList.remove('hidden');
         }
 
-        // ==================== SUBMIT ORDER ====================
+        // 🔥 SUBMIT ORDER - PENTING: currentOrder HARUS DISINI
         function submitOrder() {
             document.getElementById('confirm-modal').classList.add('hidden');
             document.getElementById('loading-overlay').classList.remove('hidden');
@@ -1283,220 +813,127 @@
                 const shipping = SHIPPING_METHODS.find(s => s.id === checkoutState.shipping);
                 const payment = PAYMENT_METHODS.find(p => p.id === checkoutState.payment);
 
-                // Proteksi null
                 if (!shipping || !payment) {
                     document.getElementById('loading-overlay').classList.add('hidden');
-                    showToast("Data belum lengkap");
+                    showToast('Data belum lengkap');
                     return;
                 }
 
-                const subtotal = getCartTotal();
-                const shippingPrice = shipping.price;
+                const subtotal = getTotal();
+                const total = subtotal + shipping.price;
 
-                let discount = 0;
-                let finalShipping = shippingPrice;
-
-                if (checkoutState.voucher) {
-                    if (checkoutState.voucher.type === 'shipping') {
-                        finalShipping = 0;
-                    } else {
-                        discount = checkoutState.voucher.discount;
-                    }
-                }
-
-                const total = Math.max(0, subtotal + finalShipping - discount);
-
-                const addressInput = document.getElementById('input-address');
-                const notesInput = document.getElementById('input-notes');
-
-                // 🔥 currentOrder HARUS KEISI
+                // 🔥 currentOrder WAJIB DISINI
                 currentOrder = {
                     id: Date.now(),
                     items: [...cart],
-                    address: checkoutState.address || (addressInput ? addressInput.value : ''),
+                    address: checkoutState.address,
                     shipping: shipping,
                     payment: payment,
                     subtotal: subtotal,
-                    shippingPrice: finalShipping,
-                    discount: discount,
                     total: total,
-                    notes: notesInput ? notesInput.value : '',
                     status: 'diproses'
                 };
 
-                // 🔥 Debug log (hapus di production)
-                console.log('Order created:', currentOrder);
+                console.log('Order created:', currentOrder); // Debug
 
                 orders.push(currentOrder);
                 cart = [];
-
                 saveToStorage();
                 updateCartBadge();
 
                 document.getElementById('loading-overlay').classList.add('hidden');
-
                 renderInvoice();
                 document.getElementById('invoice-page').classList.remove('hidden');
-
             }, 800);
         }
 
-        // ==================== SEND TO WHATSAPP (FIX FINAL) ====================
+        // 🔥 SEND TO WHATSAPP - PALING PENTING
         function sendToWhatsApp() {
-            // 🔥 Proteksi kalau currentOrder kosong
             if (!currentOrder) {
-                showToast("Order tidak ditemukan");
-                console.error('currentOrder is null!');
+                showToast('Order tidak ditemukan');
+                console.error('currentOrder is NULL!');
                 return;
             }
 
-            const order = currentOrder;
+            const o = currentOrder;
 
-            // Build message
-            let text = `🛒 *PESANAN BARU*\n\n`;
-            text += `📌 ID: #${order.id}\n\n`;
-
-            text += `📍 *Alamat Pengiriman:*\n${order.address}\n\n`;
-
-            text += `📦 *Detail Pesanan:*\n`;
-            order.items.forEach(item => {
-                text += `• ${item.name} x${item.qty} = ${formatPrice(item.price * item.qty)}\n`;
+            let text = `PESANAN BARU\n\n`;
+            text += `ID: #${o.id}\n\n`;
+            text += `ALAMAT:\n${o.address}\n\n`;
+            text += `PESANAN:\n`;
+            o.items.forEach(i => {
+                text += `- ${i.name} x${i.qty} = ${formatPrice(i.price * i.qty)}\n`;
             });
+            text += `\nPengiriman: ${o.shipping.name}`;
+            text += `\nPembayaran: ${o.payment.name}`;
+            text += `\n\nTOTAL: ${formatPrice(o.total)}`;
+            text += `\n\nMohon diproses ya`;
 
-            text += `\n🚚 *Pengiriman:* ${order.shipping.name}`;
-            text += `\n💳 *Pembayaran:* ${order.payment.name}`;
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 
-            text += `\n\n💰 *Total Bayar:* ${formatPrice(order.total)}\n`;
-
-            text += `\n🙏 Mohon diproses ya kak, terima kasih 🙌`;
-
-            // 🔥 WAJIB encode
-            const encodedText = encodeURIComponent(text);
-
-            // 🔥 Langsung pakai nomor (format internasional tanpa 0)
-            const url = `https://wa.me/6285189976233?text=${encodedText}`;
-
-            // 🔥 FIX supaya gak diblok browser HP
-            // Gunakan window.location.href bukan window.open
+            // 🔥 PAKAI window.location.href (lebih reliable)
             window.location.href = url;
         }
 
-        // ==================== ORDER HISTORY ====================
-        function viewOrderDetail(orderId) {
-            const order = orders.find(o => o.id == orderId);
-            if (!order) {
-                showToast('Pesanan tidak ditemukan');
-                return;
-            }
-
-            currentOrder = order;
+        // ==================== HISTORY ====================
+        function viewOrder(id) {
+            const o = orders.find(x => x.id == id);
+            if (!o) return;
+            currentOrder = o;
             renderInvoice();
             document.getElementById('invoice-page').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
         }
 
         // ==================== SEARCH ====================
-        function handleSearch(query) {
-            const container = document.getElementById('search-results');
-            if (!container) return;
-            
-            const q = query.toLowerCase().trim();
-
-            if (!q) {
-                container.innerHTML = `<div class="col-span-2 text-center py-12"><p class="text-slate-400">Ketik untuk mencari produk</p></div>`;
-                return;
-            }
-
-            const results = PRODUCTS.filter(p => p.name.toLowerCase().includes(q));
-
-            if (results.length === 0) {
-                container.innerHTML = `<div class="col-span-2 text-center py-12"><p class="text-slate-400">Produk tidak ditemukan</p></div>`;
-                return;
-            }
-
-            container.innerHTML = results.map(product => {
-                const inCart = cart.find(c => c.id === product.id);
+        function handleSearch(q) {
+            const el = document.getElementById('search-results');
+            if (!q.trim()) { el.innerHTML = ''; return; }
+            const results = PRODUCTS.filter(p => p.name.toLowerCase().includes(q.toLowerCase()));
+            el.innerHTML = results.map(p => {
+                const inCart = cart.find(c => c.id === p.id);
                 const qty = inCart ? inCart.qty : 0;
-
                 return `
-                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
-                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
-                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy">
-                        </div>
-                        <div class="p-3">
-                            <h3 class="font-medium text-sm text-slate-800 line-clamp-2">${product.name}</h3>
-                            <p class="text-blue-600 font-bold mt-1">${formatPrice(product.price)}</p>
-                            <div class="mt-2">
-                                ${qty > 0 ? `
-                                    <div class="flex items-center justify-between bg-blue-50 rounded-xl p-1">
-                                        <button onclick="updateCart(${product.id}, -1)" class="qty-btn w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-slate-100">
-                                            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/>
-                                            </svg>
-                                        </button>
-                                        <span class="font-bold text-blue-600 text-lg">${qty}</span>
-                                        <button onclick="updateCart(${product.id}, 1)" class="qty-btn w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center">
-                                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                ` : `
-                                    <button onclick="updateCart(${product.id}, 1)" class="w-full py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm btn-press">
-                                        + Tambah
-                                    </button>
-                                `}
-                            </div>
-                        </div>
+                    <div class="bg-white rounded-xl p-3 shadow-sm">
+                        <img src="${p.image}" class="w-full aspect-square rounded-lg object-cover mb-2">
+                        <p class="font-medium text-sm">${p.name}</p>
+                        <p class="text-blue-600 font-bold">${formatPrice(p.price)}</p>
+                        <button onclick="updateCart(${p.id}, 1)" class="w-full py-2 mt-2 bg-blue-600 text-white rounded-lg text-sm">${qty > 0 ? `+${qty}` : 'Tambah'}</button>
                     </div>
                 `;
-            }).join('');
+            }).join('') || '<p class="col-span-2 text-center text-slate-400">Tidak ditemukan</p>';
         }
 
-        // ==================== NAVIGATION ====================
-        function switchPage(pageName) {
+        // ==================== NAV ====================
+        function switchPage(name) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const targetPage = document.getElementById(`page-${pageName}`);
-            if (targetPage) targetPage.classList.add('active');
-            
-            updateNavActive(pageName);
-
-            if (pageName === 'history') {
-                renderOrders();
-            }
-
+            document.getElementById(`page-${name}`).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                b.classList.toggle('text-blue-600', b.dataset.page === name);
+                b.classList.toggle('text-slate-400', b.dataset.page !== name);
+            });
+            if (name === 'history') renderOrders();
             window.scrollTo(0, 0);
         }
 
-        function updateNavActive(pageName) {
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                const isActive = btn.dataset.page === pageName;
-                btn.classList.toggle('text-blue-600', isActive);
-                btn.classList.toggle('text-slate-400', !isActive);
+        function updateNavActive(name) {
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                b.classList.toggle('text-blue-600', b.dataset.page === name);
+                b.classList.toggle('text-slate-400', b.dataset.page !== name);
             });
         }
 
-        // ==================== UTILITY ====================
-        function formatPrice(price) {
-            const numPrice = Number(price) || 0;
-            return 'Rp ' + numPrice.toLocaleString('id-ID');
+        // ==================== UTILS ====================
+        function formatPrice(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
         }
 
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            if (toast) {
-                toast.textContent = message;
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 3000);
-            }
-        }
-
-        // ==================== INIT ====================
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
+        // ==================== RUN ====================
+        init();
     </script>
 </body>
 </html>
