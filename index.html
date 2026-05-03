@@ -7,13 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['DM Sans', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
                     }
                 }
             }
@@ -21,17 +21,18 @@
     </script>
     <style>
         :root {
-            --primary: #e85d04;
-            --primary-dark: #dc2f02;
-            --primary-light: #f48c06;
-            --bg: #fef7f0;
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #3b82f6;
+            --bg: #f8fafc;
             --card: #ffffff;
-            --text: #2d2d2d;
-            --text-muted: #7a7a7a;
-            --border: #f0e6dc;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
+            --error-bg: #fef2f2;
         }
 
         * {
@@ -44,7 +45,7 @@
         }
 
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
@@ -54,7 +55,7 @@
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 
         /* Hide scrollbar */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -82,17 +83,18 @@
         .btn-press {
             transition: transform 0.12s ease, box-shadow 0.12s ease;
         }
-        .btn-press:active { transform: scale(0.95); }
+        .btn-press:active:not(:disabled) { transform: scale(0.97); }
+        .btn-press:disabled { opacity: 0.5; cursor: not-allowed; }
 
         /* Card */
         .product-card {
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .product-card:active { transform: scale(0.97); }
+        .product-card:active { transform: scale(0.98); }
 
         /* Animations */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
@@ -101,40 +103,47 @@
             to { transform: translateX(0); }
         }
         
-        @keyframes slideOutRight {
-            from { transform: translateX(0); }
-            to { transform: translateX(100%); }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
         
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
         }
         
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .fade-in-up { animation: fadeInUp 0.4s ease forwards; }
         .slide-in { animation: slideInRight 0.35s ease forwards; }
-        .slide-out { animation: slideOutRight 0.35s ease forwards; }
         .scale-in { animation: scaleIn 0.3s ease forwards; }
+        .shake { animation: shake 0.4s ease; }
         .pulse { animation: pulse 0.3s ease; }
+        .spin { animation: spin 1s linear infinite; }
 
         /* Stagger */
         .stagger > * {
             opacity: 0;
             animation: fadeInUp 0.4s ease forwards;
         }
-        .stagger > *:nth-child(1) { animation-delay: 0.05s; }
-        .stagger > *:nth-child(2) { animation-delay: 0.1s; }
-        .stagger > *:nth-child(3) { animation-delay: 0.15s; }
-        .stagger > *:nth-child(4) { animation-delay: 0.2s; }
-        .stagger > *:nth-child(5) { animation-delay: 0.25s; }
-        .stagger > *:nth-child(6) { animation-delay: 0.3s; }
-        .stagger > *:nth-child(7) { animation-delay: 0.35s; }
-        .stagger > *:nth-child(8) { animation-delay: 0.4s; }
+        .stagger > *:nth-child(1) { animation-delay: 0.03s; }
+        .stagger > *:nth-child(2) { animation-delay: 0.06s; }
+        .stagger > *:nth-child(3) { animation-delay: 0.09s; }
+        .stagger > *:nth-child(4) { animation-delay: 0.12s; }
+        .stagger > *:nth-child(5) { animation-delay: 0.15s; }
+        .stagger > *:nth-child(6) { animation-delay: 0.18s; }
+        .stagger > *:nth-child(7) { animation-delay: 0.21s; }
+        .stagger > *:nth-child(8) { animation-delay: 0.24s; }
 
         /* Page */
         .page { display: none; }
@@ -160,35 +169,43 @@
         input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.15);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Error state */
+        .input-error {
+            border-color: var(--danger) !important;
+            background-color: var(--error-bg) !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
         }
 
         /* Quantity buttons */
         .qty-btn {
             transition: all 0.15s ease;
         }
-        .qty-btn:active {
-            transform: scale(0.9);
-        }
+        .qty-btn:active { transform: scale(0.9); }
 
         /* Selection cards */
         .selection-card {
             transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .selection-card:hover {
+            border-color: #93c5fd;
         }
         .selection-card.selected {
             border-color: var(--primary);
-            background: rgba(232, 93, 4, 0.05);
+            background: rgba(37, 99, 235, 0.05);
         }
 
         /* Status colors */
-        .status-diproses { background: #fef3c7; color: #92400e; }
-        .status-dikirim { background: #dbeafe; color: #1e40af; }
-        .status-selesai { background: #d1fae5; color: #065f46; }
-        .status-dibatalkan { background: #fee2e2; color: #991b1b; }
+        .status-diproses { background: #dbeafe; color: #1e40af; }
+        .status-dikirim { background: #d1fae5; color: #065f46; }
+        .status-selesai { background: #f0fdf4; color: #166534; }
 
         /* Safe area */
         .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
-        .pb-nav { padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
+        .pb-nav { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
 
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
@@ -199,26 +216,41 @@
             }
         }
 
-        /* Gradient background */
-        .gradient-bg {
-            background: linear-gradient(135deg, #fef7f0 0%, #fff5eb 50%, #fffbf7 100%);
+        /* Skeleton loading */
+        .skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
         }
     </style>
 </head>
-<body class="gradient-bg">
+<body class="bg-slate-50">
     <!-- ========== HEADER ========== -->
-    <header class="fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-md border-b border-orange-100">
+    <header class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
         <div class="flex items-center justify-between px-4 py-3">
-            <div class="flex items-center gap-2">
-                <div class="w-9 h-9 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-sm">
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
                 </div>
-                <h1 class="text-lg font-bold text-gray-800">MiniMarket</h1>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-800">MiniMarket</h1>
+                    <p class="text-xs text-slate-500">Belanja Mudah</p>
+                </div>
             </div>
-            <button onclick="openSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-orange-50 btn-press" aria-label="Cari produk">
-                <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button onclick="openSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press" aria-label="Cari produk">
+                <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
             </button>
@@ -226,36 +258,38 @@
     </header>
 
     <!-- ========== MAIN CONTENT ========== -->
-    <main class="pt-16 pb-nav">
+    <main class="pt-20 pb-nav">
         <!-- HOME PAGE -->
         <div id="page-home" class="page active">
             <!-- Promo Banner -->
-            <section class="px-4 pt-4">
-                <div class="bg-gradient-to-r from-orange-500 via-orange-400 to-amber-400 rounded-2xl p-5 text-white relative overflow-hidden">
-                    <div class="absolute right-0 top-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/4"></div>
-                    <div class="absolute right-10 bottom-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/3"></div>
-                    <p class="text-sm font-medium opacity-90">Promo Spesial Hari Ini</p>
-                    <h2 class="text-2xl font-bold mt-1">Diskon hingga 25%</h2>
-                    <p class="text-sm opacity-90 mt-1">Untuk semua produk minuman</p>
-                    <div class="inline-block mt-3 px-4 py-1.5 bg-white/20 rounded-full text-sm font-medium">
-                        Kode: HEMAT25
+            <section class="px-4 pt-2">
+                <div class="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 rounded-2xl p-5 text-white relative overflow-hidden">
+                    <div class="absolute right-0 top-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/4"></div>
+                    <div class="absolute right-8 bottom-0 w-20 h-20 bg-white/10 rounded-full translate-y-1/3"></div>
+                    <div class="relative">
+                        <span class="inline-block px-2 py-1 bg-white/20 rounded-md text-xs font-medium mb-2">PROMO</span>
+                        <h2 class="text-xl font-bold">Diskon Hingga 20%</h2>
+                        <p class="text-sm opacity-90 mt-1">Untuk semua produk minuman</p>
+                        <div class="inline-block mt-3 px-3 py-1.5 bg-white rounded-lg text-blue-600 text-sm font-semibold">
+                            Kode: HEMAT20
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- Categories -->
-            <section class="px-4 pt-5">
-                <h2 class="text-base font-bold text-gray-800 mb-3">Kategori</h2>
+            <section class="px-4 pt-6">
+                <h2 class="text-base font-bold text-slate-800 mb-3">Kategori</h2>
                 <div id="categories-container" class="flex gap-2 overflow-x-auto hide-scrollbar pb-2">
                     <!-- Rendered by JS -->
                 </div>
             </section>
 
             <!-- Products -->
-            <section class="px-4 pt-5">
+            <section class="px-4 pt-6">
                 <div class="flex items-center justify-between mb-3">
-                    <h2 class="text-base font-bold text-gray-800">Produk Pilihan</h2>
-                    <span id="product-count" class="text-sm text-gray-500">12 produk</span>
+                    <h2 class="text-base font-bold text-slate-800">Produk Pilihan</h2>
+                    <span id="product-count" class="text-sm text-slate-500">0 produk</span>
                 </div>
                 <div id="products-grid" class="grid grid-cols-2 gap-3 stagger">
                     <!-- Rendered by JS -->
@@ -265,20 +299,20 @@
 
         <!-- HISTORY PAGE -->
         <div id="page-history" class="page">
-            <div class="px-4 pt-4">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">Riwayat Pesanan</h2>
+            <div class="px-4 pt-2">
+                <h2 class="text-xl font-bold text-slate-800 mb-4">Riwayat Pesanan</h2>
                 <div id="orders-list" class="space-y-3">
                     <!-- Rendered by JS -->
                 </div>
                 <div id="empty-history" class="hidden text-center py-16">
-                    <div class="w-20 h-20 mx-auto bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                        <svg class="w-10 h-10 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-20 h-20 mx-auto bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                         </svg>
                     </div>
-                    <p class="text-gray-500 mb-2">Belum ada pesanan</p>
-                    <p class="text-sm text-gray-400 mb-4">Yuk mulai belanja sekarang!</p>
-                    <button onclick="switchPage('home')" class="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-xl font-semibold btn-press">
+                    <p class="text-slate-600 font-medium mb-1">Belum Ada Pesanan</p>
+                    <p class="text-sm text-slate-400 mb-4">Yuk mulai belanja sekarang!</p>
+                    <button onclick="switchPage('home')" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold btn-press">
                         Belanja Sekarang
                     </button>
                 </div>
@@ -287,7 +321,7 @@
     </main>
 
     <!-- ========== BOTTOM NAVIGATION ========== -->
-    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-orange-100 safe-bottom">
+    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 safe-bottom">
         <div class="flex items-center justify-around py-2">
             <button onclick="switchPage('home')" class="nav-btn flex flex-col items-center py-2 px-6" data-page="home">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -305,7 +339,7 @@
     </nav>
 
     <!-- ========== FLOATING CART BUTTON ========== -->
-    <button id="floating-cart" onclick="openCart()" class="fixed right-4 bottom-24 w-14 h-14 bg-gradient-to-br from-orange-500 to-red-500 text-white rounded-2xl shadow-lg flex items-center justify-center z-30 btn-press hidden" style="box-shadow: 0 8px 24px rgba(232, 93, 4, 0.4)">
+    <button id="floating-cart" onclick="openCart()" class="fixed right-4 bottom-24 w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-lg flex items-center justify-center z-30 btn-press hidden" style="box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35)">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
         </svg>
@@ -313,22 +347,25 @@
     </button>
 
     <!-- ========== OVERLAY ========== -->
-    <div id="overlay" class="overlay fixed inset-0 bg-black/50 z-50" onclick="closeOverlay()"></div>
+    <div id="overlay" class="overlay fixed inset-0 bg-black/40 z-50" onclick="closeOverlay()"></div>
 
     <!-- ========== CART BOTTOM SHEET ========== -->
     <div id="cart-sheet" class="bottom-sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 max-h-[85vh] flex flex-col" style="padding-bottom: env(safe-area-inset-bottom, 0px)">
         <!-- Header -->
-        <div class="flex items-center justify-between p-4 border-b border-gray-100">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="flex items-center justify-between p-4 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
+                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
                 </div>
-                <h2 class="text-lg font-bold">Keranjang</h2>
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800">Keranjang</h2>
+                    <p id="cart-item-count" class="text-xs text-slate-500">0 item</p>
+                </div>
             </div>
-            <button onclick="closeCart()" class="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 btn-press">
-                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button onclick="closeCart()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
+                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
@@ -341,59 +378,63 @@
 
         <!-- Empty State -->
         <div id="cart-empty" class="hidden flex-1 flex flex-col items-center justify-center p-8">
-            <div class="w-24 h-24 bg-orange-50 rounded-full flex items-center justify-center mb-4">
-                <svg class="w-12 h-12 text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                 </svg>
             </div>
-            <p class="text-gray-600 font-medium mb-1">Keranjang Kosong</p>
-            <p class="text-sm text-gray-400 mb-4">Yuk pilih produk favoritmu!</p>
-            <button onclick="closeCart()" class="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-xl font-semibold btn-press">
+            <p class="text-slate-700 font-medium mb-1">Keranjang Kosong</p>
+            <p class="text-sm text-slate-400 mb-4">Yuk pilih produk favoritmu!</p>
+            <button onclick="closeCart()" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold btn-press">
                 Mulai Belanja
             </button>
         </div>
 
         <!-- Footer -->
-        <div id="cart-footer" class="p-4 border-t border-gray-100 bg-white">
+        <div id="cart-footer" class="p-4 border-t border-slate-100 bg-white">
             <div class="flex items-center justify-between mb-3">
-                <span class="text-gray-500">Total Pembayaran</span>
-                <span id="cart-total" class="text-xl font-bold text-orange-600">Rp 0</span>
+                <span class="text-slate-500">Total Pembayaran</span>
+                <span id="cart-total" class="text-xl font-bold text-blue-600">Rp 0</span>
             </div>
-            <button onclick="proceedToCheckout()" class="w-full py-3.5 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-bold btn-press text-base" style="box-shadow: 0 4px 16px rgba(232, 93, 4, 0.3)">
+            <button onclick="proceedToCheckout()" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold btn-press text-base">
                 Checkout Sekarang
             </button>
         </div>
     </div>
 
     <!-- ========== CHECKOUT PAGE ========== -->
-    <div id="checkout-page" class="fixed inset-0 bg-orange-50/50 z-50 overflow-y-auto hidden">
+    <div id="checkout-page" class="fixed inset-0 bg-slate-50 z-50 overflow-y-auto hidden">
         <!-- Header -->
-        <header class="sticky top-0 bg-white z-10 border-b border-orange-100">
+        <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
             <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeCheckout()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-orange-50 btn-press">
-                    <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button onclick="closeCheckout()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
+                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </button>
-                <h1 class="text-lg font-bold">Checkout</h1>
+                <h1 class="text-lg font-bold text-slate-800">Checkout</h1>
             </div>
         </header>
 
-        <div class="p-4 pb-36 space-y-4">
+        <div class="p-4 pb-40 space-y-4">
             <!-- Step 1: Address -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm">
+            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <div class="flex items-center gap-2 mb-3">
-                    <div class="w-6 h-6 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                    <h3 class="font-semibold">Alamat Pengiriman</h3>
+                    <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                    <h3 class="font-semibold text-slate-800">Alamat Pengiriman</h3>
+                    <span class="text-xs text-red-500 font-medium" id="address-required" style="display: none;">*Wajib diisi</span>
                 </div>
-                <textarea id="input-address" class="w-full p-3 border border-gray-200 rounded-xl resize-none text-sm" rows="3" placeholder="Masukkan alamat lengkap (nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan)..."></textarea>
+                <textarea id="input-address" class="w-full p-3 border border-slate-200 rounded-xl resize-none text-sm bg-slate-50 focus:bg-white transition-colors" rows="3" placeholder="Masukkan alamat lengkap (nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan)..." oninput="validateCheckoutForm()"></textarea>
             </section>
 
             <!-- Step 2: Shipping -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm">
-                <div class="flex items-center gap-2 mb-3">
-                    <div class="w-6 h-6 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                    <h3 class="font-semibold">Metode Pengiriman</h3>
+            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                        <h3 class="font-semibold text-slate-800">Metode Pengiriman</h3>
+                    </div>
+                    <span id="shipping-warning" class="text-xs text-red-500 font-medium hidden">*Pilih satu</span>
                 </div>
                 <div id="shipping-options" class="space-y-2">
                     <!-- Rendered by JS -->
@@ -401,10 +442,13 @@
             </section>
 
             <!-- Step 3: Payment -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm">
-                <div class="flex items-center gap-2 mb-3">
-                    <div class="w-6 h-6 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                    <h3 class="font-semibold">Metode Pembayaran</h3>
+            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                        <h3 class="font-semibold text-slate-800">Metode Pembayaran</h3>
+                    </div>
+                    <span id="payment-warning" class="text-xs text-red-500 font-medium hidden">*Pilih satu</span>
                 </div>
                 <div id="payment-options" class="space-y-2">
                     <!-- Rendered by JS -->
@@ -412,112 +456,121 @@
             </section>
 
             <!-- Step 4: Voucher -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm">
+            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+                        <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center">
                             <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
                             </svg>
                         </div>
                         <div>
-                            <p class="font-medium">Voucher</p>
-                            <p id="selected-voucher-label" class="text-sm text-gray-400">Pilih voucher</p>
+                            <p class="font-medium text-slate-800">Voucher</p>
+                            <p id="selected-voucher-label" class="text-sm text-slate-400">Pilih voucher (opsional)</p>
                         </div>
                     </div>
-                    <button onclick="openVoucherModal()" class="px-4 py-2 text-orange-600 font-semibold text-sm btn-press">
+                    <button onclick="openVoucherModal()" class="px-4 py-2 text-blue-600 font-semibold text-sm btn-press hover:bg-blue-50 rounded-lg transition-colors">
                         Pilih
                     </button>
                 </div>
             </section>
 
             <!-- Step 5: Order Summary -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm">
-                <h3 class="font-semibold mb-3">Ringkasan Pesanan</h3>
-                <div id="checkout-items" class="space-y-2 mb-3 pb-3 border-b border-gray-100 max-h-40 overflow-y-auto">
+            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                <h3 class="font-semibold text-slate-800 mb-3">Ringkasan Pesanan</h3>
+                <div id="checkout-items" class="space-y-2 mb-3 pb-3 border-b border-slate-100 max-h-40 overflow-y-auto">
                     <!-- Rendered by JS -->
                 </div>
                 <div class="space-y-2 text-sm">
                     <div class="flex justify-between">
-                        <span class="text-gray-500">Subtotal</span>
-                        <span id="summary-subtotal">Rp 0</span>
+                        <span class="text-slate-500">Subtotal</span>
+                        <span id="summary-subtotal" class="text-slate-700">Rp 0</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-gray-500">Ongkos Kirim</span>
-                        <span id="summary-shipping">Rp 0</span>
+                        <span class="text-slate-500">Ongkos Kirim</span>
+                        <span id="summary-shipping" class="text-slate-700">Rp 0</span>
                     </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-500">Diskon</span>
-                        <span id="summary-discount" class="text-green-600">- Rp 0</span>
+                    <div id="discount-row" class="flex justify-between hidden">
+                        <span class="text-slate-500">Diskon</span>
+                        <span id="summary-discount" class="text-green-600 font-medium">- Rp 0</span>
                     </div>
-                    <div class="flex justify-between pt-3 border-t border-gray-100 text-base font-bold">
-                        <span>Total Bayar</span>
-                        <span id="summary-total" class="text-orange-600">Rp 0</span>
+                    <div class="flex justify-between pt-3 border-t border-slate-100 text-base font-bold">
+                        <span class="text-slate-800">Total Bayar</span>
+                        <span id="summary-total" class="text-blue-600">Rp 0</span>
                     </div>
                 </div>
             </section>
 
             <!-- Notes -->
-            <section class="bg-white rounded-2xl p-4 shadow-sm">
-                <h3 class="font-semibold mb-3">Catatan (Opsional)</h3>
-                <textarea id="input-notes" class="w-full p-3 border border-gray-200 rounded-xl resize-none text-sm" rows="2" placeholder="Tambah catatan untuk pesanan..."></textarea>
+            <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
+                <h3 class="font-semibold text-slate-800 mb-3">Catatan (Opsional)</h3>
+                <textarea id="input-notes" class="w-full p-3 border border-slate-200 rounded-xl resize-none text-sm bg-slate-50 focus:bg-white transition-colors" rows="2" placeholder="Tambah catatan untuk pesanan..."></textarea>
             </section>
         </div>
 
         <!-- Fixed Bottom Button -->
-        <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-orange-100 p-4 safe-bottom">
-            <button onclick="confirmOrder()" class="w-full py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-bold btn-press text-lg" style="box-shadow: 0 4px 16px rgba(232, 93, 4, 0.3)">
+        <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 safe-bottom">
+            <button id="btn-order" onclick="confirmOrder()" disabled class="w-full py-4 bg-slate-300 text-slate-500 rounded-xl font-bold text-lg transition-all duration-300 btn-press">
                 Pesan Sekarang
             </button>
+            <p id="form-hint" class="text-center text-xs text-slate-400 mt-2">Lengkapi alamat, pengiriman, dan pembayaran</p>
         </div>
     </div>
 
     <!-- ========== CONFIRMATION MODAL ========== -->
-    <div id="confirm-modal" class="fixed inset-0 bg-black/50 z-60 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-2xl p-6 w-full max-w-sm scale-in">
-            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+    <div id="confirm-modal" class="fixed inset-0 bg-black/40 z-60 flex items-center justify-center p-4 hidden" style="backdrop-filter: blur(4px);">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-sm scale-in shadow-xl">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
             </div>
-            <h3 class="text-xl font-bold text-center mb-2">Konfirmasi Pesanan</h3>
-            <p class="text-gray-500 text-center mb-6">Yakin ingin memesan? Pastikan semua data sudah benar.</p>
+            <h3 class="text-xl font-bold text-center text-slate-800 mb-2">Konfirmasi Pesanan</h3>
+            <p class="text-slate-500 text-center mb-6">Yakin ingin memesan? Pastikan semua data sudah benar.</p>
             <div class="flex gap-3">
-                <button onclick="closeConfirmModal()" class="flex-1 py-3 bg-gray-100 text-gray-600 rounded-xl font-semibold btn-press">
+                <button onclick="closeConfirmModal()" class="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl font-semibold btn-press hover:bg-slate-200 transition-colors">
                     Batal
                 </button>
-                <button onclick="submitOrder()" class="flex-1 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold btn-press">
+                <button onclick="submitOrder()" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-semibold btn-press hover:bg-blue-700 transition-colors">
                     Ya, Pesan
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- ========== LOADING OVERLAY ========== -->
+    <div id="loading-overlay" class="fixed inset-0 bg-white/90 z-70 flex items-center justify-center hidden" style="backdrop-filter: blur(4px);">
+        <div class="text-center">
+            <div class="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full spin mx-auto mb-4"></div>
+            <p class="text-slate-600 font-medium">Memproses pesanan...</p>
+        </div>
+    </div>
+
     <!-- ========== INVOICE PAGE ========== -->
-    <div id="invoice-page" class="fixed inset-0 bg-orange-50/50 z-50 overflow-y-auto hidden">
+    <div id="invoice-page" class="fixed inset-0 bg-slate-50 z-50 overflow-y-auto hidden">
         <!-- Header -->
-        <header class="sticky top-0 bg-white z-10 border-b border-orange-100">
+        <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
             <div class="flex items-center justify-between px-4 py-3">
                 <div class="flex items-center gap-3">
-                    <button onclick="closeInvoice()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-orange-50 btn-press">
-                        <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button onclick="closeInvoice()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
+                        <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </button>
-                    <h1 class="text-lg font-bold">Invoice</h1>
+                    <h1 class="text-lg font-bold text-slate-800">Invoice</h1>
                 </div>
             </div>
         </header>
 
         <div class="p-4 pb-32">
-            <div id="invoice-content" class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div id="invoice-content" class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
                 <!-- Rendered by JS -->
             </div>
         </div>
 
         <!-- Fixed Bottom Button -->
-        <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-orange-100 p-4 safe-bottom">
-            <button onclick="sendToWhatsApp()" class="w-full py-4 bg-green-500 text-white rounded-xl font-bold btn-press text-lg flex items-center justify-center gap-3" style="box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3)">
+        <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 safe-bottom">
+            <button onclick="sendToWhatsApp()" class="w-full py-4 bg-green-600 text-white rounded-xl font-bold btn-press text-lg flex items-center justify-center gap-3 hover:bg-green-700 transition-colors" style="box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3)">
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.895c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.895 0-3.183-1.24-6.177-3.493-8.413z"/>
                 </svg>
@@ -527,15 +580,15 @@
     </div>
 
     <!-- ========== SEARCH MODAL ========== -->
-    <div id="search-modal" class="fixed inset-0 bg-orange-50/50 z-50 hidden">
-        <header class="sticky top-0 bg-white z-10 border-b border-orange-100">
+    <div id="search-modal" class="fixed inset-0 bg-slate-50 z-50 hidden">
+        <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
             <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-orange-50 btn-press">
-                    <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button onclick="closeSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
+                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </button>
-                <input id="search-input" type="text" class="flex-1 py-2.5 px-4 bg-gray-100 rounded-xl text-sm" placeholder="Cari produk..." oninput="handleSearch(this.value)">
+                <input id="search-input" type="text" class="flex-1 py-2.5 px-4 bg-slate-100 rounded-xl text-sm focus:bg-white transition-colors" placeholder="Cari produk..." oninput="handleSearch(this.value)">
             </div>
         </header>
         <div id="search-results" class="p-4 grid grid-cols-2 gap-3">
@@ -544,15 +597,15 @@
     </div>
 
     <!-- ========== VOUCHER MODAL ========== -->
-    <div id="voucher-modal" class="fixed inset-0 bg-orange-50/50 z-50 hidden">
-        <header class="sticky top-0 bg-white z-10 border-b border-orange-100">
+    <div id="voucher-modal" class="fixed inset-0 bg-slate-50 z-50 hidden">
+        <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
             <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeVoucherModal()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-orange-50 btn-press">
-                    <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button onclick="closeVoucherModal()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
+                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </button>
-                <h1 class="text-lg font-bold">Pilih Voucher</h1>
+                <h1 class="text-lg font-bold text-slate-800">Pilih Voucher</h1>
             </div>
         </header>
         <div id="voucher-list" class="p-4 space-y-3">
@@ -561,20 +614,20 @@
     </div>
 
     <!-- ========== TOAST ========== -->
-    <div id="toast" class="toast fixed bottom-28 left-4 right-4 bg-gray-800 text-white px-4 py-3 rounded-xl z-50 text-center font-medium text-sm">
-        Pesanan berhasil dibuat!
+    <div id="toast" class="toast fixed bottom-28 left-4 right-4 bg-slate-800 text-white px-4 py-3 rounded-xl z-50 text-center font-medium text-sm shadow-lg">
+        Notifikasi
     </div>
 
     <!-- ========== SCRIPTS ========== -->
     <script>
         // ==================== DATA ====================
         const CATEGORIES = [
-            { id: 'all', name: 'Semua', icon: '🛒' },
-            { id: 'snacks', name: 'Makanan Ringan', icon: '🍿' },
-            { id: 'drinks', name: 'Minuman', icon: '🥤' },
-            { id: 'dairy', name: 'Susu', icon: '🥛' },
-            { id: 'frozen', name: 'Frozen Food', icon: '🧊' },
-            { id: 'instant', name: 'Mie Instan', icon: '🍜' },
+            { id: 'all', name: 'Semua' },
+            { id: 'snacks', name: 'Makanan Ringan' },
+            { id: 'drinks', name: 'Minuman' },
+            { id: 'dairy', name: 'Susu' },
+            { id: 'frozen', name: 'Frozen Food' },
+            { id: 'instant', name: 'Mie Instan' },
         ];
 
         const PRODUCTS = [
@@ -593,10 +646,10 @@
         ];
 
         const SHIPPING_METHODS = [
-            { id: 'gojek', name: 'Gojek Instant', price: 15000, estimate: '1-2 jam' },
-            { id: 'grab', name: 'Grab Instant', price: 15000, estimate: '1-2 jam' },
-            { id: 'shopee', name: 'Shopee Express', price: 9000, estimate: '2-3 hari' },
-            { id: 'pickup', name: 'Ambil di Tempat', price: 0, estimate: 'Langsung' },
+            { id: 'gojek', name: 'Gojek Instant', price: 15000, estimate: '1-2 jam', icon: 'bike' },
+            { id: 'grab', name: 'Grab Instant', price: 15000, estimate: '1-2 jam', icon: 'bike' },
+            { id: 'shopee', name: 'Shopee Express', price: 9000, estimate: '2-3 hari', icon: 'package' },
+            { id: 'pickup', name: 'Ambil di Tempat', price: 0, estimate: 'Langsung', icon: 'store' },
         ];
 
         const PAYMENT_METHODS = [
@@ -629,6 +682,7 @@
             renderCategories();
             renderProducts();
             updateCartBadge();
+            updateNavActive('home');
         }
 
         function loadFromStorage() {
@@ -653,10 +707,10 @@
             const container = document.getElementById('categories-container');
             container.innerHTML = CATEGORIES.map(cat => `
                 <button onclick="selectCategory('${cat.id}')" 
-                    class="category-btn flex-shrink-0 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
+                    class="flex-shrink-0 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
                         selectedCategory === cat.id 
-                            ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md' 
-                            : 'bg-white text-gray-600 border border-gray-200'
+                            ? 'bg-blue-600 text-white shadow-md' 
+                            : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-300'
                     }">
                     ${cat.name}
                 </button>
@@ -677,7 +731,7 @@
             if (filtered.length === 0) {
                 container.innerHTML = `
                     <div class="col-span-2 text-center py-12">
-                        <p class="text-gray-400">Tidak ada produk ditemukan</p>
+                        <p class="text-slate-400">Tidak ada produk ditemukan</p>
                     </div>
                 `;
                 return;
@@ -688,30 +742,30 @@
                 const qty = inCart ? inCart.qty : 0;
 
                 return `
-                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                        <div class="aspect-square bg-gray-50 relative overflow-hidden">
+                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
                             <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=Product'">
                         </div>
                         <div class="p-3">
-                            <h3 class="font-medium text-sm text-gray-800 line-clamp-2 min-h-[40px] leading-tight">${product.name}</h3>
-                            <p class="text-orange-600 font-bold mt-1">${formatPrice(product.price)}</p>
+                            <h3 class="font-medium text-sm text-slate-800 line-clamp-2 min-h-[40px] leading-tight">${product.name}</h3>
+                            <p class="text-blue-600 font-bold mt-1">${formatPrice(product.price)}</p>
                             <div class="mt-2">
                                 ${qty > 0 ? `
-                                    <div class="flex items-center justify-between bg-orange-50 rounded-xl p-1">
-                                        <button onclick="updateCart(${product.id}, -1)" class="qty-btn w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center">
-                                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="flex items-center justify-between bg-blue-50 rounded-xl p-1">
+                                        <button onclick="updateCart(${product.id}, -1)" class="qty-btn w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-slate-100">
+                                            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/>
                                             </svg>
                                         </button>
-                                        <span class="font-bold text-orange-600">${qty}</span>
-                                        <button onclick="updateCart(${product.id}, 1)" class="qty-btn w-8 h-8 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center">
+                                        <span class="font-bold text-blue-600 text-lg">${qty}</span>
+                                        <button onclick="updateCart(${product.id}, 1)" class="qty-btn w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center">
                                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                                             </svg>
                                         </button>
                                     </div>
                                 ` : `
-                                    <button onclick="updateCart(${product.id}, 1)" class="w-full py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold text-sm btn-press">
+                                    <button onclick="updateCart(${product.id}, 1)" class="w-full py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm btn-press hover:bg-blue-700 transition-colors">
                                         + Tambah
                                     </button>
                                 `}
@@ -727,39 +781,44 @@
             const container = document.getElementById('cart-items');
             const emptyEl = document.getElementById('cart-empty');
             const footerEl = document.getElementById('cart-footer');
+            const itemCount = document.getElementById('cart-item-count');
 
             if (cart.length === 0) {
                 container.classList.add('hidden');
                 emptyEl.classList.remove('hidden');
                 footerEl.classList.add('hidden');
+                itemCount.textContent = '0 item';
                 return;
             }
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            itemCount.textContent = `${totalItems} item`;
 
             container.classList.remove('hidden');
             emptyEl.classList.add('hidden');
             footerEl.classList.remove('hidden');
 
             container.innerHTML = cart.map(item => `
-                <div class="flex gap-3 bg-gray-50 rounded-xl p-3">
-                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-lg object-cover bg-white">
+                <div class="flex gap-3 bg-slate-50 rounded-xl p-3 border border-slate-100">
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover bg-white" onerror="this.src='https://via.placeholder.com/100?text=Item'">
                     <div class="flex-1 min-w-0">
-                        <h4 class="font-medium text-sm line-clamp-2">${item.name}</h4>
-                        <p class="text-orange-600 font-bold text-sm mt-1">${formatPrice(item.price)}</p>
+                        <h4 class="font-medium text-sm text-slate-800 line-clamp-2">${item.name}</h4>
+                        <p class="text-blue-600 font-bold text-sm mt-1">${formatPrice(item.price)}</p>
                         <div class="flex items-center gap-2 mt-2">
-                            <button onclick="updateCart(${item.id}, -1)" class="qty-btn w-7 h-7 rounded-lg bg-white border border-gray-200 flex items-center justify-center">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button onclick="updateCart(${item.id}, -1)" class="qty-btn w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center hover:border-blue-300 transition-colors">
+                                <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/>
                                 </svg>
                             </button>
-                            <span class="font-semibold text-sm w-6 text-center">${item.qty}</span>
-                            <button onclick="updateCart(${item.id}, 1)" class="qty-btn w-7 h-7 rounded-lg bg-orange-500 text-white flex items-center justify-center">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <span class="font-semibold text-sm w-6 text-center text-slate-800">${item.qty}</span>
+                            <button onclick="updateCart(${item.id}, 1)" class="qty-btn w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                                 </svg>
                             </button>
                         </div>
                     </div>
-                    <button onclick="removeFromCart(${item.id})" class="text-red-400 self-start p-1 btn-press">
+                    <button onclick="removeFromCart(${item.id})" class="text-red-400 self-start p-1 btn-press hover:text-red-600 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                         </svg>
@@ -775,19 +834,31 @@
             const container = document.getElementById('shipping-options');
             container.innerHTML = SHIPPING_METHODS.map(method => `
                 <div onclick="selectShipping('${method.id}')" 
-                    class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer ${
-                        selectedShipping === method.id ? 'selected border-orange-500 bg-orange-50' : 'border-gray-200'
+                    class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${
+                        selectedShipping === method.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'
                     }">
-                    <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                        selectedShipping === method.id ? 'border-orange-500 bg-orange-500' : 'border-gray-300'
+                    <div class="w-11 h-11 rounded-xl flex items-center justify-center ${
+                        selectedShipping === method.id ? 'bg-blue-500' : 'bg-slate-100'
                     }">
-                        ${selectedShipping === method.id ? '<div class="w-2 h-2 bg-white rounded-full"></div>' : ''}
+                        ${method.icon === 'bike' ? `
+                            <svg class="w-5 h-5 ${selectedShipping === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        ` : method.icon === 'package' ? `
+                            <svg class="w-5 h-5 ${selectedShipping === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                            </svg>
+                        ` : `
+                            <svg class="w-5 h-5 ${selectedShipping === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                        `}
                     </div>
                     <div class="flex-1">
-                        <p class="font-medium text-sm">${method.name}</p>
-                        <p class="text-xs text-gray-500">${method.estimate}</p>
+                        <p class="font-medium text-sm text-slate-800">${method.name}</p>
+                        <p class="text-xs text-slate-500">${method.estimate}</p>
                     </div>
-                    <span class="font-semibold text-sm ${method.price === 0 ? 'text-green-600' : ''}">${method.price === 0 ? 'Gratis' : formatPrice(method.price)}</span>
+                    <span class="font-semibold text-sm ${method.price === 0 ? 'text-green-600' : 'text-slate-700'}">${method.price === 0 ? 'Gratis' : formatPrice(method.price)}</span>
                 </div>
             `).join('');
         }
@@ -796,17 +867,29 @@
             const container = document.getElementById('payment-options');
             container.innerHTML = PAYMENT_METHODS.map(method => `
                 <div onclick="selectPayment('${method.id}')" 
-                    class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer ${
-                        selectedPayment === method.id ? 'selected border-orange-500 bg-orange-50' : 'border-gray-200'
+                    class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${
+                        selectedPayment === method.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'
                     }">
-                    <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                        selectedPayment === method.id ? 'border-orange-500 bg-orange-500' : 'border-gray-300'
+                    <div class="w-11 h-11 rounded-xl flex items-center justify-center ${
+                        selectedPayment === method.id ? 'bg-blue-500' : 'bg-slate-100'
                     }">
-                        ${selectedPayment === method.id ? '<div class="w-2 h-2 bg-white rounded-full"></div>' : ''}
+                        ${method.id === 'cod' ? `
+                            <svg class="w-5 h-5 ${selectedPayment === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        ` : method.id === 'transfer' ? `
+                            <svg class="w-5 h-5 ${selectedPayment === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                            </svg>
+                        ` : `
+                            <svg class="w-5 h-5 ${selectedPayment === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
+                            </svg>
+                        `}
                     </div>
                     <div>
-                        <p class="font-medium text-sm">${method.name}</p>
-                        <p class="text-xs text-gray-500">${method.desc}</p>
+                        <p class="font-medium text-sm text-slate-800">${method.name}</p>
+                        <p class="text-xs text-slate-500">${method.desc}</p>
                     </div>
                 </div>
             `).join('');
@@ -823,18 +906,18 @@
                 return `
                     <div onclick="${isValid ? `selectVoucher(${voucher.id})` : ''}" 
                         class="border-2 rounded-xl p-4 transition-all ${
-                            isSelected ? 'border-orange-500 bg-orange-50' : 
-                            isValid ? 'border-gray-200 bg-white cursor-pointer' : 'border-gray-100 bg-gray-50 opacity-60'
+                            isSelected ? 'border-blue-500 bg-blue-50' : 
+                            isValid ? 'border-slate-200 bg-white cursor-pointer hover:border-blue-300' : 'border-slate-100 bg-slate-50 opacity-60'
                         }">
                         <div class="flex items-center justify-between mb-2">
-                            <span class="font-bold text-orange-600">${voucher.code}</span>
-                            ${isSelected ? '<span class="text-xs bg-orange-500 text-white px-2 py-1 rounded-full">Dipilih</span>' : ''}
+                            <span class="font-bold text-blue-600">${voucher.code}</span>
+                            ${isSelected ? '<span class="text-xs bg-blue-600 text-white px-2 py-1 rounded-full">Dipilih</span>' : ''}
                         </div>
-                        <p class="font-semibold text-sm">
+                        <p class="font-semibold text-sm text-slate-800">
                             ${voucher.type === 'shipping' ? 'Gratis Ongkir' : `Diskon ${formatPrice(voucher.discount)}`}
                         </p>
-                        <p class="text-xs text-gray-500 mt-1">Min. belanja ${formatPrice(voucher.minPurchase)}</p>
-                        ${!isValid ? '<p class="text-xs text-red-500 mt-2">Belum memenuhi minimum pembelian</p>' : ''}
+                        <p class="text-xs text-slate-500 mt-1">Min. belanja ${formatPrice(voucher.minPurchase)}</p>
+                        ${!isValid ? '<p class="text-xs text-red-500 mt-2 font-medium">Belum memenuhi minimum pembelian</p>' : ''}
                     </div>
                 `;
             }).join('');
@@ -861,16 +944,24 @@
             // Items
             document.getElementById('checkout-items').innerHTML = cart.map(item => `
                 <div class="flex justify-between text-sm">
-                    <span class="text-gray-600 truncate flex-1">${item.name}</span>
-                    <span class="ml-2 whitespace-nowrap">x${item.qty}</span>
-                    <span class="ml-3 whitespace-nowrap font-medium">${formatPrice(item.price * item.qty)}</span>
+                    <span class="text-slate-600 truncate flex-1">${item.name}</span>
+                    <span class="ml-2 whitespace-nowrap text-slate-500">x${item.qty}</span>
+                    <span class="ml-3 whitespace-nowrap font-medium text-slate-800">${formatPrice(item.price * item.qty)}</span>
                 </div>
             `).join('');
 
             // Summary
             document.getElementById('summary-subtotal').textContent = formatPrice(subtotal);
-            document.getElementById('summary-shipping').textContent = finalShipping === 0 ? 'Gratis' : formatPrice(finalShipping);
-            document.getElementById('summary-discount').textContent = `- ${formatPrice(discount)}`;
+            document.getElementById('summary-shipping').textContent = finalShipping === 0 && shipping ? 'Gratis' : formatPrice(finalShipping);
+            
+            const discountRow = document.getElementById('discount-row');
+            if (discount > 0) {
+                discountRow.classList.remove('hidden');
+                document.getElementById('summary-discount').textContent = `- ${formatPrice(discount)}`;
+            } else {
+                discountRow.classList.add('hidden');
+            }
+            
             document.getElementById('summary-total').textContent = formatPrice(total);
         }
 
@@ -883,7 +974,7 @@
 
             container.innerHTML = `
                 <!-- Success Header -->
-                <div class="bg-gradient-to-r from-orange-500 to-red-500 p-6 text-white text-center">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-500 p-6 text-white text-center">
                     <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
@@ -894,9 +985,9 @@
                 </div>
 
                 <!-- Status -->
-                <div class="p-4 border-b border-gray-100">
+                <div class="p-4 border-b border-slate-100">
                     <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500">Status</span>
+                        <span class="text-sm text-slate-500">Status</span>
                         <span class="status-${order.status} text-sm font-medium px-3 py-1 rounded-full">
                             ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                         </span>
@@ -904,61 +995,61 @@
                 </div>
 
                 <!-- Items -->
-                <div class="p-4 border-b border-gray-100">
-                    <h3 class="font-semibold mb-3">Detail Pesanan</h3>
+                <div class="p-4 border-b border-slate-100">
+                    <h3 class="font-semibold text-slate-800 mb-3">Detail Pesanan</h3>
                     <div class="space-y-3">
                         ${order.items.map(item => `
                             <div class="flex items-center gap-3">
-                                <img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-lg object-cover bg-gray-100">
+                                <img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-lg object-cover bg-slate-100" onerror="this.src='https://via.placeholder.com/100?text=Item'">
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium truncate">${item.name}</p>
-                                    <p class="text-xs text-gray-500">${item.qty}x ${formatPrice(item.price)}</p>
+                                    <p class="text-sm font-medium text-slate-800 truncate">${item.name}</p>
+                                    <p class="text-xs text-slate-500">${item.qty}x ${formatPrice(item.price)}</p>
                                 </div>
-                                <span class="text-sm font-semibold">${formatPrice(item.price * item.qty)}</span>
+                                <span class="text-sm font-semibold text-slate-800">${formatPrice(item.price * item.qty)}</span>
                             </div>
                         `).join('')}
                     </div>
                 </div>
 
                 <!-- Summary -->
-                <div class="p-4 border-b border-gray-100 space-y-2 text-sm">
+                <div class="p-4 border-b border-slate-100 space-y-2 text-sm">
                     <div class="flex justify-between">
-                        <span class="text-gray-500">Subtotal</span>
-                        <span>${formatPrice(order.subtotal)}</span>
+                        <span class="text-slate-500">Subtotal</span>
+                        <span class="text-slate-700">${formatPrice(order.subtotal)}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-gray-500">Pengiriman (${order.shipping.name})</span>
-                        <span>${order.shippingPrice === 0 ? 'Gratis' : formatPrice(order.shippingPrice)}</span>
+                        <span class="text-slate-500">Pengiriman (${order.shipping.name})</span>
+                        <span class="${order.shippingPrice === 0 ? 'text-green-600 font-medium' : 'text-slate-700'}">${order.shippingPrice === 0 ? 'Gratis' : formatPrice(order.shippingPrice)}</span>
                     </div>
                     ${order.discount > 0 ? `
                         <div class="flex justify-between">
-                            <span class="text-gray-500">Diskon</span>
-                            <span class="text-green-600">- ${formatPrice(order.discount)}</span>
+                            <span class="text-slate-500">Diskon</span>
+                            <span class="text-green-600 font-medium">- ${formatPrice(order.discount)}</span>
                         </div>
                     ` : ''}
-                    <div class="flex justify-between pt-2 border-t border-gray-100 text-base font-bold">
-                        <span>Total Bayar</span>
-                        <span class="text-orange-600">${formatPrice(order.total)}</span>
+                    <div class="flex justify-between pt-2 border-t border-slate-100 text-base font-bold">
+                        <span class="text-slate-800">Total Bayar</span>
+                        <span class="text-blue-600">${formatPrice(order.total)}</span>
                     </div>
                 </div>
 
                 <!-- Address -->
-                <div class="p-4 border-b border-gray-100">
-                    <h3 class="font-semibold mb-2">Alamat Pengiriman</h3>
-                    <p class="text-sm text-gray-600">${order.address}</p>
+                <div class="p-4 border-b border-slate-100">
+                    <h3 class="font-semibold text-slate-800 mb-2">Alamat Pengiriman</h3>
+                    <p class="text-sm text-slate-600">${order.address}</p>
                 </div>
 
                 <!-- Payment -->
-                <div class="p-4 border-b border-gray-100">
-                    <h3 class="font-semibold mb-2">Pembayaran</h3>
-                    <p class="text-sm text-gray-600">${order.payment.name}</p>
+                <div class="p-4 ${order.notes ? 'border-b border-slate-100' : ''}">
+                    <h3 class="font-semibold text-slate-800 mb-2">Pembayaran</h3>
+                    <p class="text-sm text-slate-600">${order.payment.name}</p>
                 </div>
 
                 ${order.notes ? `
                     <!-- Notes -->
                     <div class="p-4">
-                        <h3 class="font-semibold mb-2">Catatan</h3>
-                        <p class="text-sm text-gray-600">${order.notes}</p>
+                        <h3 class="font-semibold text-slate-800 mb-2">Catatan</h3>
+                        <p class="text-sm text-slate-600">${order.notes}</p>
                     </div>
                 ` : ''}
             `;
@@ -979,9 +1070,9 @@
             emptyEl.classList.add('hidden');
 
             container.innerHTML = orders.slice().reverse().map(order => `
-                <div class="bg-white rounded-2xl p-4 shadow-sm">
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                     <div class="flex items-center justify-between mb-3">
-                        <span class="text-sm text-gray-500">#${order.id}</span>
+                        <span class="text-sm text-slate-500">#${order.id}</span>
                         <span class="status-${order.status} text-xs font-medium px-3 py-1 rounded-full">
                             ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                         </span>
@@ -989,18 +1080,18 @@
                     <div class="space-y-2 mb-3">
                         ${order.items.slice(0, 2).map(item => `
                             <div class="flex items-center gap-3">
-                                <img src="${item.image}" alt="${item.name}" class="w-10 h-10 rounded-lg object-cover bg-gray-100">
+                                <img src="${item.image}" alt="${item.name}" class="w-10 h-10 rounded-lg object-cover bg-slate-100" onerror="this.src='https://via.placeholder.com/100?text=Item'">
                                 <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium truncate">${item.name}</p>
-                                    <p class="text-xs text-gray-500">${item.qty}x ${formatPrice(item.price)}</p>
+                                    <p class="text-sm font-medium text-slate-800 truncate">${item.name}</p>
+                                    <p class="text-xs text-slate-500">${item.qty}x ${formatPrice(item.price)}</p>
                                 </div>
                             </div>
                         `).join('')}
-                        ${order.items.length > 2 ? `<p class="text-xs text-gray-400">+${order.items.length - 2} produk lainnya</p>` : ''}
+                        ${order.items.length > 2 ? `<p class="text-xs text-slate-400">+${order.items.length - 2} produk lainnya</p>` : ''}
                     </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-                        <span class="font-bold text-orange-600">${formatPrice(order.total)}</span>
-                        <button onclick="viewOrderDetail('${order.id}')" class="text-orange-600 text-sm font-semibold btn-press">
+                    <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                        <span class="font-bold text-blue-600">${formatPrice(order.total)}</span>
+                        <button onclick="viewOrderDetail('${order.id}')" class="text-blue-600 text-sm font-semibold btn-press hover:text-blue-700 transition-colors">
                             Lihat Detail
                         </button>
                     </div>
@@ -1061,7 +1152,6 @@
 
             if (total > 0) {
                 btn.classList.remove('hidden');
-                badge.classList.add('cart-badge');
             } else {
                 btn.classList.add('hidden');
             }
@@ -1069,6 +1159,73 @@
 
         function getCartTotal() {
             return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        }
+
+        // ==================== VALIDATION ====================
+        function validateCheckoutForm() {
+            const address = document.getElementById('input-address').value.trim();
+            const shipping = selectedShipping;
+            const payment = selectedPayment;
+
+            const addressInput = document.getElementById('input-address');
+            const addressRequired = document.getElementById('address-required');
+            const shippingWarning = document.getElementById('shipping-warning');
+            const paymentWarning = document.getElementById('payment-warning');
+            const btnOrder = document.getElementById('btn-order');
+            const formHint = document.getElementById('form-hint');
+
+            let valid = true;
+            let hints = [];
+
+            // Address validation
+            if (!address) {
+                addressInput.classList.add('input-error');
+                addressRequired.style.display = 'inline';
+                hints.push('alamat');
+                valid = false;
+            } else {
+                addressInput.classList.remove('input-error');
+                addressRequired.style.display = 'none';
+            }
+
+            // Shipping validation
+            if (!shipping) {
+                shippingWarning.classList.remove('hidden');
+                hints.push('pengiriman');
+                valid = false;
+            } else {
+                shippingWarning.classList.add('hidden');
+            }
+
+            // Payment validation
+            if (!payment) {
+                paymentWarning.classList.remove('hidden');
+                hints.push('pembayaran');
+                valid = false;
+            } else {
+                paymentWarning.classList.add('hidden');
+            }
+
+            // Button state
+            if (valid) {
+                btnOrder.disabled = false;
+                btnOrder.classList.remove('bg-slate-300', 'text-slate-500');
+                btnOrder.classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+                btnOrder.style.boxShadow = '0 4px 16px rgba(37, 99, 235, 0.3)';
+                formHint.textContent = 'Siap untuk dipesan';
+                formHint.classList.remove('text-slate-400');
+                formHint.classList.add('text-green-600');
+            } else {
+                btnOrder.disabled = true;
+                btnOrder.classList.add('bg-slate-300', 'text-slate-500');
+                btnOrder.classList.remove('bg-blue-600', 'text-white', 'hover:bg-blue-700');
+                btnOrder.style.boxShadow = 'none';
+                formHint.textContent = `Lengkapi: ${hints.join(', ')}`;
+                formHint.classList.add('text-slate-400');
+                formHint.classList.remove('text-green-600');
+            }
+
+            return valid;
         }
 
         // ==================== MODAL FUNCTIONS ====================
@@ -1110,7 +1267,10 @@
             renderCheckoutSummary();
             document.getElementById('input-address').value = '';
             document.getElementById('input-notes').value = '';
-            document.getElementById('selected-voucher-label').textContent = 'Pilih voucher';
+            document.getElementById('selected-voucher-label').textContent = 'Pilih voucher (opsional)';
+            
+            // Reset validation state
+            validateCheckoutForm();
             
             document.getElementById('checkout-page').classList.remove('hidden');
             document.getElementById('checkout-page').classList.add('slide-in');
@@ -1161,6 +1321,14 @@
             document.getElementById('confirm-modal').classList.add('hidden');
         }
 
+        function showLoading() {
+            document.getElementById('loading-overlay').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-overlay').classList.add('hidden');
+        }
+
         // ==================== SELECTION FUNCTIONS ====================
         function selectCategory(categoryId) {
             selectedCategory = categoryId;
@@ -1172,40 +1340,34 @@
             selectedShipping = methodId;
             renderShippingOptions();
             renderCheckoutSummary();
+            validateCheckoutForm();
         }
 
         function selectPayment(methodId) {
             selectedPayment = methodId;
             renderPaymentOptions();
+            validateCheckoutForm();
         }
 
         function selectVoucher(voucherId) {
             const voucher = VOUCHERS.find(v => v.id === voucherId);
             selectedVoucher = voucher;
-            document.getElementById('selected-voucher-label').textContent = voucher.code;
+            document.getElementById('selected-voucher-label').textContent = `${voucher.code} - ${voucher.type === 'shipping' ? 'Gratis Ongkir' : 'Diskon ' + formatPrice(voucher.discount)}`;
             closeVoucherModal();
             renderCheckoutSummary();
         }
 
         // ==================== CHECKOUT FLOW ====================
         function confirmOrder() {
-            const address = document.getElementById('input-address').value.trim();
-            const notes = document.getElementById('input-notes').value.trim();
-
-            // Validations
-            if (!address) {
-                showToast('Mohon isi alamat pengiriman');
-                document.getElementById('input-address').focus();
-                return;
-            }
-
-            if (!selectedShipping) {
-                showToast('Pilih metode pengiriman');
-                return;
-            }
-
-            if (!selectedPayment) {
-                showToast('Pilih metode pembayaran');
+            if (!validateCheckoutForm()) {
+                // Scroll to first error
+                const addressInput = document.getElementById('input-address');
+                if (addressInput.classList.contains('input-error')) {
+                    addressInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    addressInput.focus();
+                    addressInput.classList.add('shake');
+                    setTimeout(() => addressInput.classList.remove('shake'), 400);
+                }
                 return;
             }
 
@@ -1214,57 +1376,63 @@
 
         function submitOrder() {
             closeConfirmModal();
+            showLoading();
 
-            const address = document.getElementById('input-address').value.trim();
-            const notes = document.getElementById('input-notes').value.trim();
-            const subtotal = getCartTotal();
-            const shipping = SHIPPING_METHODS.find(s => s.id === selectedShipping);
-            const payment = PAYMENT_METHODS.find(p => p.id === selectedPayment);
+            // Simulate processing
+            setTimeout(() => {
+                const address = document.getElementById('input-address').value.trim();
+                const notes = document.getElementById('input-notes').value.trim();
+                const subtotal = getCartTotal();
+                const shipping = SHIPPING_METHODS.find(s => s.id === selectedShipping);
+                const payment = PAYMENT_METHODS.find(p => p.id === selectedPayment);
 
-            let discount = 0;
-            let shippingPrice = shipping.price;
+                let discount = 0;
+                let shippingPrice = shipping.price;
 
-            if (selectedVoucher) {
-                if (selectedVoucher.type === 'shipping') {
-                    shippingPrice = 0;
-                } else {
-                    discount = selectedVoucher.discount;
+                if (selectedVoucher) {
+                    if (selectedVoucher.type === 'shipping') {
+                        shippingPrice = 0;
+                    } else {
+                        discount = selectedVoucher.discount;
+                    }
                 }
-            }
 
-            const total = Math.max(0, subtotal + shippingPrice - discount);
+                const total = Math.max(0, subtotal + shippingPrice - discount);
 
-            currentOrder = {
-                id: generateOrderId(),
-                items: [...cart],
-                subtotal,
-                shipping,
-                shippingPrice,
-                payment,
-                discount,
-                total,
-                address,
-                notes,
-                status: 'diproses',
-                createdAt: new Date().toISOString()
-            };
+                currentOrder = {
+                    id: generateOrderId(),
+                    items: [...cart],
+                    subtotal,
+                    shipping,
+                    shippingPrice,
+                    payment,
+                    discount,
+                    total,
+                    address,
+                    notes,
+                    status: 'diproses',
+                    createdAt: new Date().toISOString()
+                };
 
-            orders.push(currentOrder);
-            saveToStorage();
+                orders.push(currentOrder);
+                saveToStorage();
 
-            // Clear cart
-            cart = [];
-            saveToStorage();
-            updateCartBadge();
+                // Clear cart
+                cart = [];
+                saveToStorage();
+                updateCartBadge();
 
-            // Close checkout and show invoice
-            closeCheckout();
-            renderInvoice();
-            document.getElementById('invoice-page').classList.remove('hidden');
-            document.getElementById('invoice-page').classList.add('slide-in');
-            document.body.style.overflow = 'hidden';
+                hideLoading();
 
-            showToast('Pesanan berhasil dibuat');
+                // Close checkout and show invoice
+                closeCheckout();
+                renderInvoice();
+                document.getElementById('invoice-page').classList.remove('hidden');
+                document.getElementById('invoice-page').classList.add('slide-in');
+                document.body.style.overflow = 'hidden';
+
+                showToast('Pesanan berhasil dibuat');
+            }, 1000);
         }
 
         function generateOrderId() {
@@ -1323,7 +1491,7 @@
             if (!q) {
                 container.innerHTML = `
                     <div class="col-span-2 text-center py-12">
-                        <p class="text-gray-400">Ketik untuk mencari produk</p>
+                        <p class="text-slate-400">Ketik untuk mencari produk</p>
                     </div>
                 `;
                 return;
@@ -1334,7 +1502,7 @@
             if (results.length === 0) {
                 container.innerHTML = `
                     <div class="col-span-2 text-center py-12">
-                        <p class="text-gray-400">Produk tidak ditemukan</p>
+                        <p class="text-slate-400">Produk tidak ditemukan</p>
                     </div>
                 `;
                 return;
@@ -1345,30 +1513,30 @@
                 const qty = inCart ? inCart.qty : 0;
 
                 return `
-                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                        <div class="aspect-square bg-gray-50 relative overflow-hidden">
+                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
                             <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy">
                         </div>
                         <div class="p-3">
-                            <h3 class="font-medium text-sm text-gray-800 line-clamp-2">${product.name}</h3>
-                            <p class="text-orange-600 font-bold mt-1">${formatPrice(product.price)}</p>
+                            <h3 class="font-medium text-sm text-slate-800 line-clamp-2">${product.name}</h3>
+                            <p class="text-blue-600 font-bold mt-1">${formatPrice(product.price)}</p>
                             <div class="mt-2">
                                 ${qty > 0 ? `
-                                    <div class="flex items-center justify-between bg-orange-50 rounded-xl p-1">
-                                        <button onclick="updateCart(${product.id}, -1); handleSearch('${query}')" class="qty-btn w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center">
-                                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div class="flex items-center justify-between bg-blue-50 rounded-xl p-1">
+                                        <button onclick="updateCart(${product.id}, -1); handleSearch('${query}')" class="qty-btn w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-slate-100">
+                                            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/>
                                             </svg>
                                         </button>
-                                        <span class="font-bold text-orange-600">${qty}</span>
-                                        <button onclick="updateCart(${product.id}, 1); handleSearch('${query}')" class="qty-btn w-8 h-8 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center">
+                                        <span class="font-bold text-blue-600 text-lg">${qty}</span>
+                                        <button onclick="updateCart(${product.id}, 1); handleSearch('${query}')" class="qty-btn w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center">
                                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
                                             </svg>
                                         </button>
                                     </div>
                                 ` : `
-                                    <button onclick="updateCart(${product.id}, 1); handleSearch('${query}')" class="w-full py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold text-sm btn-press">
+                                    <button onclick="updateCart(${product.id}, 1); handleSearch('${query}')" class="w-full py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm btn-press">
                                         + Tambah
                                     </button>
                                 `}
@@ -1383,18 +1551,21 @@
         function switchPage(pageName) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(`page-${pageName}`).classList.add('active');
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                const isActive = btn.dataset.page === pageName;
-                btn.classList.toggle('text-orange-500', isActive);
-                btn.classList.toggle('text-gray-400', !isActive);
-            });
+            updateNavActive(pageName);
 
             if (pageName === 'history') {
                 renderOrders();
             }
 
             window.scrollTo(0, 0);
+        }
+
+        function updateNavActive(pageName) {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                const isActive = btn.dataset.page === pageName;
+                btn.classList.toggle('text-blue-600', isActive);
+                btn.classList.toggle('text-slate-400', !isActive);
+            });
         }
 
         // ==================== UTILITY ====================
