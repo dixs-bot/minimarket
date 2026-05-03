@@ -452,7 +452,7 @@
 
         <!-- Fixed Bottom Button -->
         <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 safe-bottom">
-            <button id="btn-order" onclick="confirmOrder()" class="w-full py-4 rounded-xl font-bold text-lg btn-press transition-all duration-300 btn-disabled">
+            <button id="btn-order" onclick="confirmOrder()" disabled class="w-full py-4 rounded-xl font-bold text-lg btn-press transition-all duration-300 btn-disabled">
                 Pesan Sekarang
             </button>
             <p id="form-hint" class="text-center text-xs text-slate-400 mt-2">Lengkapi semua data dulu</p>
@@ -594,13 +594,18 @@
 
         const WHATSAPP_NUMBER = '6285189976233';
 
-        // ==================== STATE ====================
+        // ==================== CENTRAL STATE ====================
+        // State management yang terpusat
+        const checkoutState = {
+            address: '',
+            shipping: '',
+            payment: '',
+            voucher: null
+        };
+
         let cart = [];
         let orders = [];
         let selectedCategory = 'all';
-        let selectedShipping = '';
-        let selectedPayment = '';
-        let selectedVoucher = null;
         let currentOrder = null;
 
         // ==================== INIT ====================
@@ -610,11 +615,18 @@
             renderProducts();
             updateCartBadge();
             updateNavActive('home');
-            
-            // AUTO VALIDATION (WAJIB)
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            // Address input listener
             const addressInput = document.getElementById('input-address');
             if (addressInput) {
-                addressInput.addEventListener('input', () => validateCheckoutForm(false));
+                addressInput.addEventListener('input', function() {
+                    checkoutState.address = this.value.trim();
+                    validateCheckoutForm(false);
+                    renderCheckoutSummary();
+                });
             }
         }
 
@@ -639,21 +651,35 @@
             }
         }
 
-        // ==================== VALIDATE CHECKOUT FORM ====================
-        function validateCheckoutForm(showError = true) {
+        // ==================== RESET CHECKOUT STATE ====================
+        function resetCheckoutState() {
+            checkoutState.address = '';
+            checkoutState.shipping = '';
+            checkoutState.payment = '';
+            checkoutState.voucher = null;
+            
+            // Reset UI
             const addressInput = document.getElementById('input-address');
-            const address = addressInput ? addressInput.value.trim() : '';
+            const notesInput = document.getElementById('input-notes');
+            const voucherLabel = document.getElementById('selected-voucher-label');
+            
+            if (addressInput) addressInput.value = '';
+            if (notesInput) notesInput.value = '';
+            if (voucherLabel) voucherLabel.textContent = 'Pilih voucher (opsional)';
+        }
 
-            const isAddressValid = address !== '';
-            const isShippingValid = selectedShipping !== '';
-            const isPaymentValid = selectedPayment !== '';
+        // ==================== VALIDATE CHECKOUT FORM ====================
+        function validateCheckoutForm(showError) {
+            const isAddressValid = checkoutState.address !== '';
+            const isShippingValid = checkoutState.shipping !== '';
+            const isPaymentValid = checkoutState.payment !== '';
 
             const isValid = isAddressValid && isShippingValid && isPaymentValid;
 
+            // Update button state
             const btn = document.getElementById('btn-order');
             const hint = document.getElementById('form-hint');
 
-            // BUTTON CONTROL
             if (btn) {
                 if (isValid) {
                     btn.disabled = false;
@@ -667,23 +693,25 @@
             }
 
             if (hint) {
-                hint.textContent = isValid ? "Siap untuk pesan" : "Lengkapi semua data dulu";
+                const missing = [];
+                if (!isAddressValid) missing.push('alamat');
+                if (!isShippingValid) missing.push('pengiriman');
+                if (!isPaymentValid) missing.push('pembayaran');
+                
+                hint.textContent = isValid ? "Siap untuk pesan" : `Lengkapi: ${missing.join(', ')}`;
             }
 
-            if (!showError) return isValid;
+            // Show errors only if requested
+            if (showError) {
+                const addrErr = document.getElementById('address-error');
+                const shipErr = document.getElementById('shipping-error');
+                const payErr = document.getElementById('payment-error');
+                const addressInput = document.getElementById('input-address');
 
-            // ERROR UI
-            const addrErr = document.getElementById('address-error');
-            const shipErr = document.getElementById('shipping-error');
-            const payErr = document.getElementById('payment-error');
-
-            if (addrErr) addrErr.classList.toggle('hidden', isAddressValid);
-            if (shipErr) shipErr.classList.toggle('hidden', isShippingValid);
-            if (payErr) payErr.classList.toggle('hidden', isPaymentValid);
-
-            // Highlight input border
-            if (addressInput) {
-                addressInput.classList.toggle('input-error', !isAddressValid);
+                if (addrErr) addrErr.classList.toggle('hidden', isAddressValid);
+                if (shipErr) shipErr.classList.toggle('hidden', isShippingValid);
+                if (payErr) payErr.classList.toggle('hidden', isPaymentValid);
+                if (addressInput) addressInput.classList.toggle('input-error', !isAddressValid);
             }
 
             return isValid;
@@ -826,12 +854,12 @@
             container.innerHTML = SHIPPING_METHODS.map(method => `
                 <div onclick="selectShipping('${method.id}')" 
                     class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${
-                        selectedShipping === method.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'
+                        checkoutState.shipping === method.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'
                     }">
                     <div class="w-11 h-11 rounded-xl flex items-center justify-center ${
-                        selectedShipping === method.id ? 'bg-blue-500' : 'bg-slate-100'
+                        checkoutState.shipping === method.id ? 'bg-blue-500' : 'bg-slate-100'
                     }">
-                        <svg class="w-5 h-5 ${selectedShipping === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 ${checkoutState.shipping === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                     </div>
@@ -851,12 +879,12 @@
             container.innerHTML = PAYMENT_METHODS.map(method => `
                 <div onclick="selectPayment('${method.id}')" 
                     class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${
-                        selectedPayment === method.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'
+                        checkoutState.payment === method.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'
                     }">
                     <div class="w-11 h-11 rounded-xl flex items-center justify-center ${
-                        selectedPayment === method.id ? 'bg-blue-500' : 'bg-slate-100'
+                        checkoutState.payment === method.id ? 'bg-blue-500' : 'bg-slate-100'
                     }">
-                        <svg class="w-5 h-5 ${selectedPayment === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 ${checkoutState.payment === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
                         </svg>
                     </div>
@@ -876,7 +904,7 @@
 
             container.innerHTML = VOUCHERS.map(voucher => {
                 const isValid = subtotal >= voucher.minPurchase;
-                const isSelected = selectedVoucher && selectedVoucher.id === voucher.id;
+                const isSelected = checkoutState.voucher && checkoutState.voucher.id === voucher.id;
 
                 return `
                     <div onclick="${isValid ? `selectVoucher(${voucher.id})` : ''}" 
@@ -900,17 +928,17 @@
 
         function renderCheckoutSummary() {
             const subtotal = getCartTotal();
-            const shipping = selectedShipping ? SHIPPING_METHODS.find(s => s.id === selectedShipping) : null;
+            const shipping = checkoutState.shipping ? SHIPPING_METHODS.find(s => s.id === checkoutState.shipping) : null;
             const shippingPrice = shipping ? shipping.price : 0;
             
             let discount = 0;
             let finalShipping = shippingPrice;
             
-            if (selectedVoucher) {
-                if (selectedVoucher.type === 'shipping') {
+            if (checkoutState.voucher) {
+                if (checkoutState.voucher.type === 'shipping') {
                     finalShipping = 0;
                 } else {
-                    discount = selectedVoucher.discount;
+                    discount = checkoutState.voucher.discount;
                 }
             }
 
@@ -1131,24 +1159,22 @@
             renderProducts(categoryId);
         }
 
-        // FIX SELECT SHIPPING
         function selectShipping(id) {
-            selectedShipping = id;
+            checkoutState.shipping = id;
             renderShippingOptions();
             renderCheckoutSummary();
             validateCheckoutForm(false);
         }
 
-        // FIX SELECT PAYMENT
         function selectPayment(id) {
-            selectedPayment = id;
+            checkoutState.payment = id;
             renderPaymentOptions();
             validateCheckoutForm(false);
         }
 
         function selectVoucher(voucherId) {
             const voucher = VOUCHERS.find(v => v.id === voucherId);
-            selectedVoucher = voucher;
+            checkoutState.voucher = voucher;
             const voucherLabel = document.getElementById('selected-voucher-label');
             if (voucherLabel && voucher) {
                 voucherLabel.textContent = `${voucher.code} - ${voucher.type === 'shipping' ? 'Gratis Ongkir' : 'Diskon ' + formatPrice(voucher.discount)}`;
@@ -1179,33 +1205,31 @@
             closeCart();
         }
 
+        // PROCEED TO CHECKOUT - DENGAN STATE RESET
         function proceedToCheckout() {
+            // Proteksi cart kosong
             if (cart.length === 0) {
-                showToast('Keranjang kosong');
+                showToast("Keranjang kosong!");
                 return;
             }
-            closeCart();
-            
-            selectedShipping = '';
-            selectedPayment = '';
-            selectedVoucher = null;
-            
+
+            // Close cart
+            document.getElementById('cart-sheet').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+
+            // RESET STATE (WAJIB)
+            resetCheckoutState();
+
+            // Render ulang
             renderShippingOptions();
             renderPaymentOptions();
             renderCheckoutSummary();
-            
-            const addressInput = document.getElementById('input-address');
-            const notesInput = document.getElementById('input-notes');
-            const voucherLabel = document.getElementById('selected-voucher-label');
-            
-            if (addressInput) addressInput.value = '';
-            if (notesInput) notesInput.value = '';
-            if (voucherLabel) voucherLabel.textContent = 'Pilih voucher (opsional)';
-            
-            validateCheckoutForm(false);
-            
+
+            // Buka checkout page
             document.getElementById('checkout-page').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+
+            // Validasi dipanggil setelah halaman dibuka
+            setTimeout(() => validateCheckoutForm(false), 50);
         }
 
         function closeCheckout() {
@@ -1246,54 +1270,62 @@
             document.getElementById('confirm-modal').classList.add('hidden');
         }
 
-        // FIX CONFIRM ORDER (ANTI STUCK)
+        // CONFIRM ORDER - VALIDASI DI-LOCK
         function confirmOrder() {
-            const valid = validateCheckoutForm(true);
-
-            if (!valid) {
-                showToast("Lengkapi data dulu!");
+            if (!validateCheckoutForm(true)) {
+                showToast("Lengkapi semua data dulu!");
                 return;
             }
 
             document.getElementById('confirm-modal').classList.remove('hidden');
         }
 
-        // FIX SUBMIT ORDER (FLOW FINAL)
+        // SUBMIT ORDER - DENGAN PROTEKSI NULL
         function submitOrder() {
             document.getElementById('confirm-modal').classList.add('hidden');
             document.getElementById('loading-overlay').classList.remove('hidden');
 
             setTimeout(() => {
-                const shipping = SHIPPING_METHODS.find(s => s.id === selectedShipping);
-                const payment = PAYMENT_METHODS.find(p => p.id === selectedPayment);
+                const shipping = SHIPPING_METHODS.find(s => s.id === checkoutState.shipping);
+                const payment = PAYMENT_METHODS.find(p => p.id === checkoutState.payment);
+
+                // Proteksi null
+                if (!shipping || !payment) {
+                    document.getElementById('loading-overlay').classList.add('hidden');
+                    showToast("Data belum lengkap");
+                    return;
+                }
 
                 const subtotal = getCartTotal();
-                const shippingPrice = shipping ? shipping.price : 0;
+                const shippingPrice = shipping.price;
 
                 let discount = 0;
                 let finalShipping = shippingPrice;
 
-                if (selectedVoucher) {
-                    if (selectedVoucher.type === 'shipping') {
+                if (checkoutState.voucher) {
+                    if (checkoutState.voucher.type === 'shipping') {
                         finalShipping = 0;
                     } else {
-                        discount = selectedVoucher.discount;
+                        discount = checkoutState.voucher.discount;
                     }
                 }
 
                 const total = Math.max(0, subtotal + finalShipping - discount);
 
+                const addressInput = document.getElementById('input-address');
+                const notesInput = document.getElementById('input-notes');
+
                 currentOrder = {
                     id: Date.now(),
                     items: [...cart],
-                    address: document.getElementById('input-address').value,
+                    address: checkoutState.address || (addressInput ? addressInput.value : ''),
                     shipping: shipping,
                     payment: payment,
                     subtotal: subtotal,
                     shippingPrice: finalShipping,
                     discount: discount,
                     total: total,
-                    notes: document.getElementById('input-notes').value,
+                    notes: notesInput ? notesInput.value : '',
                     status: 'diproses'
                 };
 
@@ -1311,38 +1343,43 @@
             }, 800);
         }
 
-        // FIX WHATSAPP (PALING PENTING)
+        // SEND TO WHATSAPP - DENGAN ENCODE
         function sendToWhatsApp() {
-            if (!currentOrder) return;
+            if (!currentOrder) {
+                showToast('Tidak ada pesanan');
+                return;
+            }
 
             const order = currentOrder;
 
-            let text = `Halo, saya ingin memesan:%0A%0A`;
+            let text = `Halo, saya ingin memesan:\n\n`;
 
-            text += `====================%0A`;
-            text += `PESANAN:%0A%0A`;
+            text += `====================\n`;
+            text += `PESANAN:\n\n`;
             
             order.items.forEach(item => {
-                text += `- ${item.name} x${item.qty} = ${formatPrice(item.price * item.qty)}%0A`;
+                text += `- ${item.name} x${item.qty} = ${formatPrice(item.price * item.qty)}\n`;
             });
 
-            text += `%0A====================%0A`;
-            text += `%0AAlamat:%0A${order.address}%0A`;
-            text += `%0APengiriman: ${order.shipping.name}%0A`;
-            text += `%0ASubtotal: ${formatPrice(order.subtotal)}%0A`;
-            text += `Ongkir: ${order.shippingPrice === 0 ? 'Gratis' : formatPrice(order.shippingPrice)}%0A`;
+            text += `\n====================\n`;
+            text += `\nAlamat:\n${order.address}\n`;
+            text += `\nPengiriman: ${order.shipping.name}\n`;
+            text += `Subtotal: ${formatPrice(order.subtotal)}\n`;
+            text += `Ongkir: ${order.shippingPrice === 0 ? 'Gratis' : formatPrice(order.shippingPrice)}\n`;
             if (order.discount > 0) {
-                text += `Diskon: ${formatPrice(order.discount)}%0A`;
+                text += `Diskon: ${formatPrice(order.discount)}\n`;
             }
-            text += `%0ATOTAL: ${formatPrice(order.total)}%0A`;
+            text += `\nTOTAL: ${formatPrice(order.total)}\n`;
 
             if (order.notes && order.notes.trim() !== '') {
-                text += `%0ACatatan: ${order.notes}%0A`;
+                text += `\nCatatan: ${order.notes}\n`;
             }
 
-            text += `%0AMohon diproses ya`;
+            text += `\nMohon diproses ya`;
 
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+            // Encode untuk keamanan
+            const encoded = encodeURIComponent(text);
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
 
             window.open(url, '_blank');
         }
