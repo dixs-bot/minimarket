@@ -12,9 +12,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
@@ -23,7 +21,6 @@
         :root {
             --primary: #2563eb;
             --primary-dark: #1e40af;
-            --primary-light: #3b82f6;
             --bg: #f8fafc;
             --card: #ffffff;
             --text: #1e293b;
@@ -34,16 +31,8 @@
             --danger: #ef4444;
             --error-bg: #fef2f2;
         }
-
-        * {
-            -webkit-tap-highlight-color: transparent;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            overscroll-behavior: none;
-        }
-
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        html, body { overscroll-behavior: none; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
@@ -51,17 +40,16 @@
             min-height: 100vh;
             min-height: 100dvh;
         }
-
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         .bottom-sheet {
             transform: translateY(100%);
             transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+            will-change: transform;
         }
         .bottom-sheet.active { transform: translateY(0); }
 
@@ -70,112 +58,84 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
-        .overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .overlay.active { opacity: 1; pointer-events: auto; }
 
-        .btn-press {
-            transition: transform 0.12s ease, background-color 0.2s ease;
-        }
+        .btn-press { transition: transform 0.12s ease; }
         .btn-press:active:not(:disabled) { transform: scale(0.97); }
-        .btn-press:disabled { 
-            opacity: 0.5; 
-            cursor: not-allowed; 
-            transform: none;
-        }
+        .btn-press:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        .product-card { transition: transform 0.2s ease; }
+        .product-card { transition: transform 0.15s ease; }
         .product-card:active { transform: scale(0.98); }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(16px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes slideInRight {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-        
         @keyframes scaleIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-8px); }
-            40%, 80% { transform: translateX(8px); }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-
-        .fade-in-up { animation: fadeInUp 0.4s ease forwards; }
-        .slide-in { animation: slideInRight 0.35s ease forwards; }
-        .scale-in { animation: scaleIn 0.3s ease forwards; }
-        .shake { animation: shake 0.4s ease; }
-        .spin { animation: spin 1s linear infinite; }
+        @keyframes badgePop {
+            0% { transform: scale(0.5); }
+            60% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .fade-in-up { animation: fadeInUp 0.35s ease forwards; }
+        .scale-in { animation: scaleIn 0.25s ease forwards; }
+        .spin { animation: spin 0.8s linear infinite; }
+        .badge-pop { animation: badgePop 0.3s ease; }
 
         .stagger > * {
             opacity: 0;
-            animation: fadeInUp 0.4s ease forwards;
+            animation: fadeInUp 0.35s ease forwards;
         }
-        .stagger > *:nth-child(1) { animation-delay: 0.03s; }
-        .stagger > *:nth-child(2) { animation-delay: 0.06s; }
-        .stagger > *:nth-child(3) { animation-delay: 0.09s; }
-        .stagger > *:nth-child(4) { animation-delay: 0.12s; }
-        .stagger > *:nth-child(5) { animation-delay: 0.15s; }
-        .stagger > *:nth-child(6) { animation-delay: 0.18s; }
-        .stagger > *:nth-child(7) { animation-delay: 0.21s; }
-        .stagger > *:nth-child(8) { animation-delay: 0.24s; }
+        .stagger > *:nth-child(1) { animation-delay: 0.02s; }
+        .stagger > *:nth-child(2) { animation-delay: 0.04s; }
+        .stagger > *:nth-child(3) { animation-delay: 0.06s; }
+        .stagger > *:nth-child(4) { animation-delay: 0.08s; }
+        .stagger > *:nth-child(5) { animation-delay: 0.10s; }
+        .stagger > *:nth-child(6) { animation-delay: 0.12s; }
+        .stagger > *:nth-child(7) { animation-delay: 0.14s; }
+        .stagger > *:nth-child(8) { animation-delay: 0.16s; }
+        .stagger > *:nth-child(9) { animation-delay: 0.18s; }
+        .stagger > *:nth-child(10) { animation-delay: 0.20s; }
+        .stagger > *:nth-child(11) { animation-delay: 0.22s; }
+        .stagger > *:nth-child(12) { animation-delay: 0.24s; }
 
         .page { display: none; }
         .page.active { display: block; }
 
-        .cart-badge { animation: pulse 2s infinite; }
-
         .toast {
-            transform: translateY(100px);
+            transform: translateY(80px);
             opacity: 0;
             transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
         }
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        .toast.show { transform: translateY(0); opacity: 1; }
 
         input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
-
         .input-error {
             border-color: var(--danger) !important;
             background-color: var(--error-bg) !important;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
         }
-
-        .qty-btn { transition: all 0.15s ease; }
-        .qty-btn:active { transform: scale(0.9); }
+        .qty-btn { transition: transform 0.1s ease; }
+        .qty-btn:active { transform: scale(0.88); }
 
         .selection-card {
-            transition: all 0.2s ease;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
             cursor: pointer;
         }
-        .selection-card:hover { border-color: #93c5fd; }
         .selection-card.selected {
-            border-color: var(--primary);
-            background: rgba(37, 99, 235, 0.05);
+            border-color: var(--primary) !important;
+            background: rgba(37, 99, 235, 0.04) !important;
         }
 
         .status-diproses { background: #dbeafe; color: #1e40af; }
@@ -185,6 +145,13 @@
         .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
         .pb-nav { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
 
+        .btn-enabled {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+        .btn-disabled { background: #cbd5e1; color: #94a3b8; box-shadow: none; }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -192,27 +159,12 @@
                 transition-duration: 0.01ms !important;
             }
         }
-
-        .btn-enabled {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
-        }
-        
-        .btn-enabled:hover {
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
-        }
-
-        .btn-disabled {
-            background: #cbd5e1;
-            color: #94a3b8;
-            box-shadow: none;
-        }
     </style>
 </head>
 <body class="bg-slate-50">
-    <!-- HEADER -->
-    <header class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+
+    <!-- ========== HEADER ========== -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
         <div class="flex items-center justify-between px-4 py-3">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-sm">
@@ -225,7 +177,7 @@
                     <p class="text-xs text-slate-500">Belanja Mudah</p>
                 </div>
             </div>
-            <button onclick="openSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press" aria-label="Cari produk">
+            <button data-action="open-search" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press" aria-label="Cari produk">
                 <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
@@ -233,8 +185,9 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
+    <!-- ========== MAIN CONTENT ========== -->
     <main class="pt-20 pb-nav">
+
         <!-- HOME PAGE -->
         <div id="page-home" class="page active">
             <section class="px-4 pt-2">
@@ -245,9 +198,7 @@
                         <span class="inline-block px-2 py-1 bg-white/20 rounded-md text-xs font-medium mb-2">PROMO</span>
                         <h2 class="text-xl font-bold">Diskon Hingga 20%</h2>
                         <p class="text-sm opacity-90 mt-1">Untuk semua produk minuman</p>
-                        <div class="inline-block mt-3 px-3 py-1.5 bg-white rounded-lg text-blue-600 text-sm font-semibold">
-                            Kode: HEMAT20
-                        </div>
+                        <div class="inline-block mt-3 px-3 py-1.5 bg-white rounded-lg text-blue-600 text-sm font-semibold">Kode: HEMAT20</div>
                     </div>
                 </div>
             </section>
@@ -268,7 +219,7 @@
 
         <!-- HISTORY PAGE -->
         <div id="page-history" class="page">
-            <div class="px-4 pt-2">
+            <div id="history-wrapper" class="px-4 pt-2">
                 <h2 class="text-xl font-bold text-slate-800 mb-4">Riwayat Pesanan</h2>
                 <div id="orders-list" class="space-y-3"></div>
                 <div id="empty-history" class="hidden text-center py-16">
@@ -279,22 +230,22 @@
                     </div>
                     <p class="text-slate-600 font-medium mb-1">Belum Ada Pesanan</p>
                     <p class="text-sm text-slate-400 mb-4">Yuk mulai belanja sekarang!</p>
-                    <button onclick="switchPage('home')" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold btn-press">Belanja Sekarang</button>
+                    <button id="btn-go-shopping" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold btn-press">Belanja Sekarang</button>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- BOTTOM NAVIGATION -->
-    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 safe-bottom">
+    <!-- ========== BOTTOM NAV ========== -->
+    <nav id="bottom-nav" class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 safe-bottom">
         <div class="flex items-center justify-around py-2">
-            <button onclick="switchPage('home')" class="nav-btn flex flex-col items-center py-2 px-6" data-page="home">
+            <button data-nav="home" class="nav-btn flex flex-col items-center py-2 px-6" aria-label="Beranda">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                 </svg>
                 <span class="text-xs mt-1 font-medium">Beranda</span>
             </button>
-            <button onclick="switchPage('history')" class="nav-btn flex flex-col items-center py-2 px-6" data-page="history">
+            <button data-nav="history" class="nav-btn flex flex-col items-center py-2 px-6" aria-label="Pesanan">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                 </svg>
@@ -303,18 +254,18 @@
         </div>
     </nav>
 
-    <!-- FLOATING CART BUTTON -->
-    <button id="floating-cart" onclick="openCart()" class="fixed right-4 bottom-24 w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-lg flex items-center justify-center z-30 btn-press hidden" style="box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35)">
+    <!-- ========== FLOATING CART BUTTON ========== -->
+    <button id="floating-cart" class="fixed right-4 bottom-24 w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-lg flex items-center justify-center z-30 btn-press hidden" style="box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35)" aria-label="Buka keranjang">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
         </svg>
-        <span id="cart-badge" class="cart-badge absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">0</span>
+        <span id="cart-badge" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">0</span>
     </button>
 
-    <!-- OVERLAY -->
-    <div id="overlay" class="overlay fixed inset-0 bg-black/40 z-50" onclick="closeOverlay()"></div>
+    <!-- ========== OVERLAY ========== -->
+    <div id="overlay" class="overlay fixed inset-0 bg-black/40 z-50"></div>
 
-    <!-- CART BOTTOM SHEET -->
+    <!-- ========== CART BOTTOM SHEET ========== -->
     <div id="cart-sheet" class="bottom-sheet fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 max-h-[85vh] flex flex-col" style="padding-bottom: env(safe-area-inset-bottom, 0px)">
         <div class="flex items-center justify-between p-4 border-b border-slate-100">
             <div class="flex items-center gap-3">
@@ -328,15 +279,13 @@
                     <p id="cart-item-count" class="text-xs text-slate-500">0 item</p>
                 </div>
             </div>
-            <button onclick="closeCart()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
+            <button data-action="close-cart" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press" aria-label="Tutup keranjang">
                 <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
         </div>
-
         <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
-
         <div id="cart-empty" class="hidden flex-1 flex flex-col items-center justify-center p-8">
             <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-4">
                 <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -345,23 +294,22 @@
             </div>
             <p class="text-slate-700 font-medium mb-1">Keranjang Kosong</p>
             <p class="text-sm text-slate-400 mb-4">Yuk pilih produk favoritmu!</p>
-            <button onclick="closeCart()" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold btn-press">Mulai Belanja</button>
+            <button data-action="start-shopping" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl font-semibold btn-press">Mulai Belanja</button>
         </div>
-
         <div id="cart-footer" class="p-4 border-t border-slate-100 bg-white">
             <div class="flex items-center justify-between mb-3">
                 <span class="text-slate-500">Total Pembayaran</span>
                 <span id="cart-total" class="text-xl font-bold text-blue-600">Rp 0</span>
             </div>
-            <button onclick="proceedToCheckout()" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold btn-press text-base hover:bg-blue-700 transition-colors">Checkout Sekarang</button>
+            <button data-action="cart-checkout" class="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold btn-press text-base hover:bg-blue-700 transition-colors">Checkout Sekarang</button>
         </div>
     </div>
 
-    <!-- CHECKOUT PAGE -->
+    <!-- ========== CHECKOUT PAGE ========== -->
     <div id="checkout-page" class="fixed inset-0 bg-slate-50 z-50 overflow-y-auto hidden">
         <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
             <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeCheckout()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
+                <button data-action="close-checkout" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press" aria-label="Kembali">
                     <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
@@ -369,9 +317,8 @@
                 <h1 class="text-lg font-bold text-slate-800">Checkout</h1>
             </div>
         </header>
-
         <div class="p-4 pb-40 space-y-4">
-            <!-- Step 1: Address -->
+            <!-- Step 1 -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <div class="flex items-center gap-2 mb-3">
                     <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
@@ -380,8 +327,7 @@
                 </div>
                 <textarea id="input-address" class="w-full p-3 border-2 border-slate-200 rounded-xl resize-none text-sm bg-slate-50 focus:bg-white transition-all" rows="3" placeholder="Masukkan alamat lengkap (nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan)..."></textarea>
             </section>
-
-            <!-- Step 2: Shipping -->
+            <!-- Step 2 -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <div class="flex items-center gap-2 mb-3">
                     <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
@@ -390,8 +336,7 @@
                 </div>
                 <div id="shipping-options" class="space-y-2"></div>
             </section>
-
-            <!-- Step 3: Payment -->
+            <!-- Step 3 -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <div class="flex items-center gap-2 mb-3">
                     <div class="w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
@@ -400,7 +345,6 @@
                 </div>
                 <div id="payment-options" class="space-y-2"></div>
             </section>
-
             <!-- Step 4: Voucher -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <div class="flex items-center justify-between">
@@ -415,52 +359,36 @@
                             <p id="selected-voucher-label" class="text-sm text-slate-400">Pilih voucher (opsional)</p>
                         </div>
                     </div>
-                    <button onclick="openVoucherModal()" class="px-4 py-2 text-blue-600 font-semibold text-sm btn-press hover:bg-blue-50 rounded-lg transition-colors">Pilih</button>
+                    <button data-action="open-voucher" class="px-4 py-2 text-blue-600 font-semibold text-sm btn-press hover:bg-blue-50 rounded-lg transition-colors">Pilih</button>
                 </div>
             </section>
-
-            <!-- Order Summary -->
+            <!-- Summary -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <h3 class="font-semibold text-slate-800 mb-3">Ringkasan Pesanan</h3>
                 <div id="checkout-items" class="space-y-2 mb-3 pb-3 border-b border-slate-100 max-h-40 overflow-y-auto"></div>
                 <div class="space-y-2 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Subtotal</span>
-                        <span id="summary-subtotal" class="text-slate-700">Rp 0</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Ongkos Kirim</span>
-                        <span id="summary-shipping" class="text-slate-700">Rp 0</span>
-                    </div>
-                    <div id="discount-row" class="flex justify-between hidden">
-                        <span class="text-slate-500">Diskon</span>
-                        <span id="summary-discount" class="text-green-600 font-medium">- Rp 0</span>
-                    </div>
+                    <div class="flex justify-between"><span class="text-slate-500">Subtotal</span><span id="summary-subtotal" class="text-slate-700">Rp 0</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">Ongkos Kirim</span><span id="summary-shipping" class="text-slate-700">Rp 0</span></div>
+                    <div id="discount-row" class="flex justify-between hidden"><span class="text-slate-500">Diskon</span><span id="summary-discount" class="text-green-600 font-medium">- Rp 0</span></div>
                     <div class="flex justify-between pt-3 border-t border-slate-100 text-base font-bold">
-                        <span class="text-slate-800">Total Bayar</span>
-                        <span id="summary-total" class="text-blue-600">Rp 0</span>
+                        <span class="text-slate-800">Total Bayar</span><span id="summary-total" class="text-blue-600">Rp 0</span>
                     </div>
                 </div>
             </section>
-
             <!-- Notes -->
             <section class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
                 <h3 class="font-semibold text-slate-800 mb-3">Catatan (Opsional)</h3>
                 <textarea id="input-notes" class="w-full p-3 border border-slate-200 rounded-xl resize-none text-sm bg-slate-50 focus:bg-white transition-colors" rows="2" placeholder="Tambah catatan untuk pesanan..."></textarea>
             </section>
         </div>
-
-        <!-- Fixed Bottom Button -->
         <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 safe-bottom">
-            <button id="btn-order" onclick="confirmOrder()" class="w-full py-4 rounded-xl font-bold text-lg btn-press transition-all duration-300 btn-disabled">
-                Pesan Sekarang
-            </button>
+            <button id="btn-order" class="w-full py-4 rounded-xl font-bold text-lg btn-press transition-all duration-300 btn-disabled" disabled>Pesan Sekarang</button>
             <p id="form-hint" class="text-center text-xs text-slate-400 mt-2">Lengkapi semua data dulu</p>
         </div>
     </div>
 
-    <!-- CONFIRMATION MODAL -->
-    <div id="confirm-modal" class="fixed inset-0 bg-black/40 z-60 flex items-center justify-center p-4 hidden" style="backdrop-filter: blur(4px);">
+    <!-- ========== CONFIRM MODAL ========== -->
+    <div id="confirm-modal" class="fixed inset-0 bg-black/40 z-[60] flex items-center justify-center p-4 hidden" style="backdrop-filter:blur(4px)">
         <div class="bg-white rounded-2xl p-6 w-full max-w-sm scale-in shadow-xl">
             <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -470,26 +398,26 @@
             <h3 class="text-xl font-bold text-center text-slate-800 mb-2">Konfirmasi Pesanan</h3>
             <p class="text-slate-500 text-center mb-6">Yakin ingin memesan? Pastikan semua data sudah benar.</p>
             <div class="flex gap-3">
-                <button onclick="closeConfirmModal()" class="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl font-semibold btn-press hover:bg-slate-200 transition-colors">Batal</button>
-                <button onclick="submitOrder()" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-semibold btn-press hover:bg-blue-700 transition-colors">Ya, Pesan</button>
+                <button data-action="cancel-order" class="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl font-semibold btn-press hover:bg-slate-200 transition-colors">Batal</button>
+                <button data-action="submit-order" class="flex-1 py-3 bg-blue-600 text-white rounded-xl font-semibold btn-press hover:bg-blue-700 transition-colors">Ya, Pesan</button>
             </div>
         </div>
     </div>
 
-    <!-- LOADING OVERLAY -->
-    <div id="loading-overlay" class="fixed inset-0 bg-white/90 z-70 flex items-center justify-center hidden" style="backdrop-filter: blur(4px);">
+    <!-- ========== LOADING OVERLAY ========== -->
+    <div id="loading-overlay" class="fixed inset-0 bg-white/90 z-[70] flex items-center justify-center hidden" style="backdrop-filter:blur(4px)">
         <div class="text-center">
             <div class="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full spin mx-auto mb-4"></div>
             <p class="text-slate-600 font-medium">Memproses pesanan...</p>
         </div>
     </div>
 
-    <!-- INVOICE PAGE -->
+    <!-- ========== INVOICE PAGE ========== -->
     <div id="invoice-page" class="fixed inset-0 bg-slate-50 z-50 overflow-y-auto hidden">
         <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
             <div class="flex items-center justify-between px-4 py-3">
                 <div class="flex items-center gap-3">
-                    <button onclick="closeInvoice()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
+                    <button data-action="close-invoice" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press" aria-label="Tutup invoice">
                         <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -498,41 +426,37 @@
                 </div>
             </div>
         </header>
-
         <div class="p-4 pb-32">
             <div id="invoice-content" class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"></div>
         </div>
-
         <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 safe-bottom">
-            <button onclick="sendToWhatsApp()" class="w-full py-4 bg-green-600 text-white rounded-xl font-bold btn-press text-lg flex items-center justify-center gap-3 hover:bg-green-700 transition-colors" style="box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3)">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.895c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.895 0-3.183-1.24-6.177-3.493-8.413z"/>
-                </svg>
+            <button id="btn-send-wa" class="w-full py-4 bg-green-600 text-white rounded-xl font-bold btn-press text-lg flex items-center justify-center gap-3 hover:bg-green-700 transition-colors" style="box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3)">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.895c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.895 0-3.183-1.24-6.177-3.493-8.413z"/></svg>
                 Kirim ke WhatsApp
             </button>
         </div>
     </div>
 
-    <!-- SEARCH MODAL -->
+    <!-- ========== SEARCH MODAL ========== -->
     <div id="search-modal" class="fixed inset-0 bg-slate-50 z-50 hidden">
         <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
             <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeSearch()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
+                <button data-action="close-search" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press" aria-label="Tutup pencarian">
                     <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
                 </button>
-                <input id="search-input" type="text" class="flex-1 py-2.5 px-4 bg-slate-100 rounded-xl text-sm focus:bg-white transition-colors" placeholder="Cari produk..." oninput="handleSearch(this.value)">
+                <input id="search-input" type="text" class="flex-1 py-2.5 px-4 bg-slate-100 rounded-xl text-sm focus:bg-white transition-colors" placeholder="Cari produk...">
             </div>
         </header>
         <div id="search-results" class="p-4 grid grid-cols-2 gap-3"></div>
     </div>
 
-    <!-- VOUCHER MODAL -->
-    <div id="voucher-modal" class="fixed inset-0 bg-slate-50 z-50 hidden">
+    <!-- ========== VOUCHER MODAL ========== -->
+    <div id="voucher-modal" class="fixed inset-0 bg-slate-50 z-[60] hidden">
         <header class="sticky top-0 bg-white z-10 border-b border-slate-200">
             <div class="flex items-center gap-3 px-4 py-3">
-                <button onclick="closeVoucherModal()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press">
+                <button data-action="close-voucher" class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors btn-press" aria-label="Tutup voucher">
                     <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                     </svg>
@@ -543,538 +467,304 @@
         <div id="voucher-list" class="p-4 space-y-3"></div>
     </div>
 
-    <!-- TOAST -->
-    <div id="toast" class="toast fixed bottom-28 left-4 right-4 bg-slate-800 text-white px-4 py-3 rounded-xl z-50 text-center font-medium text-sm shadow-lg">Notifikasi</div>
+    <!-- ========== TOAST ========== -->
+    <div id="toast" class="toast fixed bottom-28 left-4 right-4 bg-slate-800 text-white px-4 py-3 rounded-xl z-[80] text-center font-medium text-sm shadow-lg">Notifikasi</div>
 
+    <!-- ========== SCRIPT (PRODUCTION READY) ========== -->
     <script>
-        // ==================== DATA ====================
-        const CATEGORIES = [
+    (function() {
+        'use strict';
+
+        // ============================
+        // DATA
+        // ============================
+        var CATEGORIES = [
             { id: 'all', name: 'Semua' },
             { id: 'snacks', name: 'Makanan Ringan' },
             { id: 'drinks', name: 'Minuman' },
             { id: 'dairy', name: 'Susu' },
             { id: 'frozen', name: 'Frozen Food' },
-            { id: 'instant', name: 'Mie Instan' },
+            { id: 'instant', name: 'Mie Instan' }
         ];
 
-        const PRODUCTS = [
-            { id: 1, name: 'Chitato Original 68g', price: 12000, category: 'snacks', image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300&h=300&fit=crop', stock: 50 },
-            { id: 2, name: 'Lays BBQ 70g', price: 11000, category: 'snacks', image: 'https://images.unsplash.com/photo-1585232004423-244e01769049?w=300&h=300&fit=crop', stock: 45 },
-            { id: 3, name: 'Oreo Original 133g', price: 15000, category: 'snacks', image: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=300&h=300&fit=crop', stock: 30 },
-            { id: 4, name: 'Good Day Kopi 250ml', price: 5000, category: 'drinks', image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d92a?w=300&h=300&fit=crop', stock: 100 },
-            { id: 5, name: 'Teh Pucuk 350ml', price: 4000, category: 'drinks', image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&h=300&fit=crop', stock: 80 },
-            { id: 6, name: 'Aqua 600ml', price: 4000, category: 'drinks', image: 'https://images.unsplash.com/photo-1548839140-29a749e1f16a?w=300&h=300&fit=crop', stock: 120 },
-            { id: 7, name: 'Indomie Goreng', price: 3500, category: 'instant', image: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=300&h=300&fit=crop', stock: 200 },
-            { id: 8, name: 'Ultra Milk 1L', price: 18000, category: 'dairy', image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=300&fit=crop', stock: 40 },
-            { id: 9, name: 'Yogurt Strawberry', price: 8000, category: 'dairy', image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300&h=300&fit=crop', stock: 60 },
-            { id: 10, name: 'Nugget Ayam 500g', price: 45000, category: 'frozen', image: 'https://images.unsplash.com/photo-1606525437679-0374ed4ffb3b?w=300&h=300&fit=crop', stock: 25 },
-            { id: 11, name: 'Sosis Ayam 250g', price: 28000, category: 'frozen', image: 'https://images.unsplash.com/photo-1612283818218-bc7cb1edb2f6?w=300&h=300&fit=crop', stock: 35 },
-            { id: 12, name: 'Sunlight 800ml', price: 14000, category: 'snacks', image: 'https://images.unsplash.com/photo-1583947215259-38e4be8c7b99?w=300&h=300&fit=crop', stock: 55 },
+        var PRODUCTS = [
+            { id: 1,  name: 'Chitato Original 68g',     price: 12000, category: 'snacks',  stock: 50,  image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300&h=300&fit=crop' },
+            { id: 2,  name: 'Lays BBQ 70g',             price: 11000, category: 'snacks',  stock: 45,  image: 'https://images.unsplash.com/photo-1585232004423-244e01769049?w=300&h=300&fit=crop' },
+            { id: 3,  name: 'Oreo Original 133g',        price: 15000, category: 'snacks',  stock: 30,  image: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=300&h=300&fit=crop' },
+            { id: 4,  name: 'Good Day Kopi 250ml',       price: 5000,  category: 'drinks',  stock: 100, image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d92a?w=300&h=300&fit=crop' },
+            { id: 5,  name: 'Teh Pucuk 350ml',           price: 4000,  category: 'drinks',  stock: 80,  image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&h=300&fit=crop' },
+            { id: 6,  name: 'Aqua 600ml',                price: 4000,  category: 'drinks',  stock: 120, image: 'https://images.unsplash.com/photo-1548839140-29a749e1f16a?w=300&h=300&fit=crop' },
+            { id: 7,  name: 'Indomie Goreng',            price: 3500,  category: 'instant', stock: 200, image: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=300&h=300&fit=crop' },
+            { id: 8,  name: 'Ultra Milk 1L',             price: 18000, category: 'dairy',   stock: 40,  image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=300&fit=crop' },
+            { id: 9,  name: 'Yogurt Strawberry 250ml',   price: 8000,  category: 'dairy',   stock: 60,  image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300&h=300&fit=crop' },
+            { id: 10, name: 'Nugget Ayam 500g',          price: 45000, category: 'frozen',  stock: 25,  image: 'https://images.unsplash.com/photo-1606525437679-0374ed4ffb3b?w=300&h=300&fit=crop' },
+            { id: 11, name: 'Sosis Ayam 250g',           price: 28000, category: 'frozen',  stock: 35,  image: 'https://images.unsplash.com/photo-1612283818218-bc7cb1edb2f6?w=300&h=300&fit=crop' },
+            { id: 12, name: 'Sunlight 800ml',            price: 14000, category: 'snacks',  stock: 55,  image: 'https://images.unsplash.com/photo-1583947215259-38e4be8c7b99?w=300&h=300&fit=crop' }
         ];
 
-        const SHIPPING_METHODS = [
-            { id: 'gojek', name: 'Gojek Instant', price: 15000, estimate: '1-2 jam' },
-            { id: 'grab', name: 'Grab Instant', price: 15000, estimate: '1-2 jam' },
-            { id: 'shopee', name: 'Shopee Express', price: 9000, estimate: '2-3 hari' },
-            { id: 'pickup', name: 'Ambil di Tempat', price: 0, estimate: 'Langsung' },
+        var SHIPPING_METHODS = [
+            { id: 'gojek',  name: 'Gojek Instant',  price: 15000, estimate: '1-2 jam' },
+            { id: 'grab',   name: 'Grab Instant',   price: 15000, estimate: '1-2 jam' },
+            { id: 'shopee', name: 'Shopee Express', price: 9000,  estimate: '2-3 hari' },
+            { id: 'pickup', name: 'Ambil di Tempat', price: 0,    estimate: 'Langsung' }
         ];
 
-        const PAYMENT_METHODS = [
-            { id: 'cod', name: 'COD (Bayar di Tempat)', desc: 'Bayar saat pesanan tiba' },
-            { id: 'transfer', name: 'Transfer Bank', desc: 'BCA, Mandiri, BRI, BNI' },
-            { id: 'qris', name: 'QRIS', desc: 'Scan QR untuk bayar' },
+        var PAYMENT_METHODS = [
+            { id: 'cod',      name: 'COD (Bayar di Tempat)', desc: 'Bayar saat pesanan tiba' },
+            { id: 'transfer', name: 'Transfer Bank',         desc: 'BCA, Mandiri, BRI, BNI' },
+            { id: 'qris',     name: 'QRIS',                  desc: 'Scan QR untuk bayar' }
         ];
 
-        const VOUCHERS = [
-            { id: 1, code: 'HEMAT10K', discount: 10000, type: 'nominal', minPurchase: 50000 },
-            { id: 2, code: 'HEMAT5K', discount: 5000, type: 'nominal', minPurchase: 30000 },
-            { id: 3, code: 'GRATISONGKIR', discount: 0, type: 'shipping', minPurchase: 25000, freeShipping: true },
-            { id: 4, code: 'DISKON20K', discount: 20000, type: 'nominal', minPurchase: 100000 },
+        var VOUCHERS = [
+            { id: 1, code: 'HEMAT10K',     discount: 10000, type: 'nominal',  minPurchase: 50000 },
+            { id: 2, code: 'HEMAT5K',      discount: 5000,  type: 'nominal',  minPurchase: 30000 },
+            { id: 3, code: 'GRATISONGKIR', discount: 0,     type: 'shipping', minPurchase: 25000 },
+            { id: 4, code: 'DISKON20K',    discount: 20000, type: 'nominal',  minPurchase: 100000 }
         ];
 
-        const WHATSAPP_NUMBER = '6285189976233';
+        var WA_NUMBER = '6285189976233';
 
-        // ==================== STATE ====================
-        let cart = [];
-        let orders = [];
-        let selectedCategory = 'all';
-        let selectedShipping = '';
-        let selectedPayment = '';
-        let selectedVoucher = null;
-        let currentOrder = null;
+        // SVG templates (dipakai berulang, cache di sini)
+        var SVG_MINUS = '<svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg>';
+        var SVG_PLUS_W = '<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>';
+        var SVG_MINUS_SM = '<svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg>';
+        var SVG_PLUS_SM_W = '<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>';
+        var SVG_TRASH = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>';
+        var SVG_SHIP = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>';
+        var SVG_PAY = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>';
 
-        // ==================== INIT ====================
-        function init() {
-            loadFromStorage();
-            renderCategories();
-            renderProducts();
-            updateCartBadge();
-            updateNavActive('home');
-            
-            // AUTO VALIDATION (WAJIB)
-            const addressInput = document.getElementById('input-address');
-            if (addressInput) {
-                addressInput.addEventListener('input', () => validateCheckoutForm(false));
+        // ============================
+        // STATE
+        // ============================
+        var state = {
+            cart: [],
+            orders: [],
+            selectedCategory: 'all',
+            checkout: { shipping: '', payment: '', voucher: null },
+            currentOrder: null,
+            scrollLockCount: 0,
+            toastTimer: null
+        };
+
+        // ============================
+        // DOM CACHE
+        // ============================
+        var dom = {};
+
+        function cacheDom() {
+            dom.overlay          = document.getElementById('overlay');
+            dom.cartSheet        = document.getElementById('cart-sheet');
+            dom.cartItems        = document.getElementById('cart-items');
+            dom.cartEmpty        = document.getElementById('cart-empty');
+            dom.cartFooter       = document.getElementById('cart-footer');
+            dom.cartItemCount    = document.getElementById('cart-item-count');
+            dom.cartTotal        = document.getElementById('cart-total');
+            dom.floatingCart     = document.getElementById('floating-cart');
+            dom.cartBadge        = document.getElementById('cart-badge');
+            dom.categoriesCont   = document.getElementById('categories-container');
+            dom.productsGrid     = document.getElementById('products-grid');
+            dom.productCount     = document.getElementById('product-count');
+            dom.checkoutPage     = document.getElementById('checkout-page');
+            dom.inputAddress     = document.getElementById('input-address');
+            dom.inputNotes       = document.getElementById('input-notes');
+            dom.addressError     = document.getElementById('address-error');
+            dom.shippingError    = document.getElementById('shipping-error');
+            dom.paymentError     = document.getElementById('payment-error');
+            dom.shippingOptions  = document.getElementById('shipping-options');
+            dom.paymentOptions   = document.getElementById('payment-options');
+            dom.checkoutItems    = document.getElementById('checkout-items');
+            dom.summarySubtotal  = document.getElementById('summary-subtotal');
+            dom.summaryShipping  = document.getElementById('summary-shipping');
+            dom.discountRow      = document.getElementById('discount-row');
+            dom.summaryDiscount  = document.getElementById('summary-discount');
+            dom.summaryTotal     = document.getElementById('summary-total');
+            dom.voucherLabel     = document.getElementById('selected-voucher-label');
+            dom.btnOrder         = document.getElementById('btn-order');
+            dom.formHint         = document.getElementById('form-hint');
+            dom.confirmModal     = document.getElementById('confirm-modal');
+            dom.loadingOverlay   = document.getElementById('loading-overlay');
+            dom.invoicePage      = document.getElementById('invoice-page');
+            dom.invoiceContent   = document.getElementById('invoice-content');
+            dom.btnSendWa        = document.getElementById('btn-send-wa');
+            dom.searchModal      = document.getElementById('search-modal');
+            dom.searchInput      = document.getElementById('search-input');
+            dom.searchResults    = document.getElementById('search-results');
+            dom.voucherModal     = document.getElementById('voucher-modal');
+            dom.voucherList      = document.getElementById('voucher-list');
+            dom.ordersList       = document.getElementById('orders-list');
+            dom.emptyHistory     = document.getElementById('empty-history');
+            dom.btnGoShopping    = document.getElementById('btn-go-shopping');
+            dom.toast            = document.getElementById('toast');
+            dom.bottomNav        = document.getElementById('bottom-nav');
+            dom.mainHeader       = document.getElementById('main-header');
+        }
+
+        // ============================
+        // UTILITIES
+        // ============================
+        function formatPrice(price) {
+            return 'Rp ' + (Number(price) || 0).toLocaleString('id-ID');
+        }
+
+        function showToast(msg) {
+            if (state.toastTimer) clearTimeout(state.toastTimer);
+            dom.toast.textContent = msg;
+            dom.toast.classList.add('show');
+            state.toastTimer = setTimeout(function() {
+                dom.toast.classList.remove('show');
+            }, 2500);
+        }
+
+        function getProduct(id) {
+            for (var i = 0; i < PRODUCTS.length; i++) {
+                if (PRODUCTS[i].id === id) return PRODUCTS[i];
+            }
+            return null;
+        }
+
+        function getCartTotal() {
+            var total = 0;
+            for (var i = 0; i < state.cart.length; i++) {
+                total += state.cart[i].price * state.cart[i].qty;
+            }
+            return total;
+        }
+
+        function getCartItemCount() {
+            var count = 0;
+            for (var i = 0; i < state.cart.length; i++) {
+                count += state.cart[i].qty;
+            }
+            return count;
+        }
+
+        // ============================
+        // SCROLL LOCK (STACK-BASED)
+        // ============================
+        function lockScroll() {
+            if (state.scrollLockCount === 0) {
+                document.body.style.overflow = 'hidden';
+            }
+            state.scrollLockCount++;
+        }
+
+        function unlockScroll() {
+            state.scrollLockCount = Math.max(0, state.scrollLockCount - 1);
+            if (state.scrollLockCount === 0) {
+                document.body.style.overflow = '';
             }
         }
 
+        // ============================
+        // STORAGE
+        // ============================
         function loadFromStorage() {
             try {
-                const savedCart = localStorage.getItem('minimart_cart');
-                const savedOrders = localStorage.getItem('minimart_orders');
-                cart = savedCart ? JSON.parse(savedCart) : [];
-                orders = savedOrders ? JSON.parse(savedOrders) : [];
+                var c = localStorage.getItem('mm_cart');
+                var o = localStorage.getItem('mm_orders');
+                if (c) state.cart = JSON.parse(c);
+                if (o) state.orders = JSON.parse(o);
             } catch (e) {
-                cart = [];
-                orders = [];
+                state.cart = [];
+                state.orders = [];
             }
         }
 
         function saveToStorage() {
             try {
-                localStorage.setItem('minimart_cart', JSON.stringify(cart));
-                localStorage.setItem('minimart_orders', JSON.stringify(orders));
-            } catch (e) {
-                console.error('Failed to save:', e);
+                localStorage.setItem('mm_cart', JSON.stringify(state.cart));
+                localStorage.setItem('mm_orders', JSON.stringify(state.orders));
+            } catch (e) { /* silent */ }
+        }
+
+        // ============================
+        // PARTIAL UI UPDATES (PERFORMANCE)
+        // ============================
+        function updateProductQtyUI(productId) {
+            var el = document.getElementById('pqty-' + productId);
+            if (!el) return;
+
+            var inCart = null;
+            for (var i = 0; i < state.cart.length; i++) {
+                if (state.cart[i].id === productId) { inCart = state.cart[i]; break; }
+            }
+            var qty = inCart ? inCart.qty : 0;
+
+            if (qty > 0) {
+                el.innerHTML =
+                    '<div class="flex items-center justify-between bg-blue-50 rounded-xl p-1">' +
+                        '<button data-minus="' + productId + '" class="qty-btn w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-slate-100">' + SVG_MINUS + '</button>' +
+                        '<span class="font-bold text-blue-600 text-lg">' + qty + '</span>' +
+                        '<button data-plus="' + productId + '" class="qty-btn w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center">' + SVG_PLUS_W + '</button>' +
+                    '</div>';
+            } else {
+                el.innerHTML = '<button data-add="' + productId + '" class="w-full py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm btn-press">+ Tambah</button>';
             }
         }
 
-        // ==================== VALIDATE CHECKOUT FORM ====================
-        function validateCheckoutForm(showError = true) {
-            const addressInput = document.getElementById('input-address');
-            const address = addressInput ? addressInput.value.trim() : '';
+        function updateSearchProductQtyUI(productId) {
+            var el = document.getElementById('sqty-' + productId);
+            if (!el) return;
 
-            const isAddressValid = address !== '';
-            const isShippingValid = selectedShipping !== '';
-            const isPaymentValid = selectedPayment !== '';
-
-            const isValid = isAddressValid && isShippingValid && isPaymentValid;
-
-            const btn = document.getElementById('btn-order');
-            const hint = document.getElementById('form-hint');
-
-            // BUTTON CONTROL
-            if (btn) {
-                if (isValid) {
-                    btn.disabled = false;
-                    btn.classList.remove('btn-disabled');
-                    btn.classList.add('btn-enabled');
-                } else {
-                    btn.disabled = true;
-                    btn.classList.add('btn-disabled');
-                    btn.classList.remove('btn-enabled');
-                }
+            var inCart = null;
+            for (var i = 0; i < state.cart.length; i++) {
+                if (state.cart[i].id === productId) { inCart = state.cart[i]; break; }
             }
+            var qty = inCart ? inCart.qty : 0;
 
-            if (hint) {
-                hint.textContent = isValid ? "Siap untuk pesan" : "Lengkapi semua data dulu";
+            if (qty > 0) {
+                el.innerHTML =
+                    '<div class="flex items-center justify-between bg-blue-50 rounded-xl p-1">' +
+                        '<button data-sminus="' + productId + '" class="qty-btn w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-slate-100">' + SVG_MINUS + '</button>' +
+                        '<span class="font-bold text-blue-600 text-lg">' + qty + '</span>' +
+                        '<button data-splus="' + productId + '" class="qty-btn w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center">' + SVG_PLUS_W + '</button>' +
+                    '</div>';
+            } else {
+                el.innerHTML = '<button data-sadd="' + productId + '" class="w-full py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm btn-press">+ Tambah</button>';
             }
-
-            if (!showError) return isValid;
-
-            // ERROR UI
-            const addrErr = document.getElementById('address-error');
-            const shipErr = document.getElementById('shipping-error');
-            const payErr = document.getElementById('payment-error');
-
-            if (addrErr) addrErr.classList.toggle('hidden', isAddressValid);
-            if (shipErr) shipErr.classList.toggle('hidden', isShippingValid);
-            if (payErr) payErr.classList.toggle('hidden', isPaymentValid);
-
-            // Highlight input border
-            if (addressInput) {
-                addressInput.classList.toggle('input-error', !isAddressValid);
-            }
-
-            return isValid;
         }
 
-        // ==================== RENDER FUNCTIONS ====================
-        function renderCategories() {
-            const container = document.getElementById('categories-container');
-            if (!container) return;
-            
-            container.innerHTML = CATEGORIES.map(cat => `
-                <button onclick="selectCategory('${cat.id}')" 
-                    class="flex-shrink-0 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ${
-                        selectedCategory === cat.id 
-                            ? 'bg-blue-600 text-white shadow-md' 
-                            : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-300'
-                    }">
-                    ${cat.name}
-                </button>
-            `).join('');
-        }
-
-        function renderProducts(filter) {
-            const actualFilter = filter !== undefined ? filter : selectedCategory;
-            const container = document.getElementById('products-grid');
-            const countEl = document.getElementById('product-count');
-            
-            if (!container) return;
-            
-            let filtered = PRODUCTS;
-            if (actualFilter !== 'all') {
-                filtered = PRODUCTS.filter(p => p.category === actualFilter);
+        function updateCartBadge() {
+            var count = getCartItemCount();
+            dom.cartBadge.textContent = count;
+            if (count > 0) {
+                dom.floatingCart.classList.remove('hidden');
+                dom.cartBadge.classList.remove('badge-pop');
+                void dom.cartBadge.offsetWidth; // force reflow
+                dom.cartBadge.classList.add('badge-pop');
+            } else {
+                dom.floatingCart.classList.add('hidden');
             }
-
-            if (countEl) countEl.textContent = `${filtered.length} produk`;
-
-            if (filtered.length === 0) {
-                container.innerHTML = `<div class="col-span-2 text-center py-12"><p class="text-slate-400">Tidak ada produk ditemukan</p></div>`;
-                return;
-            }
-
-            container.innerHTML = filtered.map(product => {
-                const inCart = cart.find(c => c.id === product.id);
-                const qty = inCart ? inCart.qty : 0;
-
-                return `
-                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
-                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
-                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://via.placeholder.com/300?text=Product'">
-                        </div>
-                        <div class="p-3">
-                            <h3 class="font-medium text-sm text-slate-800 line-clamp-2 min-h-[40px] leading-tight">${product.name}</h3>
-                            <p class="text-blue-600 font-bold mt-1">${formatPrice(product.price)}</p>
-                            <div class="mt-2">
-                                ${qty > 0 ? `
-                                    <div class="flex items-center justify-between bg-blue-50 rounded-xl p-1">
-                                        <button onclick="updateCart(${product.id}, -1)" class="qty-btn w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-slate-100">
-                                            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/>
-                                            </svg>
-                                        </button>
-                                        <span class="font-bold text-blue-600 text-lg">${qty}</span>
-                                        <button onclick="updateCart(${product.id}, 1)" class="qty-btn w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center">
-                                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                ` : `
-                                    <button onclick="updateCart(${product.id}, 1)" class="w-full py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm btn-press">
-                                        + Tambah
-                                    </button>
-                                `}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
         }
 
-        function renderCart() {
-            const container = document.getElementById('cart-items');
-            const emptyEl = document.getElementById('cart-empty');
-            const footerEl = document.getElementById('cart-footer');
-            const itemCount = document.getElementById('cart-item-count');
-
-            if (!container) return;
-
-            if (cart.length === 0) {
-                container.classList.add('hidden');
-                if (emptyEl) emptyEl.classList.remove('hidden');
-                if (footerEl) footerEl.classList.add('hidden');
-                if (itemCount) itemCount.textContent = '0 item';
-                return;
-            }
-
-            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-            if (itemCount) itemCount.textContent = `${totalItems} item`;
-
-            container.classList.remove('hidden');
-            if (emptyEl) emptyEl.classList.add('hidden');
-            if (footerEl) footerEl.classList.remove('hidden');
-
-            container.innerHTML = cart.map(item => `
-                <div class="flex gap-3 bg-slate-50 rounded-xl p-3 border border-slate-100">
-                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover bg-white" onerror="this.src='https://via.placeholder.com/100?text=Item'">
-                    <div class="flex-1 min-w-0">
-                        <h4 class="font-medium text-sm text-slate-800 line-clamp-2">${item.name}</h4>
-                        <p class="text-blue-600 font-bold text-sm mt-1">${formatPrice(item.price)}</p>
-                        <div class="flex items-center gap-2 mt-2">
-                            <button onclick="updateCart(${item.id}, -1)" class="qty-btn w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center">
-                                <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/>
-                                </svg>
-                            </button>
-                            <span class="font-semibold text-sm w-6 text-center text-slate-800">${item.qty}</span>
-                            <button onclick="updateCart(${item.id}, 1)" class="qty-btn w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <button onclick="removeFromCart(${item.id})" class="text-red-400 self-start p-1 btn-press">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                        </svg>
-                    </button>
-                </div>
-            `).join('');
-
-            const totalEl = document.getElementById('cart-total');
-            if (totalEl) totalEl.textContent = formatPrice(getCartTotal());
-        }
-
-        function renderShippingOptions() {
-            const container = document.getElementById('shipping-options');
-            if (!container) return;
-            
-            container.innerHTML = SHIPPING_METHODS.map(method => `
-                <div onclick="selectShipping('${method.id}')" 
-                    class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${
-                        selectedShipping === method.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'
-                    }">
-                    <div class="w-11 h-11 rounded-xl flex items-center justify-center ${
-                        selectedShipping === method.id ? 'bg-blue-500' : 'bg-slate-100'
-                    }">
-                        <svg class="w-5 h-5 ${selectedShipping === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <div class="flex-1">
-                        <p class="font-medium text-sm text-slate-800">${method.name}</p>
-                        <p class="text-xs text-slate-500">${method.estimate}</p>
-                    </div>
-                    <span class="font-semibold text-sm ${method.price === 0 ? 'text-green-600' : 'text-slate-700'}">${method.price === 0 ? 'Gratis' : formatPrice(method.price)}</span>
-                </div>
-            `).join('');
-        }
-
-        function renderPaymentOptions() {
-            const container = document.getElementById('payment-options');
-            if (!container) return;
-            
-            container.innerHTML = PAYMENT_METHODS.map(method => `
-                <div onclick="selectPayment('${method.id}')" 
-                    class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ${
-                        selectedPayment === method.id ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white'
-                    }">
-                    <div class="w-11 h-11 rounded-xl flex items-center justify-center ${
-                        selectedPayment === method.id ? 'bg-blue-500' : 'bg-slate-100'
-                    }">
-                        <svg class="w-5 h-5 ${selectedPayment === method.id ? 'text-white' : 'text-slate-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="font-medium text-sm text-slate-800">${method.name}</p>
-                        <p class="text-xs text-slate-500">${method.desc}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function renderVouchers() {
-            const container = document.getElementById('voucher-list');
-            if (!container) return;
-            
-            const subtotal = getCartTotal();
-
-            container.innerHTML = VOUCHERS.map(voucher => {
-                const isValid = subtotal >= voucher.minPurchase;
-                const isSelected = selectedVoucher && selectedVoucher.id === voucher.id;
-
-                return `
-                    <div onclick="${isValid ? `selectVoucher(${voucher.id})` : ''}" 
-                        class="border-2 rounded-xl p-4 transition-all ${
-                            isSelected ? 'border-blue-500 bg-blue-50' : 
-                            isValid ? 'border-slate-200 bg-white cursor-pointer hover:border-blue-300' : 'border-slate-100 bg-slate-50 opacity-60'
-                        }">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="font-bold text-blue-600">${voucher.code}</span>
-                            ${isSelected ? '<span class="text-xs bg-blue-600 text-white px-2 py-1 rounded-full">Dipilih</span>' : ''}
-                        </div>
-                        <p class="font-semibold text-sm text-slate-800">
-                            ${voucher.type === 'shipping' ? 'Gratis Ongkir' : `Diskon ${formatPrice(voucher.discount)}`}
-                        </p>
-                        <p class="text-xs text-slate-500 mt-1">Min. belanja ${formatPrice(voucher.minPurchase)}</p>
-                        ${!isValid ? '<p class="text-xs text-red-500 mt-2 font-medium">Belum memenuhi minimum pembelian</p>' : ''}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function renderCheckoutSummary() {
-            const subtotal = getCartTotal();
-            const shipping = selectedShipping ? SHIPPING_METHODS.find(s => s.id === selectedShipping) : null;
-            const shippingPrice = shipping ? shipping.price : 0;
-            
-            let discount = 0;
-            let finalShipping = shippingPrice;
-            
-            if (selectedVoucher) {
-                if (selectedVoucher.type === 'shipping') {
-                    finalShipping = 0;
-                } else {
-                    discount = selectedVoucher.discount;
-                }
-            }
-
-            const total = Math.max(0, subtotal + finalShipping - discount);
-
-            const itemsEl = document.getElementById('checkout-items');
-            if (itemsEl) {
-                itemsEl.innerHTML = cart.map(item => `
-                    <div class="flex justify-between text-sm">
-                        <span class="text-slate-600 truncate flex-1">${item.name}</span>
-                        <span class="ml-2 whitespace-nowrap text-slate-500">x${item.qty}</span>
-                        <span class="ml-3 whitespace-nowrap font-medium text-slate-800">${formatPrice(item.price * item.qty)}</span>
-                    </div>
-                `).join('');
-            }
-
-            const subtotalEl = document.getElementById('summary-subtotal');
-            const shippingEl = document.getElementById('summary-shipping');
-            const discountRow = document.getElementById('discount-row');
-            const discountEl = document.getElementById('summary-discount');
-            const totalEl = document.getElementById('summary-total');
-
-            if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
-            if (shippingEl) shippingEl.textContent = finalShipping === 0 && shipping ? 'Gratis' : formatPrice(finalShipping);
-            
-            if (discountRow && discountEl) {
-                if (discount > 0) {
-                    discountRow.classList.remove('hidden');
-                    discountEl.textContent = `- ${formatPrice(discount)}`;
-                } else {
-                    discountRow.classList.add('hidden');
-                }
-            }
-            
-            if (totalEl) totalEl.textContent = formatPrice(total);
-        }
-
-        function renderInvoice() {
-            if (!currentOrder) return;
-
-            const order = currentOrder;
-            const container = document.getElementById('invoice-content');
-            if (!container) return;
-
-            container.innerHTML = `
-                <div class="bg-gradient-to-r from-blue-600 to-blue-500 p-6 text-white text-center">
-                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
-                        </svg>
-                    </div>
-                    <h2 class="text-xl font-bold">Pesanan Berhasil</h2>
-                    <p class="text-sm opacity-90 mt-1">ID: #${order.id}</p>
-                </div>
-
-                <div class="p-4 border-b border-slate-100">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-slate-500">Status</span>
-                        <span class="status-${order.status} text-sm font-medium px-3 py-1 rounded-full">
-                            ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="p-4 border-b border-slate-100">
-                    <h3 class="font-semibold text-slate-800 mb-3">Detail Pesanan</h3>
-                    <div class="space-y-3">
-                        ${order.items.map(item => `
-                            <div class="flex items-center gap-3">
-                                <img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-lg object-cover bg-slate-100" onerror="this.src='https://via.placeholder.com/100?text=Item'">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-slate-800 truncate">${item.name}</p>
-                                    <p class="text-xs text-slate-500">${item.qty}x ${formatPrice(item.price)}</p>
-                                </div>
-                                <span class="text-sm font-semibold text-slate-800">${formatPrice(item.price * item.qty)}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-
-                <div class="p-4 border-b border-slate-100 space-y-2 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Subtotal</span>
-                        <span class="text-slate-700">${formatPrice(order.subtotal)}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-slate-500">Pengiriman (${order.shipping.name})</span>
-                        <span class="${order.shippingPrice === 0 ? 'text-green-600 font-medium' : 'text-slate-700'}">${order.shippingPrice === 0 ? 'Gratis' : formatPrice(order.shippingPrice)}</span>
-                    </div>
-                    <div class="flex justify-between pt-2 border-t border-slate-100 text-base font-bold">
-                        <span class="text-slate-800">Total Bayar</span>
-                        <span class="text-blue-600">${formatPrice(order.total)}</span>
-                    </div>
-                </div>
-
-                <div class="p-4 border-b border-slate-100">
-                    <h3 class="font-semibold text-slate-800 mb-2">Alamat Pengiriman</h3>
-                    <p class="text-sm text-slate-600">${order.address}</p>
-                </div>
-
-                <div class="p-4">
-                    <h3 class="font-semibold text-slate-800 mb-2">Pembayaran</h3>
-                    <p class="text-sm text-slate-600">${order.payment.name}</p>
-                </div>
-            `;
-        }
-
-        function renderOrders() {
-            const container = document.getElementById('orders-list');
-            const emptyEl = document.getElementById('empty-history');
-
-            if (!container) return;
-
-            if (orders.length === 0) {
-                container.classList.add('hidden');
-                if (emptyEl) emptyEl.classList.remove('hidden');
-                return;
-            }
-
-            container.classList.remove('hidden');
-            if (emptyEl) emptyEl.classList.add('hidden');
-
-            container.innerHTML = orders.slice().reverse().map(order => `
-                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="text-sm text-slate-500">#${order.id}</span>
-                        <span class="status-${order.status} text-xs font-medium px-3 py-1 rounded-full">
-                            ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                        </span>
-                    </div>
-                    <div class="space-y-2 mb-3">
-                        ${order.items.slice(0, 2).map(item => `
-                            <div class="flex items-center gap-3">
-                                <img src="${item.image}" alt="${item.name}" class="w-10 h-10 rounded-lg object-cover bg-slate-100" onerror="this.src='https://via.placeholder.com/100?text=Item'">
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-medium text-slate-800 truncate">${item.name}</p>
-                                    <p class="text-xs text-slate-500">${item.qty}x ${formatPrice(item.price)}</p>
-                                </div>
-                            </div>
-                        `).join('')}
-                        ${order.items.length > 2 ? `<p class="text-xs text-slate-400">+${order.items.length - 2} produk lainnya</p>` : ''}
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-slate-100">
-                        <span class="font-bold text-blue-600">${formatPrice(order.total)}</span>
-                        <button onclick="viewOrderDetail('${order.id}')" class="text-blue-600 text-sm font-semibold btn-press">Lihat Detail</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ==================== CART FUNCTIONS ====================
+        // ============================
+        // CART LOGIC
+        // ============================
         function updateCart(productId, change) {
-            const product = PRODUCTS.find(p => p.id === productId);
+            var product = getProduct(productId);
             if (!product) return;
 
-            const existing = cart.find(c => c.id === productId);
+            var existing = null;
+            var existIdx = -1;
+            for (var i = 0; i < state.cart.length; i++) {
+                if (state.cart[i].id === productId) { existing = state.cart[i]; existIdx = i; break; }
+            }
+
+            var currentQty = existing ? existing.qty : 0;
+
+            // Cek stok saat tambah
+            if (change > 0 && currentQty + change > product.stock) {
+                showToast('Stok ' + product.name + ' tinggal ' + product.stock);
+                return;
+            }
 
             if (existing) {
                 existing.qty += change;
                 if (existing.qty <= 0) {
-                    cart = cart.filter(c => c.id !== productId);
+                    state.cart.splice(existIdx, 1);
                 }
             } else if (change > 0) {
-                cart.push({
+                state.cart.push({
                     id: product.id,
                     name: product.name,
                     price: product.price,
@@ -1084,347 +774,675 @@
             }
 
             saveToStorage();
-            updateCartBadge();
-            renderProducts();
-            
-            const cartSheet = document.getElementById('cart-sheet');
-            if (cartSheet && cartSheet.classList.contains('active')) {
+
+            // Partial update: hanya update UI yang berubah
+            var homeActive = document.getElementById('page-home').classList.contains('active');
+            if (homeActive) {
+                updateProductQtyUI(productId);
+            }
+
+            // Jika search modal terbuka, update juga search UI
+            if (!dom.searchModal.classList.contains('hidden')) {
+                updateSearchProductQtyUI(productId);
+            }
+
+            // Jika cart sheet terbuka, re-render cart
+            if (dom.cartSheet.classList.contains('active')) {
                 renderCart();
             }
+
+            updateCartBadge();
         }
 
         function removeFromCart(productId) {
-            cart = cart.filter(c => c.id !== productId);
+            for (var i = 0; i < state.cart.length; i++) {
+                if (state.cart[i].id === productId) {
+                    state.cart.splice(i, 1);
+                    break;
+                }
+            }
             saveToStorage();
-            updateCartBadge();
             renderCart();
-            
-            if (cart.length === 0) {
+            updateCartBadge();
+
+            // Update product grid jika visible
+            if (document.getElementById('page-home').classList.contains('active')) {
+                updateProductQtyUI(productId);
+            }
+
+            if (state.cart.length === 0) {
                 closeCart();
             }
         }
 
-        function updateCartBadge() {
-            const total = cart.reduce((sum, item) => sum + item.qty, 0);
-            const badge = document.getElementById('cart-badge');
-            const btn = document.getElementById('floating-cart');
+        // ============================
+        // FULL RENDERS
+        // ============================
+        function renderCategories() {
+            var html = '';
+            for (var i = 0; i < CATEGORIES.length; i++) {
+                var cat = CATEGORIES[i];
+                var isActive = state.selectedCategory === cat.id;
+                html += '<button data-cat="' + cat.id + '" class="flex-shrink-0 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all whitespace-nowrap ' +
+                    (isActive
+                        ? 'bg-blue-600 text-white shadow-md'
+                        : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-300') +
+                    '">' + cat.name + '</button>';
+            }
+            dom.categoriesCont.innerHTML = html;
+        }
 
-            if (badge) badge.textContent = total;
+        function buildProductCard(product, qtyPrefix) {
+            var prefix = qtyPrefix || 'pqty';
+            var addAttr = qtyPrefix ? 'data-sadd' : 'data-add';
+            var minAttr = qtyPrefix ? 'data-sminus' : 'data-minus';
+            var plusAttr = qtyPrefix ? 'data-splus' : 'data-plus';
 
-            if (btn) {
-                if (total > 0) {
-                    btn.classList.remove('hidden');
-                } else {
-                    btn.classList.add('hidden');
+            var inCart = null;
+            for (var i = 0; i < state.cart.length; i++) {
+                if (state.cart[i].id === product.id) { inCart = state.cart[i]; break; }
+            }
+            var qty = inCart ? inCart.qty : 0;
+
+            var qtyHtml;
+            if (qty > 0) {
+                qtyHtml =
+                    '<div class="flex items-center justify-between bg-blue-50 rounded-xl p-1">' +
+                        '<button ' + minAttr + '="' + product.id + '" class="qty-btn w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-slate-100">' + SVG_MINUS + '</button>' +
+                        '<span class="font-bold text-blue-600 text-lg">' + qty + '</span>' +
+                        '<button ' + plusAttr + '="' + product.id + '" class="qty-btn w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center">' + SVG_PLUS_W + '</button>' +
+                    '</div>';
+            } else {
+                qtyHtml = '<button ' + addAttr + '="' + product.id + '" class="w-full py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm btn-press">+ Tambah</button>';
+            }
+
+            return '<div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">' +
+                '<div class="aspect-square bg-slate-100 relative overflow-hidden">' +
+                    '<img src="' + product.image + '" alt="' + product.name + '" class="w-full h-full object-cover" loading="lazy" onerror="this.style.background=\'#e2e8f0\'">' +
+                '</div>' +
+                '<div class="p-3">' +
+                    '<h3 class="font-medium text-sm text-slate-800 line-clamp-2 min-h-[40px] leading-tight">' + product.name + '</h3>' +
+                    '<p class="text-blue-600 font-bold mt-1">' + formatPrice(product.price) + '</p>' +
+                    '<div id="' + prefix + '-' + product.id + '" class="mt-2">' + qtyHtml + '</div>' +
+                '</div>' +
+            '</div>';
+        }
+
+        function renderProducts() {
+            var filtered = PRODUCTS;
+            if (state.selectedCategory !== 'all') {
+                filtered = [];
+                for (var i = 0; i < PRODUCTS.length; i++) {
+                    if (PRODUCTS[i].category === state.selectedCategory) filtered.push(PRODUCTS[i]);
                 }
             }
+
+            dom.productCount.textContent = filtered.length + ' produk';
+
+            if (filtered.length === 0) {
+                dom.productsGrid.innerHTML = '<div class="col-span-2 text-center py-12"><p class="text-slate-400">Tidak ada produk ditemukan</p></div>';
+                return;
+            }
+
+            var html = '';
+            for (var i = 0; i < filtered.length; i++) {
+                html += buildProductCard(filtered[i], 'pqty');
+            }
+            dom.productsGrid.innerHTML = html;
         }
 
-        function getCartTotal() {
-            return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        function renderCart() {
+            var count = getCartItemCount();
+            dom.cartItemCount.textContent = count + ' item';
+
+            if (state.cart.length === 0) {
+                dom.cartItems.classList.add('hidden');
+                dom.cartEmpty.classList.remove('hidden');
+                dom.cartFooter.classList.add('hidden');
+                return;
+            }
+
+            dom.cartItems.classList.remove('hidden');
+            dom.cartEmpty.classList.add('hidden');
+            dom.cartFooter.classList.remove('hidden');
+
+            var html = '';
+            for (var i = 0; i < state.cart.length; i++) {
+                var item = state.cart[i];
+                html += '<div class="flex gap-3 bg-slate-50 rounded-xl p-3 border border-slate-100">' +
+                    '<img src="' + item.image + '" alt="' + item.name + '" class="w-16 h-16 rounded-xl object-cover bg-white" onerror="this.style.background=\'#e2e8f0\'">' +
+                    '<div class="flex-1 min-w-0">' +
+                        '<h4 class="font-medium text-sm text-slate-800 line-clamp-2">' + item.name + '</h4>' +
+                        '<p class="text-blue-600 font-bold text-sm mt-1">' + formatPrice(item.price) + '</p>' +
+                        '<div class="flex items-center gap-2 mt-2">' +
+                            '<button data-cart-minus="' + item.id + '" class="qty-btn w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center">' + SVG_MINUS_SM + '</button>' +
+                            '<span class="font-semibold text-sm w-6 text-center text-slate-800">' + item.qty + '</span>' +
+                            '<button data-cart-plus="' + item.id + '" class="qty-btn w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center">' + SVG_PLUS_SM_W + '</button>' +
+                        '</div>' +
+                    '</div>' +
+                    '<button data-cart-remove="' + item.id + '" class="text-red-400 self-start p-1 btn-press">' + SVG_TRASH + '</button>' +
+                '</div>';
+            }
+            dom.cartItems.innerHTML = html;
+            dom.cartTotal.textContent = formatPrice(getCartTotal());
         }
 
-        // ==================== SELECTION FUNCTIONS ====================
-        function selectCategory(categoryId) {
-            selectedCategory = categoryId;
-            renderCategories();
-            renderProducts(categoryId);
+        function renderShippingOptions() {
+            var html = '';
+            for (var i = 0; i < SHIPPING_METHODS.length; i++) {
+                var m = SHIPPING_METHODS[i];
+                var sel = state.checkout.shipping === m.id;
+                html += '<div data-ship="' + m.id + '" class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ' +
+                    (sel ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white') + '">' +
+                    '<div class="w-11 h-11 rounded-xl flex items-center justify-center ' + (sel ? 'bg-blue-500' : 'bg-slate-100') + '">' +
+                        '<svg class="w-5 h-5 ' + (sel ? 'text-white' : 'text-slate-500') + '" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>' +
+                    '</div>' +
+                    '<div class="flex-1"><p class="font-medium text-sm text-slate-800">' + m.name + '</p><p class="text-xs text-slate-500">' + m.estimate + '</p></div>' +
+                    '<span class="font-semibold text-sm ' + (m.price === 0 ? 'text-green-600' : 'text-slate-700') + '">' + (m.price === 0 ? 'Gratis' : formatPrice(m.price)) + '</span>' +
+                '</div>';
+            }
+            dom.shippingOptions.innerHTML = html;
         }
 
-        // FIX SELECT SHIPPING
+        function renderPaymentOptions() {
+            var html = '';
+            for (var i = 0; i < PAYMENT_METHODS.length; i++) {
+                var m = PAYMENT_METHODS[i];
+                var sel = state.checkout.payment === m.id;
+                html += '<div data-pay="' + m.id + '" class="selection-card flex items-center gap-3 p-3 rounded-xl border-2 ' +
+                    (sel ? 'selected border-blue-500 bg-blue-50' : 'border-slate-200 bg-white') + '">' +
+                    '<div class="w-11 h-11 rounded-xl flex items-center justify-center ' + (sel ? 'bg-blue-500' : 'bg-slate-100') + '">' +
+                        '<svg class="w-5 h-5 ' + (sel ? 'text-white' : 'text-slate-500') + '" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>' +
+                    '</div>' +
+                    '<div><p class="font-medium text-sm text-slate-800">' + m.name + '</p><p class="text-xs text-slate-500">' + m.desc + '</p></div>' +
+                '</div>';
+            }
+            dom.paymentOptions.innerHTML = html;
+        }
+
+        function renderCheckoutSummary() {
+            var subtotal = getCartTotal();
+            var shippingMethod = null;
+            for (var i = 0; i < SHIPPING_METHODS.length; i++) {
+                if (SHIPPING_METHODS[i].id === state.checkout.shipping) { shippingMethod = SHIPPING_METHODS[i]; break; }
+            }
+            var shippingPrice = shippingMethod ? shippingMethod.price : 0;
+
+            var discount = 0;
+            var finalShipping = shippingPrice;
+
+            if (state.checkout.voucher) {
+                if (state.checkout.voucher.type === 'shipping') {
+                    finalShipping = 0;
+                } else {
+                    discount = state.checkout.voucher.discount;
+                }
+            }
+
+            var total = Math.max(0, subtotal + finalShipping - discount);
+
+            // Items list
+            var itemsHtml = '';
+            for (var i = 0; i < state.cart.length; i++) {
+                var item = state.cart[i];
+                itemsHtml += '<div class="flex justify-between text-sm">' +
+                    '<span class="text-slate-600 truncate flex-1">' + item.name + '</span>' +
+                    '<span class="ml-2 whitespace-nowrap text-slate-500">x' + item.qty + '</span>' +
+                    '<span class="ml-3 whitespace-nowrap font-medium text-slate-800">' + formatPrice(item.price * item.qty) + '</span>' +
+                '</div>';
+            }
+            dom.checkoutItems.innerHTML = itemsHtml;
+
+            dom.summarySubtotal.textContent = formatPrice(subtotal);
+            dom.summaryShipping.textContent = (finalShipping === 0 && shippingMethod) ? 'Gratis' : formatPrice(finalShipping);
+
+            if (discount > 0) {
+                dom.discountRow.classList.remove('hidden');
+                dom.summaryDiscount.textContent = '- ' + formatPrice(discount);
+            } else {
+                dom.discountRow.classList.add('hidden');
+            }
+
+            dom.summaryTotal.textContent = formatPrice(total);
+        }
+
+        function renderVouchers() {
+            var subtotal = getCartTotal();
+            var html = '';
+
+            for (var i = 0; i < VOUCHERS.length; i++) {
+                var v = VOUCHERS[i];
+                var isValid = subtotal >= v.minPurchase;
+                var isSelected = state.checkout.voucher && state.checkout.voucher.id === v.id;
+
+                html += '<div data-voucher="' + v.id + '" class="border-2 rounded-xl p-4 transition-all ' +
+                    (isSelected ? 'border-blue-500 bg-blue-50' :
+                        isValid ? 'border-slate-200 bg-white cursor-pointer hover:border-blue-300' :
+                        'border-slate-100 bg-slate-50 opacity-60') + '">' +
+                    '<div class="flex items-center justify-between mb-2">' +
+                        '<span class="font-bold text-blue-600">' + v.code + '</span>' +
+                        (isSelected ? '<span class="text-xs bg-blue-600 text-white px-2 py-1 rounded-full">Dipilih</span>' : '') +
+                    '</div>' +
+                    '<p class="font-semibold text-sm text-slate-800">' + (v.type === 'shipping' ? 'Gratis Ongkir' : 'Diskon ' + formatPrice(v.discount)) + '</p>' +
+                    '<p class="text-xs text-slate-500 mt-1">Min. belanja ' + formatPrice(v.minPurchase) + '</p>' +
+                    (!isValid ? '<p class="text-xs text-red-500 mt-2 font-medium">Belum memenuhi minimum pembelian</p>' : '') +
+                '</div>';
+            }
+            dom.voucherList.innerHTML = html;
+        }
+
+        function renderInvoice() {
+            var o = state.currentOrder;
+            if (!o) return;
+
+            var itemsHtml = '';
+            for (var i = 0; i < o.items.length; i++) {
+                var item = o.items[i];
+                itemsHtml += '<div class="flex items-center gap-3">' +
+                    '<img src="' + item.image + '" alt="' + item.name + '" class="w-12 h-12 rounded-lg object-cover bg-slate-100" onerror="this.style.background=\'#e2e8f0\'">' +
+                    '<div class="flex-1 min-w-0">' +
+                        '<p class="text-sm font-medium text-slate-800 truncate">' + item.name + '</p>' +
+                        '<p class="text-xs text-slate-500">' + item.qty + 'x ' + formatPrice(item.price) + '</p>' +
+                    '</div>' +
+                    '<span class="text-sm font-semibold text-slate-800">' + formatPrice(item.price * item.qty) + '</span>' +
+                '</div>';
+            }
+
+            var statusLabel = o.status.charAt(0).toUpperCase() + o.status.slice(1);
+
+            dom.invoiceContent.innerHTML =
+                '<div class="bg-gradient-to-r from-blue-600 to-blue-500 p-6 text-white text-center">' +
+                    '<div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">' +
+                        '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>' +
+                    '</div>' +
+                    '<h2 class="text-xl font-bold">Pesanan Berhasil</h2>' +
+                    '<p class="text-sm opacity-90 mt-1">ID: #' + o.id + '</p>' +
+                '</div>' +
+                '<div class="p-4 border-b border-slate-100"><div class="flex items-center justify-between"><span class="text-sm text-slate-500">Status</span><span class="status-' + o.status + ' text-sm font-medium px-3 py-1 rounded-full">' + statusLabel + '</span></div></div>' +
+                '<div class="p-4 border-b border-slate-100"><h3 class="font-semibold text-slate-800 mb-3">Detail Pesanan</h3><div class="space-y-3">' + itemsHtml + '</div></div>' +
+                '<div class="p-4 border-b border-slate-100 space-y-2 text-sm">' +
+                    '<div class="flex justify-between"><span class="text-slate-500">Subtotal</span><span class="text-slate-700">' + formatPrice(o.subtotal) + '</span></div>' +
+                    '<div class="flex justify-between"><span class="text-slate-500">Pengiriman (' + o.shipping.name + ')</span><span class="' + (o.shippingPrice === 0 ? 'text-green-600 font-medium' : 'text-slate-700') + '">' + (o.shippingPrice === 0 ? 'Gratis' : formatPrice(o.shippingPrice)) + '</span></div>' +
+                    (o.discount > 0 ? '<div class="flex justify-between"><span class="text-slate-500">Diskon</span><span class="text-green-600 font-medium">- ' + formatPrice(o.discount) + '</span></div>' : '') +
+                    '<div class="flex justify-between pt-2 border-t border-slate-100 text-base font-bold"><span class="text-slate-800">Total Bayar</span><span class="text-blue-600">' + formatPrice(o.total) + '</span></div>' +
+                '</div>' +
+                '<div class="p-4 border-b border-slate-100"><h3 class="font-semibold text-slate-800 mb-2">Alamat Pengiriman</h3><p class="text-sm text-slate-600">' + o.address + '</p></div>' +
+                '<div class="p-4"><h3 class="font-semibold text-slate-800 mb-2">Pembayaran</h3><p class="text-sm text-slate-600">' + o.payment.name + '</p></div>';
+        }
+
+        function renderOrders() {
+            if (state.orders.length === 0) {
+                dom.ordersList.classList.add('hidden');
+                dom.emptyHistory.classList.remove('hidden');
+                return;
+            }
+
+            dom.ordersList.classList.remove('hidden');
+            dom.emptyHistory.classList.add('hidden');
+
+            var html = '';
+            for (var i = state.orders.length - 1; i >= 0; i--) {
+                var o = state.orders[i];
+                var statusLabel = o.status.charAt(0).toUpperCase() + o.status.slice(1);
+
+                var preview = '';
+                var maxPreview = Math.min(o.items.length, 2);
+                for (var j = 0; j < maxPreview; j++) {
+                    var item = o.items[j];
+                    preview += '<div class="flex items-center gap-3">' +
+                        '<img src="' + item.image + '" alt="' + item.name + '" class="w-10 h-10 rounded-lg object-cover bg-slate-100" onerror="this.style.background=\'#e2e8f0\'">' +
+                        '<div class="flex-1 min-w-0"><p class="text-sm font-medium text-slate-800 truncate">' + item.name + '</p><p class="text-xs text-slate-500">' + item.qty + 'x ' + formatPrice(item.price) + '</p></div>' +
+                    '</div>';
+                }
+                if (o.items.length > 2) {
+                    preview += '<p class="text-xs text-slate-400">+' + (o.items.length - 2) + ' produk lainnya</p>';
+                }
+
+                html += '<div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">' +
+                    '<div class="flex items-center justify-between mb-3">' +
+                        '<span class="text-sm text-slate-500">#' + o.id + '</span>' +
+                        '<span class="status-' + o.status + ' text-xs font-medium px-3 py-1 rounded-full">' + statusLabel + '</span>' +
+                    '</div>' +
+                    '<div class="space-y-2 mb-3">' + preview + '</div>' +
+                    '<div class="flex items-center justify-between pt-3 border-t border-slate-100">' +
+                        '<span class="font-bold text-blue-600">' + formatPrice(o.total) + '</span>' +
+                        '<button data-order-detail="' + o.id + '" class="text-blue-600 text-sm font-semibold btn-press">Lihat Detail</button>' +
+                    '</div>' +
+                '</div>';
+            }
+            dom.ordersList.innerHTML = html;
+        }
+
+        // ============================
+        // CHECKOUT SELECTION & VALIDATION
+        // ============================
         function selectShipping(id) {
-            selectedShipping = id;
+            state.checkout.shipping = id;
             renderShippingOptions();
-            renderCheckoutSummary();
             validateCheckoutForm(false);
+            renderCheckoutSummary();
         }
 
-        // FIX SELECT PAYMENT
         function selectPayment(id) {
-            selectedPayment = id;
+            state.checkout.payment = id;
             renderPaymentOptions();
             validateCheckoutForm(false);
         }
 
         function selectVoucher(voucherId) {
-            const voucher = VOUCHERS.find(v => v.id === voucherId);
-            selectedVoucher = voucher;
-            const voucherLabel = document.getElementById('selected-voucher-label');
-            if (voucherLabel && voucher) {
-                voucherLabel.textContent = `${voucher.code} - ${voucher.type === 'shipping' ? 'Gratis Ongkir' : 'Diskon ' + formatPrice(voucher.discount)}`;
+            var voucher = null;
+            for (var i = 0; i < VOUCHERS.length; i++) {
+                if (VOUCHERS[i].id === voucherId) { voucher = VOUCHERS[i]; break; }
             }
+
+            // Toggle: jika klik yang sama, batalkan
+            if (state.checkout.voucher && state.checkout.voucher.id === voucherId) {
+                state.checkout.voucher = null;
+                dom.voucherLabel.textContent = 'Pilih voucher (opsional)';
+            } else {
+                state.checkout.voucher = voucher;
+                if (voucher) {
+                    dom.voucherLabel.textContent = voucher.code + ' - ' + (voucher.type === 'shipping' ? 'Gratis Ongkir' : 'Diskon ' + formatPrice(voucher.discount));
+                }
+            }
+
             closeVoucherModal();
             renderCheckoutSummary();
         }
 
-        // ==================== MODAL FUNCTIONS ====================
+        function validateCheckoutForm(showError) {
+            var address = dom.inputAddress.value.trim();
+            var addrOk = address !== '';
+            var shipOk = state.checkout.shipping !== '';
+            var payOk = state.checkout.payment !== '';
+            var valid = addrOk && shipOk && payOk;
+
+            // Update button
+            if (valid) {
+                dom.btnOrder.disabled = false;
+                dom.btnOrder.classList.remove('btn-disabled');
+                dom.btnOrder.classList.add('btn-enabled');
+                dom.formHint.textContent = 'Siap untuk pesan';
+            } else {
+                dom.btnOrder.disabled = true;
+                dom.btnOrder.classList.add('btn-disabled');
+                dom.btnOrder.classList.remove('btn-enabled');
+                dom.formHint.textContent = 'Lengkapi semua data dulu';
+            }
+
+            if (showError !== true) return valid;
+
+            // Error indicators
+            dom.addressError.classList.toggle('hidden', addrOk);
+            dom.shippingError.classList.toggle('hidden', shipOk);
+            dom.paymentError.classList.toggle('hidden', payOk);
+            dom.inputAddress.classList.toggle('input-error', !addrOk);
+
+            return valid;
+        }
+
+        function resetCheckoutState() {
+            state.checkout.shipping = '';
+            state.checkout.payment = '';
+            state.checkout.voucher = null;
+        }
+
+        // ============================
+        // OPEN / CLOSE FUNCTIONS
+        // ============================
         function openCart() {
-            if (cart.length === 0) {
+            if (state.cart.length === 0) {
                 showToast('Keranjang masih kosong');
                 return;
             }
             renderCart();
-            document.getElementById('cart-sheet').classList.add('active');
-            document.getElementById('overlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+            dom.cartSheet.classList.add('active');
+            dom.overlay.classList.add('active');
+            lockScroll();
         }
 
         function closeCart() {
-            document.getElementById('cart-sheet').classList.remove('active');
-            document.getElementById('overlay').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function closeOverlay() {
-            closeCart();
+            dom.cartSheet.classList.remove('active');
+            dom.overlay.classList.remove('active');
+            unlockScroll();
         }
 
         function proceedToCheckout() {
-            if (cart.length === 0) {
-                showToast('Keranjang kosong');
-                return;
-            }
+            if (state.cart.length === 0) { showToast('Keranjang kosong'); return; }
             closeCart();
-            
-            selectedShipping = '';
-            selectedPayment = '';
-            selectedVoucher = null;
-            
+
+            resetCheckoutState();
+            dom.inputAddress.value = '';
+            dom.inputNotes.value = '';
+            dom.voucherLabel.textContent = 'Pilih voucher (opsional)';
+
+            // Hapus semua error state
+            dom.addressError.classList.add('hidden');
+            dom.shippingError.classList.add('hidden');
+            dom.paymentError.classList.add('hidden');
+            dom.inputAddress.classList.remove('input-error');
+
             renderShippingOptions();
             renderPaymentOptions();
             renderCheckoutSummary();
-            
-            const addressInput = document.getElementById('input-address');
-            const notesInput = document.getElementById('input-notes');
-            const voucherLabel = document.getElementById('selected-voucher-label');
-            
-            if (addressInput) addressInput.value = '';
-            if (notesInput) notesInput.value = '';
-            if (voucherLabel) voucherLabel.textContent = 'Pilih voucher (opsional)';
-            
             validateCheckoutForm(false);
-            
-            document.getElementById('checkout-page').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+
+            dom.checkoutPage.classList.remove('hidden');
+            dom.checkoutPage.scrollTop = 0;
+            lockScroll();
         }
 
         function closeCheckout() {
-            document.getElementById('checkout-page').classList.add('hidden');
-            document.body.style.overflow = '';
+            dom.checkoutPage.classList.add('hidden');
+            unlockScroll();
         }
 
         function openVoucherModal() {
             renderVouchers();
-            document.getElementById('voucher-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            dom.voucherModal.classList.remove('hidden');
+            lockScroll();
         }
 
         function closeVoucherModal() {
-            document.getElementById('voucher-modal').classList.add('hidden');
-            document.body.style.overflow = '';
+            dom.voucherModal.classList.add('hidden');
+            unlockScroll();
         }
 
         function openSearch() {
-            document.getElementById('search-modal').classList.remove('hidden');
-            document.getElementById('search-input').focus();
-            document.body.style.overflow = 'hidden';
+            dom.searchModal.classList.remove('hidden');
+            dom.searchInput.value = '';
+            dom.searchResults.innerHTML = '<div class="col-span-2 text-center py-12"><p class="text-slate-400">Ketik untuk mencari produk</p></div>';
+            lockScroll();
+            // Focus setelah modal terlihat
+            setTimeout(function() { dom.searchInput.focus(); }, 100);
         }
 
         function closeSearch() {
-            document.getElementById('search-modal').classList.add('hidden');
-            document.getElementById('search-input').value = '';
-            document.body.style.overflow = '';
+            dom.searchModal.classList.add('hidden');
+            unlockScroll();
         }
 
         function closeInvoice() {
-            document.getElementById('invoice-page').classList.add('hidden');
-            document.body.style.overflow = '';
+            dom.invoicePage.classList.add('hidden');
+            unlockScroll();
             switchPage('history');
         }
 
         function closeConfirmModal() {
-            document.getElementById('confirm-modal').classList.add('hidden');
+            dom.confirmModal.classList.add('hidden');
         }
 
-        // FIX CONFIRM ORDER (ANTI STUCK)
+        // ============================
+        // ORDER FLOW
+        // ============================
         function confirmOrder() {
-            const valid = validateCheckoutForm(true);
-
-            if (!valid) {
-                showToast("Lengkapi data dulu!");
+            if (!validateCheckoutForm(true)) {
+                showToast('Lengkapi semua data dulu!');
                 return;
             }
-
-            document.getElementById('confirm-modal').classList.remove('hidden');
+            dom.confirmModal.classList.remove('hidden');
         }
 
-        // FIX SUBMIT ORDER (FLOW FINAL)
         function submitOrder() {
-            document.getElementById('confirm-modal').classList.add('hidden');
-            document.getElementById('loading-overlay').classList.remove('hidden');
+            closeConfirmModal();
+            dom.loadingOverlay.classList.remove('hidden');
 
-            setTimeout(() => {
-                const shipping = SHIPPING_METHODS.find(s => s.id === selectedShipping);
-                const payment = PAYMENT_METHODS.find(p => p.id === selectedPayment);
+            setTimeout(function() {
+                var shippingMethod = null;
+                for (var i = 0; i < SHIPPING_METHODS.length; i++) {
+                    if (SHIPPING_METHODS[i].id === state.checkout.shipping) { shippingMethod = SHIPPING_METHODS[i]; break; }
+                }
+                var paymentMethod = null;
+                for (var i = 0; i < PAYMENT_METHODS.length; i++) {
+                    if (PAYMENT_METHODS[i].id === state.checkout.payment) { paymentMethod = PAYMENT_METHODS[i]; break; }
+                }
 
-                const subtotal = getCartTotal();
-                const shippingPrice = shipping ? shipping.price : 0;
+                var subtotal = getCartTotal();
+                var shippingPrice = shippingMethod ? shippingMethod.price : 0;
+                var discount = 0;
+                var finalShipping = shippingPrice;
 
-                let discount = 0;
-                let finalShipping = shippingPrice;
-
-                if (selectedVoucher) {
-                    if (selectedVoucher.type === 'shipping') {
+                if (state.checkout.voucher) {
+                    if (state.checkout.voucher.type === 'shipping') {
                         finalShipping = 0;
                     } else {
-                        discount = selectedVoucher.discount;
+                        discount = state.checkout.voucher.discount;
                     }
                 }
 
-                const total = Math.max(0, subtotal + finalShipping - discount);
+                var total = Math.max(0, subtotal + finalShipping - discount);
 
-                currentOrder = {
+                // Buat order
+                state.currentOrder = {
                     id: Date.now(),
-                    items: [...cart],
-                    address: document.getElementById('input-address').value,
-                    shipping: shipping,
-                    payment: payment,
+                    items: state.cart.slice(),
+                    address: dom.inputAddress.value.trim(),
+                    shipping: shippingMethod,
+                    payment: paymentMethod,
                     subtotal: subtotal,
                     shippingPrice: finalShipping,
                     discount: discount,
                     total: total,
-                    notes: document.getElementById('input-notes').value,
+                    notes: dom.inputNotes.value.trim(),
                     status: 'diproses'
                 };
 
-                orders.push(currentOrder);
-                cart = [];
+                // Simpan order
+                state.orders.push(state.currentOrder);
 
+                // Reset cart & checkout state
+                state.cart = [];
+                resetCheckoutState();
                 saveToStorage();
                 updateCartBadge();
 
-                document.getElementById('loading-overlay').classList.add('hidden');
+                // Tutup loading, checkout
+                dom.loadingOverlay.classList.add('hidden');
+                dom.checkoutPage.classList.add('hidden');
+                unlockScroll();
 
+                // Render invoice
                 renderInvoice();
-                document.getElementById('invoice-page').classList.remove('hidden');
+                dom.invoicePage.classList.remove('hidden');
+                dom.invoicePage.scrollTop = 0;
+                lockScroll();
 
-            }, 800);
+                // Re-render product grid untuk reset qty buttons
+                if (document.getElementById('page-home').classList.contains('active')) {
+                    renderProducts();
+                }
+
+            }, 700);
         }
 
-        // FIX WHATSAPP (PALING PENTING)
+        // ============================
+        // WHATSAPP (FIXED - MOBILE FRIENDLY)
+        // ============================
         function sendToWhatsApp() {
-            if (!currentOrder) return;
-
-            const order = currentOrder;
-
-            let text = `Halo, saya ingin memesan:%0A%0A`;
-
-            text += `====================%0A`;
-            text += `PESANAN:%0A%0A`;
-            
-            order.items.forEach(item => {
-                text += `- ${item.name} x${item.qty} = ${formatPrice(item.price * item.qty)}%0A`;
-            });
-
-            text += `%0A====================%0A`;
-            text += `%0AAlamat:%0A${order.address}%0A`;
-            text += `%0APengiriman: ${order.shipping.name}%0A`;
-            text += `%0ASubtotal: ${formatPrice(order.subtotal)}%0A`;
-            text += `Ongkir: ${order.shippingPrice === 0 ? 'Gratis' : formatPrice(order.shippingPrice)}%0A`;
-            if (order.discount > 0) {
-                text += `Diskon: ${formatPrice(order.discount)}%0A`;
-            }
-            text += `%0ATOTAL: ${formatPrice(order.total)}%0A`;
-
-            if (order.notes && order.notes.trim() !== '') {
-                text += `%0ACatatan: ${order.notes}%0A`;
-            }
-
-            text += `%0AMohon diproses ya`;
-
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
-
-            window.open(url, '_blank');
-        }
-
-        // ==================== ORDER HISTORY ====================
-        function viewOrderDetail(orderId) {
-            const order = orders.find(o => o.id == orderId);
-            if (!order) {
+            if (!state.currentOrder) {
                 showToast('Pesanan tidak ditemukan');
                 return;
             }
 
-            currentOrder = order;
-            renderInvoice();
-            document.getElementById('invoice-page').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            var o = state.currentOrder;
+            var text = '🛒 PESANAN #' + o.id + '\n\n';
+            text += '📍 Alamat:\n' + o.address + '\n\n';
+
+            for (var i = 0; i < o.items.length; i++) {
+                var item = o.items[i];
+                text += '• ' + item.name + ' x' + item.qty + ' = ' + formatPrice(item.price * item.qty) + '\n';
+            }
+
+            text += '\n🚚 Pengiriman: ' + o.shipping.name;
+            text += '\n💳 Pembayaran: ' + o.payment.name;
+
+            if (o.discount > 0) {
+                text += '\n🏷️ Diskon: -' + formatPrice(o.discount);
+            }
+
+            text += '\n\n💰 TOTAL: ' + formatPrice(o.total);
+
+            if (o.notes) {
+                text += '\n\n📝 Catatan: ' + o.notes;
+            }
+
+            text += '\n\nMohon diproses ya 🙏';
+
+            var url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text);
+
+            // Di mobile, location.href paling reliable
+            try {
+                var win = window.open(url, '_blank');
+                if (!win || win.closed) {
+                    window.location.href = url;
+                }
+            } catch (e) {
+                window.location.href = url;
+            }
         }
 
-        // ==================== SEARCH ====================
+        // ============================
+        // SEARCH
+        // ============================
         function handleSearch(query) {
-            const container = document.getElementById('search-results');
-            if (!container) return;
-            
-            const q = query.toLowerCase().trim();
+            var q = query.toLowerCase().trim();
 
             if (!q) {
-                container.innerHTML = `<div class="col-span-2 text-center py-12"><p class="text-slate-400">Ketik untuk mencari produk</p></div>`;
+                dom.searchResults.innerHTML = '<div class="col-span-2 text-center py-12"><p class="text-slate-400">Ketik untuk mencari produk</p></div>';
                 return;
             }
 
-            const results = PRODUCTS.filter(p => p.name.toLowerCase().includes(q));
+            var results = [];
+            for (var i = 0; i < PRODUCTS.length; i++) {
+                if (PRODUCTS[i].name.toLowerCase().indexOf(q) !== -1) {
+                    results.push(PRODUCTS[i]);
+                }
+            }
 
             if (results.length === 0) {
-                container.innerHTML = `<div class="col-span-2 text-center py-12"><p class="text-slate-400">Produk tidak ditemukan</p></div>`;
+                dom.searchResults.innerHTML = '<div class="col-span-2 text-center py-12"><p class="text-slate-400">Produk tidak ditemukan</p></div>';
                 return;
             }
 
-            container.innerHTML = results.map(product => {
-                const inCart = cart.find(c => c.id === product.id);
-                const qty = inCart ? inCart.qty : 0;
-
-                return `
-                    <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
-                        <div class="aspect-square bg-slate-100 relative overflow-hidden">
-                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy">
-                        </div>
-                        <div class="p-3">
-                            <h3 class="font-medium text-sm text-slate-800 line-clamp-2">${product.name}</h3>
-                            <p class="text-blue-600 font-bold mt-1">${formatPrice(product.price)}</p>
-                            <div class="mt-2">
-                                ${qty > 0 ? `
-                                    <div class="flex items-center justify-between bg-blue-50 rounded-xl p-1">
-                                        <button onclick="updateCart(${product.id}, -1)" class="qty-btn w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center border border-slate-100">
-                                            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/>
-                                            </svg>
-                                        </button>
-                                        <span class="font-bold text-blue-600 text-lg">${qty}</span>
-                                        <button onclick="updateCart(${product.id}, 1)" class="qty-btn w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center">
-                                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                ` : `
-                                    <button onclick="updateCart(${product.id}, 1)" class="w-full py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm btn-press">
-                                        + Tambah
-                                    </button>
-                                `}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            var html = '';
+            for (var i = 0; i < results.length; i++) {
+                html += buildProductCard(results[i], 'sqty');
+            }
+            dom.searchResults.innerHTML = html;
         }
 
-        // ==================== NAVIGATION ====================
+        // ============================
+        // NAVIGATION
+        // ============================
         function switchPage(pageName) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const targetPage = document.getElementById(`page-${pageName}`);
-            if (targetPage) targetPage.classList.add('active');
-            
+            var pages = document.querySelectorAll('.page');
+            for (var i = 0; i < pages.length; i++) {
+                pages[i].classList.remove('active');
+            }
+
+            var target = document.getElementById('page-' + pageName);
+            if (target) target.classList.add('active');
+
             updateNavActive(pageName);
 
             if (pageName === 'history') {
@@ -1435,34 +1453,190 @@
         }
 
         function updateNavActive(pageName) {
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                const isActive = btn.dataset.page === pageName;
-                btn.classList.toggle('text-blue-600', isActive);
-                btn.classList.toggle('text-slate-400', !isActive);
-            });
-        }
-
-        // ==================== UTILITY ====================
-        function formatPrice(price) {
-            const numPrice = Number(price) || 0;
-            return 'Rp ' + numPrice.toLocaleString('id-ID');
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            if (toast) {
-                toast.textContent = message;
-                toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 3000);
+            var btns = dom.bottomNav.querySelectorAll('.nav-btn');
+            for (var i = 0; i < btns.length; i++) {
+                var isActive = btns[i].getAttribute('data-nav') === pageName;
+                btns[i].classList.toggle('text-blue-600', isActive);
+                btns[i].classList.toggle('text-slate-400', !isActive);
             }
         }
 
-        // ==================== INIT ====================
+        function viewOrderDetail(orderId) {
+            var order = null;
+            for (var i = 0; i < state.orders.length; i++) {
+                if (state.orders[i].id == orderId) { order = state.orders[i]; break; }
+            }
+            if (!order) { showToast('Pesanan tidak ditemukan'); return; }
+
+            state.currentOrder = order;
+            renderInvoice();
+            dom.invoicePage.classList.remove('hidden');
+            dom.invoicePage.scrollTop = 0;
+            lockScroll();
+        }
+
+        // ============================
+        // EVENT DELEGATION HANDLERS
+        // ============================
+        function handleHeaderClick(e) {
+            if (e.target.closest('[data-action="open-search"]')) {
+                e.preventDefault();
+                openSearch();
+            }
+        }
+
+        function handleCategoryClick(e) {
+            var btn = e.target.closest('[data-cat]');
+            if (!btn) return;
+            state.selectedCategory = btn.getAttribute('data-cat');
+            renderCategories();
+            renderProducts();
+        }
+
+        function handleProductGridClick(e) {
+            var addBtn = e.target.closest('[data-add]');
+            if (addBtn) { updateCart(Number(addBtn.getAttribute('data-add')), 1); return; }
+
+            var minBtn = e.target.closest('[data-minus]');
+            if (minBtn) { updateCart(Number(minBtn.getAttribute('data-minus')), -1); return; }
+
+            var plusBtn = e.target.closest('[data-plus]');
+            if (plusBtn) { updateCart(Number(plusBtn.getAttribute('data-plus')), 1); return; }
+        }
+
+        function handleSearchResultsClick(e) {
+            var addBtn = e.target.closest('[data-sadd]');
+            if (addBtn) { updateCart(Number(addBtn.getAttribute('data-sadd')), 1); return; }
+
+            var minBtn = e.target.closest('[data-sminus]');
+            if (minBtn) { updateCart(Number(minBtn.getAttribute('data-sminus')), -1); return; }
+
+            var plusBtn = e.target.closest('[data-splus]');
+            if (plusBtn) { updateCart(Number(plusBtn.getAttribute('data-splus')), 1); return; }
+        }
+
+        function handleNavClick(e) {
+            var btn = e.target.closest('[data-nav]');
+            if (!btn) return;
+            switchPage(btn.getAttribute('data-nav'));
+        }
+
+        function handleCartSheetClick(e) {
+            if (e.target.closest('[data-action="close-cart"]')) { closeCart(); return; }
+            if (e.target.closest('[data-action="cart-checkout"]')) { proceedToCheckout(); return; }
+            if (e.target.closest('[data-action="start-shopping"]')) { closeCart(); return; }
+
+            var removeBtn = e.target.closest('[data-cart-remove]');
+            if (removeBtn) { removeFromCart(Number(removeBtn.getAttribute('data-cart-remove'))); return; }
+
+            var minBtn = e.target.closest('[data-cart-minus]');
+            if (minBtn) { updateCart(Number(minBtn.getAttribute('data-cart-minus')), -1); return; }
+
+            var plusBtn = e.target.closest('[data-cart-plus]');
+            if (plusBtn) { updateCart(Number(plusBtn.getAttribute('data-cart-plus')), 1); return; }
+        }
+
+        function handleCheckoutPageClick(e) {
+            if (e.target.closest('[data-action="close-checkout"]')) { closeCheckout(); return; }
+            if (e.target.closest('[data-action="open-voucher"]')) { openVoucherModal(); return; }
+        }
+
+        function handleShippingClick(e) {
+            var opt = e.target.closest('[data-ship]');
+            if (opt) selectShipping(opt.getAttribute('data-ship'));
+        }
+
+        function handlePaymentClick(e) {
+            var opt = e.target.closest('[data-pay]');
+            if (opt) selectPayment(opt.getAttribute('data-pay'));
+        }
+
+        function handleVoucherModalClick(e) {
+            if (e.target.closest('[data-action="close-voucher"]')) { closeVoucherModal(); return; }
+
+            var opt = e.target.closest('[data-voucher]');
+            if (opt) selectVoucher(Number(opt.getAttribute('data-voucher')));
+        }
+
+        function handleConfirmModalClick(e) {
+            if (e.target.closest('[data-action="cancel-order"]')) { closeConfirmModal(); return; }
+            if (e.target.closest('[data-action="submit-order"]')) { submitOrder(); return; }
+        }
+
+        function handleInvoicePageClick(e) {
+            if (e.target.closest('[data-action="close-invoice"]')) { closeInvoice(); return; }
+        }
+
+        function handleSearchModalClick(e) {
+            if (e.target.closest('[data-action="close-search"]')) { closeSearch(); return; }
+        }
+
+        function handleOrdersListClick(e) {
+            var btn = e.target.closest('[data-order-detail]');
+            if (btn) viewOrderDetail(btn.getAttribute('data-order-detail'));
+        }
+
+        // ============================
+        // ATTACH ALL EVENTS
+        // ============================
+        function attachEvents() {
+            // Delegation pada container
+            dom.mainHeader.addEventListener('click', handleHeaderClick);
+            dom.categoriesCont.addEventListener('click', handleCategoryClick);
+            dom.productsGrid.addEventListener('click', handleProductGridClick);
+            dom.searchResults.addEventListener('click', handleSearchResultsClick);
+            dom.bottomNav.addEventListener('click', handleNavClick);
+            dom.cartSheet.addEventListener('click', handleCartSheetClick);
+            dom.checkoutPage.addEventListener('click', handleCheckoutPageClick);
+            dom.shippingOptions.addEventListener('click', handleShippingClick);
+            dom.paymentOptions.addEventListener('click', handlePaymentClick);
+            dom.voucherModal.addEventListener('click', handleVoucherModalClick);
+            dom.confirmModal.addEventListener('click', handleConfirmModalClick);
+            dom.invoicePage.addEventListener('click', handleInvoicePageClick);
+            dom.searchModal.addEventListener('click', handleSearchModalClick);
+            dom.ordersList.addEventListener('click', handleOrdersListClick);
+
+            // Direct listeners untuk elemen tunggal
+            dom.floatingCart.addEventListener('click', function() { openCart(); });
+            dom.overlay.addEventListener('click', function() { closeCart(); });
+            dom.btnOrder.addEventListener('click', function() { confirmOrder(); });
+            dom.btnSendWa.addEventListener('click', function() { sendToWhatsApp(); });
+            dom.btnGoShopping.addEventListener('click', function() { switchPage('home'); });
+
+            // Input events
+            dom.inputAddress.addEventListener('input', function() {
+                // Hapus error saat user mulai mengetik
+                dom.addressError.classList.add('hidden');
+                dom.inputAddress.classList.remove('input-error');
+                validateCheckoutForm(false);
+            });
+
+            dom.searchInput.addEventListener('input', function() {
+                handleSearch(this.value);
+            });
+        }
+
+        // ============================
+        // INIT
+        // ============================
+        function init() {
+            cacheDom();
+            loadFromStorage();
+            attachEvents();
+            renderCategories();
+            renderProducts();
+            updateCartBadge();
+            updateNavActive('home');
+        }
+
+        // Jalankan
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', init);
         } else {
             init();
         }
+
+    })();
     </script>
 </body>
 </html>
