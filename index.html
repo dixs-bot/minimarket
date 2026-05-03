@@ -30,7 +30,6 @@
             --text-muted: #64748b;
             --border: #e2e8f0;
             --success: #10b981;
-            --warning: #f59e0b;
             --danger: #ef4444;
             --error-bg: #fef2f2;
         }
@@ -592,10 +591,10 @@
             { id: 4, code: 'DISKON20K', discount: 20000, type: 'nominal', minPurchase: 100000 },
         ];
 
+        // 🔥 NOMOR WA - SUDAH BENAR (format internasional tanpa 0)
         const WHATSAPP_NUMBER = '6285189976233';
 
-        // ==================== CENTRAL STATE ====================
-        // State management yang terpusat
+        // ==================== STATE ====================
         const checkoutState = {
             address: '',
             shipping: '',
@@ -606,7 +605,7 @@
         let cart = [];
         let orders = [];
         let selectedCategory = 'all';
-        let currentOrder = null;
+        let currentOrder = null; // 🔥 PENTING: ini harus ada dan terisi
 
         // ==================== INIT ====================
         function init() {
@@ -619,7 +618,6 @@
         }
 
         function setupEventListeners() {
-            // Address input listener
             const addressInput = document.getElementById('input-address');
             if (addressInput) {
                 addressInput.addEventListener('input', function() {
@@ -651,14 +649,13 @@
             }
         }
 
-        // ==================== RESET CHECKOUT STATE ====================
+        // ==================== RESET STATE ====================
         function resetCheckoutState() {
             checkoutState.address = '';
             checkoutState.shipping = '';
             checkoutState.payment = '';
             checkoutState.voucher = null;
             
-            // Reset UI
             const addressInput = document.getElementById('input-address');
             const notesInput = document.getElementById('input-notes');
             const voucherLabel = document.getElementById('selected-voucher-label');
@@ -668,7 +665,7 @@
             if (voucherLabel) voucherLabel.textContent = 'Pilih voucher (opsional)';
         }
 
-        // ==================== VALIDATE CHECKOUT FORM ====================
+        // ==================== VALIDATION ====================
         function validateCheckoutForm(showError) {
             const isAddressValid = checkoutState.address !== '';
             const isShippingValid = checkoutState.shipping !== '';
@@ -676,7 +673,6 @@
 
             const isValid = isAddressValid && isShippingValid && isPaymentValid;
 
-            // Update button state
             const btn = document.getElementById('btn-order');
             const hint = document.getElementById('form-hint');
 
@@ -701,7 +697,6 @@
                 hint.textContent = isValid ? "Siap untuk pesan" : `Lengkapi: ${missing.join(', ')}`;
             }
 
-            // Show errors only if requested
             if (showError) {
                 const addrErr = document.getElementById('address-error');
                 const shipErr = document.getElementById('shipping-error');
@@ -1205,7 +1200,6 @@
             closeCart();
         }
 
-        // PROCEED TO CHECKOUT - DENGAN STATE RESET
         function proceedToCheckout() {
             // Proteksi cart kosong
             if (cart.length === 0) {
@@ -1228,7 +1222,7 @@
             // Buka checkout page
             document.getElementById('checkout-page').classList.remove('hidden');
 
-            // Validasi dipanggil setelah halaman dibuka
+            // Validasi setelah halaman dibuka
             setTimeout(() => validateCheckoutForm(false), 50);
         }
 
@@ -1270,7 +1264,7 @@
             document.getElementById('confirm-modal').classList.add('hidden');
         }
 
-        // CONFIRM ORDER - VALIDASI DI-LOCK
+        // ==================== CONFIRM ORDER ====================
         function confirmOrder() {
             if (!validateCheckoutForm(true)) {
                 showToast("Lengkapi semua data dulu!");
@@ -1280,7 +1274,7 @@
             document.getElementById('confirm-modal').classList.remove('hidden');
         }
 
-        // SUBMIT ORDER - DENGAN PROTEKSI NULL
+        // ==================== SUBMIT ORDER ====================
         function submitOrder() {
             document.getElementById('confirm-modal').classList.add('hidden');
             document.getElementById('loading-overlay').classList.remove('hidden');
@@ -1315,6 +1309,7 @@
                 const addressInput = document.getElementById('input-address');
                 const notesInput = document.getElementById('input-notes');
 
+                // 🔥 currentOrder HARUS KEISI
                 currentOrder = {
                     id: Date.now(),
                     items: [...cart],
@@ -1328,6 +1323,9 @@
                     notes: notesInput ? notesInput.value : '',
                     status: 'diproses'
                 };
+
+                // 🔥 Debug log (hapus di production)
+                console.log('Order created:', currentOrder);
 
                 orders.push(currentOrder);
                 cart = [];
@@ -1343,45 +1341,44 @@
             }, 800);
         }
 
-        // SEND TO WHATSAPP - DENGAN ENCODE
+        // ==================== SEND TO WHATSAPP (FIX FINAL) ====================
         function sendToWhatsApp() {
+            // 🔥 Proteksi kalau currentOrder kosong
             if (!currentOrder) {
-                showToast('Tidak ada pesanan');
+                showToast("Order tidak ditemukan");
+                console.error('currentOrder is null!');
                 return;
             }
 
             const order = currentOrder;
 
-            let text = `Halo, saya ingin memesan:\n\n`;
+            // Build message
+            let text = `🛒 *PESANAN BARU*\n\n`;
+            text += `📌 ID: #${order.id}\n\n`;
 
-            text += `====================\n`;
-            text += `PESANAN:\n\n`;
-            
+            text += `📍 *Alamat Pengiriman:*\n${order.address}\n\n`;
+
+            text += `📦 *Detail Pesanan:*\n`;
             order.items.forEach(item => {
-                text += `- ${item.name} x${item.qty} = ${formatPrice(item.price * item.qty)}\n`;
+                text += `• ${item.name} x${item.qty} = ${formatPrice(item.price * item.qty)}\n`;
             });
 
-            text += `\n====================\n`;
-            text += `\nAlamat:\n${order.address}\n`;
-            text += `\nPengiriman: ${order.shipping.name}\n`;
-            text += `Subtotal: ${formatPrice(order.subtotal)}\n`;
-            text += `Ongkir: ${order.shippingPrice === 0 ? 'Gratis' : formatPrice(order.shippingPrice)}\n`;
-            if (order.discount > 0) {
-                text += `Diskon: ${formatPrice(order.discount)}\n`;
-            }
-            text += `\nTOTAL: ${formatPrice(order.total)}\n`;
+            text += `\n🚚 *Pengiriman:* ${order.shipping.name}`;
+            text += `\n💳 *Pembayaran:* ${order.payment.name}`;
 
-            if (order.notes && order.notes.trim() !== '') {
-                text += `\nCatatan: ${order.notes}\n`;
-            }
+            text += `\n\n💰 *Total Bayar:* ${formatPrice(order.total)}\n`;
 
-            text += `\nMohon diproses ya`;
+            text += `\n🙏 Mohon diproses ya kak, terima kasih 🙌`;
 
-            // Encode untuk keamanan
-            const encoded = encodeURIComponent(text);
-            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
+            // 🔥 WAJIB encode
+            const encodedText = encodeURIComponent(text);
 
-            window.open(url, '_blank');
+            // 🔥 Langsung pakai nomor (format internasional tanpa 0)
+            const url = `https://wa.me/6285189976233?text=${encodedText}`;
+
+            // 🔥 FIX supaya gak diblok browser HP
+            // Gunakan window.location.href bukan window.open
+            window.location.href = url;
         }
 
         // ==================== ORDER HISTORY ====================
